@@ -1,0 +1,34 @@
+gate_bundles:
+  - bionic-train
+smoke_bundles:
+  - bionic-train
+configure:
+  - zaza.openstack.charm_tests.glance.setup.add_lts_image
+  - zaza.openstack.charm_tests.neutron.setup.basic_overcloud_network
+  - zaza.openstack.charm_tests.nova.setup.create_flavors
+  - zaza.openstack.charm_tests.nova.setup.manage_ssh_key
+  - zaza.openstack.charm_tests.keystone.setup.add_demo_user
+  - zaza.openstack.charm_tests.glance.setup.add_cirros_image
+  - zaza.openstack.charm_tests.tempest.setup.add_cirros_alt_image
+  - zaza.openstack.charm_tests.tempest.setup.add_tempest_flavors
+  - zaza.openstack.charm_tests.tempest.setup.clone_tempest
+  - zaza.openstack.charm_tests.tempest.setup.add_tempest_roles
+  - zaza.openstack.charm_tests.tempest.setup.render_tempest_config_keystone_v3
+tests:
+  - zaza.openstack.charm_tests.tempest.tests.TempestTest
+tests_options:
+  policyd:
+    service: neutron
+target_deploy_status:
+  neutron-api-plugin-ovn:
+    workload-status: waiting
+    workload-status-message: "'ovsdb-cms' incomplete"
+  ovn-central:
+    workload-status: blocked
+    workload-status-message: "'certificates' missing"
+  ovn-chassis:
+    workload-status: blocked
+    workload-status-message: "'certificates' missing"
+  vault:
+    workload-status: blocked
+    workload-status-message: Vault needs to be initialized

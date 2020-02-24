@@ -1,0 +1,6 @@
+.tox
+tempest
+tempest.log
+.stestr
+.stestr.conf
+tests/id_rsa_zaza

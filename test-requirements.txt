@@ -1,0 +1,4 @@
+git+https://opendev.org/openstack/tempest.git#egg=tempest
+git+https://github.com/gnuoy/zaza.git@support-alt-test-runners#egg=zaza
+git+https://github.com/gnuoy/zaza-openstack-tests.git@add-tempest-support#egg=zaza.openstack
+
