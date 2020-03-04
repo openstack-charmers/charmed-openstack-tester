@@ -1,4 +1,4 @@
 git+https://opendev.org/openstack/tempest.git#egg=tempest
 git+https://github.com/gnuoy/zaza.git@support-bundle-groups#egg=zaza
-git+https://github.com/gnuoy/zaza-openstack-tests.git@add-tempest-support#egg=zaza.openstack
-
+git+https://github.com/coreycb/zaza-openstack-tests.git@add-tempest-support-corey#egg=zaza.openstack
+git+https://opendev.org/openstack/cinder-tempest-plugin.git#egg=cinder-tempest-plugin
