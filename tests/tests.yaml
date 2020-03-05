@@ -1,5 +1,13 @@
 gate_bundles:
-  - bionic-train
+  - group: openstack-mini
+    model_alias: mini
+    run_overlays:
+      - bionic-mini-stein
+      - bionic-mini-train
+  - group: openstack-base
+    run_overlays:
+      - bionic-stein
+      - bionic-train
 smoke_bundles:
   - bionic-train
 configure:
@@ -14,9 +22,14 @@ configure:
   - zaza.openstack.charm_tests.tempest.setup.clone_tempest
   - zaza.openstack.charm_tests.tempest.setup.add_tempest_roles
   - zaza.openstack.charm_tests.tempest.setup.render_tempest_config_keystone_v3
+  - mini:
+    - zaza.openstack.charm_tests.keystone.setup.add_demo_user
+    - zaza.openstack.charm_tests.tempest.setup.add_tempest_roles
 tests:
   - zaza.openstack.charm_tests.tempest.tests.TempestTest
   - trusty-icehouse-ksv2:
+    - zaza.openstack.charm_tests.tempest.tests.TempestTest
+  - mini:
     - zaza.openstack.charm_tests.tempest.tests.TempestTest
 tests_options:
   policyd:
