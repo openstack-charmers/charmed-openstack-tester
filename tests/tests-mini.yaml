@@ -1,0 +1,54 @@
+gate_bundles:
+  - group: openstack-mini
+    run_overlays:
+      - bionic-mini-stein
+      - bionic-mini-train
+  - group: openstack-base
+    run_overlays:
+      - bionic-stein
+      - bionic-train
+smoke_bundles:
+  - bionic-train
+configure:
+  - zaza.openstack.charm_tests.keystone.setup.add_demo_user
+  - zaza.openstack.charm_tests.tempest.setup.add_tempest_roles
+tests:
+  - zaza.openstack.charm_tests.tempest.tests.TempestNoopTest
+tests_options:
+  policyd:
+    service: neutron
+  tempest:
+    default:
+      whitelist:
+         - "tempest.api.compute.servers.test_create_server.ServersTestManualDisk.test_list_servers"
+         - "tempest.api.compute.servers.test_create_server.ServersTestManualDisk.test_verify_server_details"
+      blacklist:
+         - "tempest.api.identity.admin.v3.test_policies.PoliciesTestJSON.test_create_update_delete_policy"
+      regex:
+         - "tempest.api.network.*"
+    mini:
+      regex:
+         "tempest.api.identity.admin.v3.test_policies.PoliciesTestJSON.test_create_update_delete_policy"
+    trusty-icehouse-ksv2:
+      whitelist:
+         - "tempest.api.compute.servers.test_create_server.ServersTestManualDisk.test_list_servers"
+         - "tempest.api.compute.servers.test_create_server.ServersTestManualDisk.test_verify_server_details"
+      blacklist:
+         - "tempest.api.compute.servers.test_create_server.ServersTestManualDisk.test_flump"
+      regex:
+         "tempest.api.network.*"
+      black-regex:
+         "tempest.api.network.*"
+target_deploy_status:
+  neutron-api-plugin-ovn:
+    workload-status: waiting
+    workload-status-message: "'ovsdb-cms' incomplete"
+  ovn-central:
+    workload-status: blocked
+    workload-status-message: "'certificates' missing"
+  ovn-chassis:
+    workload-status: blocked
+    workload-status-message: "'certificates' missing"
+  vault:
+    workload-status: blocked
+    workload-status-message: Vault needs to be initialized
