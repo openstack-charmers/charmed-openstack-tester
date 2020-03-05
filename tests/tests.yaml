@@ -8,6 +8,14 @@ gate_bundles:
     run_overlays:
       - bionic-stein
       - bionic-train
+  - group: openstack-xenial
+    run_overlays:
+      - xenial-stein
+      - xenial-train
+  - mini:
+      - openstack-mini
+      - openstack-base
+  - openstack-xenial
 smoke_bundles:
   - bionic-train
 configure:
@@ -30,7 +38,7 @@ tests:
   - trusty-icehouse-ksv2:
     - zaza.openstack.charm_tests.tempest.tests.TempestTest
   - mini:
-    - zaza.openstack.charm_tests.tempest.tests.TempestTest
+    - zaza.openstack.charm_tests.tempest.tests.TempestNoopTest
 tests_options:
   policyd:
     service: neutron
