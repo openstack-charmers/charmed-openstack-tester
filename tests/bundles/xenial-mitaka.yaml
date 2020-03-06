@@ -1,0 +1,256 @@
+series: xenial
+applications:
+  aodh:
+    charm: cs:aodh
+    num_units: 1
+    constraints: mem=1024
+  ceilometer:
+    charm: cs:ceilometer
+    num_units: 1
+    constraints: mem=1024
+  ceilometer-agent:
+    charm: cs:ceilometer-agent
+  ceph-mon:
+    charm: cs:ceph-mon
+    num_units: 3
+    options:
+      expected-osd-count: 3
+    constraints: mem=1024
+  ceph-osd:
+    charm: cs:ceph-osd
+    num_units: 3
+    storage:
+      osd-devices: cinder,10G
+    constraints: mem=1024
+  cinder:
+    charm: cs:cinder
+    num_units: 1
+    options:
+      block-device: None
+      glance-api-version: 2
+    constraints: mem=1024
+  cinder-ceph:
+    charm: cs:cinder-ceph
+  designate:
+    charm: cs:designate
+    num_units: 1
+    options:
+      nameservers: ns1.ubuntu.com
+      neutron-domain: serverstack.ubuntu.com.
+      neutron-domain-email: bob@serverstack.ubuntu.com
+      nova-domain: serverstack.ubuntu.com.
+      nova-domain-email: bob@serverstack.ubuntu.com
+    constraints: mem=1024
+  designate-bind:
+    charm: cs:designate-bind
+  glance:
+    charm: cs:glance
+    num_units: 1
+    constraints: mem=1024
+  heat:
+    charm: cs:heat
+    num_units: 1
+  keystone:
+    charm: cs:keystone
+    num_units: 1
+    options:
+      admin-password: openstack
+      admin-token: ubuntutesting
+    constraints: mem=1024
+  memcached:
+    charm: cs:memcached
+    num_units: 1
+    constraints: mem=1024
+  mongodb:
+    charm: cs:~thedac/mongodb
+    num_units: 1
+    constraints: mem=1024
+  mysql:
+    charm: cs:percona-cluster
+    num_units: 1
+    options:
+      dataset-size: 50%
+      max-connections: 20000
+      root-password: ChangeMe123
+      sst-password: ChangeMe123
+    constraints: mem=4096
+  neutron-api:
+    charm: cs:neutron-api
+    num_units: 1
+    options:
+      enable-ml2-port-security: true
+      enable-qos: true
+      enable-vlan-trunking: true
+      flat-network-providers: physnet1
+      neutron-security-groups: true
+    constraints: mem=1024
+  neutron-gateway:
+    charm: cs:neutron-gateway
+    num_units: 1
+    options:
+      bridge-mappings: physnet1:br-ex
+      instance-mtu: 1300
+    constraints: mem=4096
+  neutron-openvswitch:
+    charm: cs:neutron-openvswitch
+  nova-cloud-controller:
+    charm: cs:nova-cloud-controller
+    num_units: 1
+    options:
+      network-manager: Neutron
+    constraints: mem=2048
+  nova-compute:
+    charm: cs:nova-compute
+    num_units: 3
+    options:
+      enable-live-migration: true
+      enable-resize: true
+      migration-auth-type: ssh
+    constraints: mem=4096
+  openstack-dashboard:
+    charm: cs:openstack-dashboard
+    num_units: 1
+    constraints: mem=1024
+  rabbitmq-server:
+    charm: cs:rabbitmq-server
+    num_units: 1
+    constraints: mem=1024
+  swift-proxy:
+    charm: cs:swift-proxy
+    num_units: 1
+    options:
+      replicas: 3
+      swift-hash: fdfef9d4-8b06-11e2-8ac0-531c923c8fae
+      zone-assignment: manual
+    constraints: mem=1024
+  swift-storage-z1:
+    charm: cs:swift-storage
+    num_units: 1
+    options:
+      zone: 1
+    storage:
+      block-devices: cinder,10G
+    constraints: mem=1024
+  swift-storage-z2:
+    charm: cs:swift-storage
+    num_units: 1
+    options:
+      zone: 2
+    storage:
+      block-devices: cinder,10G
+    constraints: mem=1024
+  swift-storage-z3:
+    charm: cs:swift-storage
+    num_units: 1
+    options:
+      zone: 3
+    storage:
+      block-devices: cinder,10G
+    constraints: mem=1024
+relations:
+- - keystone:shared-db
+  - mysql:shared-db
+- - nova-cloud-controller:shared-db
+  - mysql:shared-db
+- - glance:shared-db
+  - mysql:shared-db
+- - cinder:shared-db
+  - mysql:shared-db
+- - heat:shared-db
+  - mysql:shared-db
+- - neutron-api:shared-db
+  - mysql:shared-db
+- - nova-cloud-controller:amqp
+  - rabbitmq-server:amqp
+- - nova-cloud-controller:image-service
+  - glance:image-service
+- - nova-cloud-controller:identity-service
+  - keystone:identity-service
+- - nova-compute:cloud-compute
+  - nova-cloud-controller:cloud-compute
+- - nova-compute:amqp
+  - rabbitmq-server:amqp
+- - nova-compute:image-service
+  - glance:image-service
+- - nova-compute:ceph
+  - ceph-mon:client
+- - glance:identity-service
+  - keystone:identity-service
+- - glance:ceph
+  - ceph-mon:client
+- - glance:image-service
+  - cinder:image-service
+- - glance:amqp
+  - rabbitmq-server:amqp
+- - cinder:amqp
+  - rabbitmq-server:amqp
+- - cinder:cinder-volume-service
+  - nova-cloud-controller:cinder-volume-service
+- - cinder:identity-service
+  - keystone:identity-service
+- - cinder:storage-backend
+  - cinder-ceph:storage-backend
+- - cinder-ceph:ceph
+  - ceph-mon:client
+- - neutron-gateway:quantum-network-service
+  - nova-cloud-controller:quantum-network-service
+- - openstack-dashboard:identity-service
+  - keystone:identity-service
+- - swift-proxy:identity-service
+  - keystone:identity-service
+- - swift-proxy:swift-storage
+  - swift-storage-z1:swift-storage
+- - swift-proxy:swift-storage
+  - swift-storage-z2:swift-storage
+- - swift-proxy:swift-storage
+  - swift-storage-z3:swift-storage
+- - ceilometer:identity-service
+  - keystone:identity-service
+- - ceilometer:amqp
+  - rabbitmq-server:amqp
+- - ceilometer-agent:nova-ceilometer
+  - nova-compute:nova-ceilometer
+- - ceilometer-agent:ceilometer-service
+  - ceilometer:ceilometer-service
+- - ceilometer-agent:amqp
+  - rabbitmq-server:amqp
+- - heat:identity-service
+  - keystone:identity-service
+- - heat:amqp
+  - rabbitmq-server:amqp
+- - neutron-gateway:amqp
+  - rabbitmq-server:amqp
+- - neutron-api:amqp
+  - rabbitmq-server:amqp
+- - neutron-api:neutron-api
+  - nova-cloud-controller:neutron-api
+- - neutron-api:neutron-plugin-api
+  - neutron-openvswitch:neutron-plugin-api
+- - neutron-api:identity-service
+  - keystone:identity-service
+- - neutron-api:neutron-plugin-api
+  - neutron-gateway:neutron-plugin-api
+- - neutron-openvswitch:neutron-plugin
+  - nova-compute:neutron-plugin
+- - neutron-openvswitch:amqp
+  - rabbitmq-server:amqp
+- - ceph-osd:mon
+  - ceph-mon:osd
+- - ceilometer:shared-db
+  - mongodb:database
+- - aodh:shared-db
+  - mysql:shared-db
+- - designate:shared-db
+  - mysql:shared-db
+- - aodh:amqp
+  - rabbitmq-server:amqp
+- - aodh:identity-service
+  - keystone:identity-service
+- - designate:identity-service
+  - keystone:identity-service
+- - designate:amqp
+  - rabbitmq-server:amqp
+- - designate:dns-backend
+  - designate-bind:dns-backend
+- - designate:coordinator-memcached
+  - memcached:cache
