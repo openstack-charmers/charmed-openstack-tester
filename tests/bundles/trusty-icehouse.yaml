@@ -1,8 +1,14 @@
-series: trusty
+variables:
+  source: &source proposed
+  openstack-origin: &openstack-origin distro-proposed
+
+series: &series trusty
 applications:
   ceilometer:
     charm: cs:ceilometer
     num_units: 1
+    options:
+      openstack-origin: *openstack-origin
     constraints: mem=1024
   ceilometer-agent:
     charm: cs:ceilometer-agent
@@ -11,10 +17,13 @@ applications:
     num_units: 3
     options:
       expected-osd-count: 3
+      source: *source
     constraints: mem=1024
   ceph-osd:
     charm: cs:ceph-osd
     num_units: 3
+    options:
+      source: *source
     storage:
       osd-devices: cinder,10G
     constraints: mem=1024
@@ -24,26 +33,34 @@ applications:
     options:
       block-device: None
       glance-api-version: 2
+      openstack-origin: *openstack-origin
     constraints: mem=1024
   cinder-ceph:
     charm: cs:cinder-ceph
   glance:
     charm: cs:glance
     num_units: 1
+    options:
+      openstack-origin: *openstack-origin
     constraints: mem=1024
   heat:
     charm: cs:heat
     num_units: 1
+    options:
+      openstack-origin: *openstack-origin
   keystone:
     charm: cs:keystone
     num_units: 1
     options:
       admin-password: openstack
       admin-token: ubuntutesting
+      openstack-origin: *openstack-origin
     constraints: mem=1024
   mongodb:
     charm: cs:trusty/mongodb
     num_units: 1
+    options:
+      source: *source
     constraints: mem=1024
   mysql:
     charm: cs:trusty/percona-cluster
@@ -52,6 +69,7 @@ applications:
       dataset-size: 50%
       max-connections: 20000
       root-password: ChangeMe123
+      source: *source
       sst-password: ChangeMe123
     constraints: mem=4096
   neutron-api:
@@ -63,6 +81,7 @@ applications:
       enable-vlan-trunking: true
       flat-network-providers: physnet1
       neutron-security-groups: true
+      openstack-origin: *openstack-origin
     constraints: mem=1024
   neutron-gateway:
     charm: cs:neutron-gateway
@@ -70,6 +89,7 @@ applications:
     options:
       bridge-mappings: physnet1:br-ex
       instance-mtu: 1300
+      openstack-origin: *openstack-origin
     constraints: mem=4096
   neutron-openvswitch:
     charm: cs:neutron-openvswitch
@@ -78,6 +98,7 @@ applications:
     num_units: 1
     options:
       network-manager: Neutron
+      openstack-origin: *openstack-origin
     constraints: mem=2048
   nova-compute:
     charm: cs:nova-compute
@@ -86,19 +107,25 @@ applications:
       enable-live-migration: true
       enable-resize: true
       migration-auth-type: ssh
+      openstack-origin: *openstack-origin
     constraints: mem=4096
   openstack-dashboard:
     charm: cs:openstack-dashboard
     num_units: 1
+    options:
+      openstack-origin: *openstack-origin
     constraints: mem=1024
   rabbitmq-server:
     charm: cs:rabbitmq-server
     num_units: 1
+    options:
+      source: *source
     constraints: mem=1024
   swift-proxy:
     charm: cs:swift-proxy
     num_units: 1
     options:
+      openstack-origin: *openstack-origin
       replicas: 3
       swift-hash: fdfef9d4-8b06-11e2-8ac0-531c923c8fae
       zone-assignment: manual
@@ -107,6 +134,7 @@ applications:
     charm: cs:swift-storage
     num_units: 1
     options:
+      openstack-origin: *openstack-origin
       zone: 1
     storage:
       block-devices: cinder,10G
@@ -115,6 +143,7 @@ applications:
     charm: cs:swift-storage
     num_units: 1
     options:
+      openstack-origin: *openstack-origin
       zone: 2
     storage:
       block-devices: cinder,10G
@@ -123,6 +152,7 @@ applications:
     charm: cs:swift-storage
     num_units: 1
     options:
+      openstack-origin: *openstack-origin
       zone: 3
     storage:
       block-devices: cinder,10G

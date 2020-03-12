@@ -1,52 +1,56 @@
-series: bionic
+variables:
+  source: &source cloud:bionic-ussuri/proposed
+  openstack-origin: &openstack-origin cloud:bionic-ussuri/proposed
+
+series: &series bionic
 applications:
   aodh:
-    charm: cs:aodh
+    charm: cs:~openstack-charmers-next/aodh
     num_units: 1
     options:
-      openstack-origin: cloud:bionic-ussuri
-    consussurits: mem=1024
+      openstack-origin: *openstack-origin
+    constraints: mem=1024
   barbican:
     charm: cs:~openstack-charmers-next/barbican
     num_units: 1
     options:
-      openstack-origin: cloud:bionic-ussuri
-    consussurits: mem=1024
+      openstack-origin: *openstack-origin
+    constraints: mem=1024
   ceilometer:
-    charm: cs:ceilometer
+    charm: cs:~openstack-charmers-next/ceilometer
     num_units: 1
     options:
-      openstack-origin: cloud:bionic-ussuri
-    consussurits: mem=1024
+      openstack-origin: *openstack-origin
+    constraints: mem=1024
   ceilometer-agent:
-    charm: cs:ceilometer-agent
+    charm: cs:~openstack-charmers-next/ceilometer-agent
   ceph-mon:
-    charm: cs:ceph-mon
+    charm: cs:~openstack-charmers-next/ceph-mon
     num_units: 3
     options:
       expected-osd-count: 3
-      source: cloud:bionic-ussuri
-    consussurits: mem=1024
+      source: *source
+    constraints: mem=1024
   ceph-osd:
-    charm: cs:ceph-osd
+    charm: cs:~openstack-charmers-next/ceph-osd
     num_units: 3
     options:
-      source: cloud:bionic-ussuri
+      source: *source
     storage:
       osd-devices: cinder,10G
-    consussurits: mem=1024
+    constraints: mem=1024
   cinder:
-    charm: cs:cinder
+    charm: cs:~openstack-charmers-next/cinder
     num_units: 1
     options:
       block-device: None
       glance-api-version: 2
-      openstack-origin: cloud:bionic-ussuri
-    consussurits: mem=1024
+      openstack-origin: *openstack-origin
+    constraints: mem=1024
   cinder-ceph:
-    charm: cs:cinder-ceph
+    charm: cs:~openstack-charmers-next/cinder-ceph
   designate:
-    charm: cs:designate
+    charm: cs:~openstack-charmers-next/designate
     num_units: 1
     options:
       nameservers: ns1.ubuntu.com
@@ -54,51 +58,51 @@ applications:
       neutron-domain-email: bob@serverstack.ubuntu.com
       nova-domain: serverstack.ubuntu.com.
       nova-domain-email: bob@serverstack.ubuntu.com
-      openstack-origin: cloud:bionic-ussuri
-    consussurits: mem=1024
+      openstack-origin: *openstack-origin
+    constraints: mem=1024
   designate-bind:
-    charm: cs:designate-bind
+    charm: cs:~openstack-charmers-next/designate-bind
     num_units: 1
   glance:
-    charm: cs:glance
+    charm: cs:~openstack-charmers-next/glance
     num_units: 1
     options:
-      openstack-origin: cloud:bionic-ussuri
-    consussurits: mem=1024
+      openstack-origin: *openstack-origin
+    constraints: mem=1024
   gnocchi:
     charm: cs:~openstack-charmers-next/gnocchi
     num_units: 1
     options:
-      openstack-origin: cloud:bionic-ussuri
+      openstack-origin: *openstack-origin
   heat:
-    charm: cs:heat
+    charm: cs:~openstack-charmers-next/heat
     num_units: 1
     options:
-      openstack-origin: cloud:bionic-ussuri
+      openstack-origin: *openstack-origin
   keystone:
-    charm: cs:keystone
+    charm: cs:~openstack-charmers-next/keystone
     num_units: 1
     options:
       admin-password: openstack
       admin-token: ubuntutesting
-      openstack-origin: cloud:bionic-ussuri
-    consussurits: mem=1024
+      openstack-origin: *openstack-origin
+    constraints: mem=1024
   memcached:
     charm: cs:memcached
     num_units: 1
-    consussurits: mem=1024
+    constraints: mem=1024
   mysql:
-    charm: cs:percona-cluster
+    charm: cs:~openstack-charmers-next/percona-cluster
     num_units: 1
     options:
       dataset-size: 50%
       max-connections: 20000
       root-password: ChangeMe123
-      source: cloud:bionic-ussuri
+      source: *source
       sst-password: ChangeMe123
-    consussurits: mem=4096
+    constraints: mem=4096
   neutron-api:
-    charm: cs:neutron-api
+    charm: cs:~openstack-charmers-next/neutron-api
     num_units: 1
     options:
       enable-ml2-port-security: true
@@ -106,88 +110,88 @@ applications:
       enable-vlan-trunking: true
       flat-network-providers: physnet1
       neutron-security-groups: true
-      openstack-origin: cloud:bionic-ussuri
-    consussurits: mem=1024
+      openstack-origin: *openstack-origin
+    constraints: mem=1024
   neutron-gateway:
-    charm: cs:neutron-gateway
+    charm: cs:~openstack-charmers-next/neutron-gateway
     num_units: 1
     options:
       bridge-mappings: physnet1:br-ex
       instance-mtu: 1300
-      openstack-origin: cloud:bionic-ussuri
-    consussurits: mem=4096
+      openstack-origin: *openstack-origin
+    constraints: mem=4096
   neutron-openvswitch:
-    charm: cs:neutron-openvswitch
+    charm: cs:~openstack-charmers-next/neutron-openvswitch
   nova-cloud-controller:
-    charm: cs:nova-cloud-controller
+    charm: cs:~openstack-charmers-next/nova-cloud-controller
     num_units: 1
     options:
       network-manager: Neutron
-      openstack-origin: cloud:bionic-ussuri
-    consussurits: mem=2048
+      openstack-origin: *openstack-origin
+    constraints: mem=2048
   nova-compute:
-    charm: cs:nova-compute
+    charm: cs:~openstack-charmers-next/nova-compute
     num_units: 3
     options:
       enable-live-migration: true
       enable-resize: true
       migration-auth-type: ssh
-      openstack-origin: cloud:bionic-ussuri
-    consussurits: mem=4096
+      openstack-origin: *openstack-origin
+    constraints: mem=4096
   openstack-dashboard:
-    charm: cs:openstack-dashboard
+    charm: cs:~openstack-charmers-next/openstack-dashboard
     num_units: 1
     options:
-      openstack-origin: cloud:bionic-ussuri
-    consussurits: mem=1024
+      openstack-origin: *openstack-origin
+    constraints: mem=1024
   placement:
-    charm: cs:placement
+    charm: cs:~openstack-charmers-next/placement
     num_units: 1
     options:
-      openstack-origin: cloud:bionic-ussuri
-    consussurits: mem=1024
+      openstack-origin: *openstack-origin
+    constraints: mem=1024
   rabbitmq-server:
-    charm: cs:rabbitmq-server
+    charm: cs:~openstack-charmers-next/rabbitmq-server
     num_units: 1
     options:
-      source: cloud:bionic-ussuri
-    consussurits: mem=1024
+      source: *source
+    constraints: mem=1024
   swift-proxy:
-    charm: cs:swift-proxy
+    charm: cs:~openstack-charmers-next/swift-proxy
     num_units: 1
     options:
-      openstack-origin: cloud:bionic-ussuri
+      openstack-origin: *openstack-origin
       replicas: 3
       swift-hash: fdfef9d4-8b06-11e2-8ac0-531c923c8fae
       zone-assignment: manual
-    consussurits: mem=1024
+    constraints: mem=1024
   swift-storage-z1:
-    charm: cs:swift-storage
+    charm: cs:~openstack-charmers-next/swift-storage
     num_units: 1
     options:
-      openstack-origin: cloud:bionic-ussuri
+      openstack-origin: *openstack-origin
       zone: 1
     storage:
       block-devices: cinder,10G
-    consussurits: mem=1024
+    constraints: mem=1024
   swift-storage-z2:
-    charm: cs:swift-storage
+    charm: cs:~openstack-charmers-next/swift-storage
     num_units: 1
     options:
-      openstack-origin: cloud:bionic-ussuri
+      openstack-origin: *openstack-origin
       zone: 2
     storage:
       block-devices: cinder,10G
-    consussurits: mem=1024
+    constraints: mem=1024
   swift-storage-z3:
-    charm: cs:swift-storage
+    charm: cs:~openstack-charmers-next/swift-storage
     num_units: 1
     options:
-      openstack-origin: cloud:bionic-ussuri
+      openstack-origin: *openstack-origin
       zone: 3
     storage:
       block-devices: cinder,10G
-    consussurits: mem=1024
+    constraints: mem=1024
 relations:
 - - nova-cloud-controller:amqp
   - rabbitmq-server:amqp

@@ -1,20 +1,30 @@
-series: eoan
+variables:
+  source: &source proposed
+  openstack-origin: &openstack-origin distro-proposed
+
+series: &series eoan
 applications:
   aodh:
     charm: cs:aodh
     num_units: 1
+    options:
+      openstack-origin: *openstack-origin
     constraints: mem=1024
   aodh-mysql-router:
     charm: cs:~openstack-charmers/mysql-router
   barbican:
-    charm: cs:~openstack-charmers-next/barbican
+    charm: cs:barbican
     num_units: 1
+    options:
+      openstack-origin: *openstack-origin
     constraints: mem=1024
   barbican-mysql-router:
     charm: cs:~openstack-charmers/mysql-router
   ceilometer:
     charm: cs:ceilometer
     num_units: 1
+    options:
+      openstack-origin: *openstack-origin
     constraints: mem=1024
   ceilometer-agent:
     charm: cs:ceilometer-agent
@@ -23,10 +33,13 @@ applications:
     num_units: 3
     options:
       expected-osd-count: 3
+      source: *source
     constraints: mem=1024
   ceph-osd:
     charm: cs:ceph-osd
     num_units: 3
+    options:
+      source: *source
     storage:
       osd-devices: cinder,10G
     constraints: mem=1024
@@ -36,6 +49,7 @@ applications:
     options:
       block-device: None
       glance-api-version: 2
+      openstack-origin: *openstack-origin
     constraints: mem=1024
   cinder-ceph:
     charm: cs:cinder-ceph
@@ -50,6 +64,7 @@ applications:
       neutron-domain-email: bob@serverstack.ubuntu.com
       nova-domain: serverstack.ubuntu.com.
       nova-domain-email: bob@serverstack.ubuntu.com
+      openstack-origin: *openstack-origin
     constraints: mem=1024
   designate-bind:
     charm: cs:designate-bind
@@ -59,17 +74,23 @@ applications:
   glance:
     charm: cs:glance
     num_units: 1
+    options:
+      openstack-origin: *openstack-origin
     constraints: mem=1024
   glance-mysql-router:
     charm: cs:~openstack-charmers/mysql-router
   gnocchi:
-    charm: cs:~openstack-charmers-next/gnocchi
+    charm: cs:gnocchi
     num_units: 1
+    options:
+      openstack-origin: *openstack-origin
   gnocchi-mysql-router:
     charm: cs:~openstack-charmers/mysql-router
   heat:
     charm: cs:heat
     num_units: 1
+    options:
+      openstack-origin: *openstack-origin
   heat-mysql-router:
     charm: cs:~openstack-charmers/mysql-router
   keystone:
@@ -78,6 +99,7 @@ applications:
     options:
       admin-password: openstack
       admin-token: ubuntutesting
+      openstack-origin: *openstack-origin
     constraints: mem=1024
   keystone-mysql-router:
     charm: cs:~openstack-charmers/mysql-router
@@ -98,6 +120,7 @@ applications:
       enable-vlan-trunking: true
       flat-network-providers: physnet1
       neutron-security-groups: true
+      openstack-origin: *openstack-origin
     constraints: mem=1024
   neutron-gateway:
     charm: cs:neutron-gateway
@@ -105,6 +128,7 @@ applications:
     options:
       bridge-mappings: physnet1:br-ex
       instance-mtu: 1300
+      openstack-origin: *openstack-origin
     constraints: mem=4096
   neutron-mysql-router:
     charm: cs:~openstack-charmers/mysql-router
@@ -115,6 +139,7 @@ applications:
     num_units: 1
     options:
       network-manager: Neutron
+      openstack-origin: *openstack-origin
     constraints: mem=2048
   nova-compute:
     charm: cs:nova-compute
@@ -123,27 +148,35 @@ applications:
       enable-live-migration: true
       enable-resize: true
       migration-auth-type: ssh
+      openstack-origin: *openstack-origin
     constraints: mem=4096
   nova-mysql-router:
     charm: cs:~openstack-charmers/mysql-router
   openstack-dashboard:
     charm: cs:openstack-dashboard
     num_units: 1
+    options:
+      openstack-origin: *openstack-origin
     constraints: mem=1024
   placement:
     charm: cs:placement
     num_units: 1
+    options:
+      openstack-origin: *openstack-origin
     constraints: mem=1024
   placement-mysql-router:
     charm: cs:~openstack-charmers/mysql-router
   rabbitmq-server:
     charm: cs:rabbitmq-server
     num_units: 1
+    options:
+      source: *source
     constraints: mem=1024
   swift-proxy:
     charm: cs:swift-proxy
     num_units: 1
     options:
+      openstack-origin: *openstack-origin
       replicas: 3
       swift-hash: fdfef9d4-8b06-11e2-8ac0-531c923c8fae
       zone-assignment: manual
@@ -152,6 +185,7 @@ applications:
     charm: cs:swift-storage
     num_units: 1
     options:
+      openstack-origin: *openstack-origin
       zone: 1
     storage:
       block-devices: cinder,10G
@@ -160,6 +194,7 @@ applications:
     charm: cs:swift-storage
     num_units: 1
     options:
+      openstack-origin: *openstack-origin
       zone: 2
     storage:
       block-devices: cinder,10G
@@ -168,6 +203,7 @@ applications:
     charm: cs:swift-storage
     num_units: 1
     options:
+      openstack-origin: *openstack-origin
       zone: 3
     storage:
       block-devices: cinder,10G
