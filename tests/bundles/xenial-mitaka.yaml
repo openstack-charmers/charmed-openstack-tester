@@ -62,7 +62,7 @@ applications:
     num_units: 1
     constraints: mem=1024
   mongodb:
-    charm: cs:~thedac/mongodb
+    charm: cs:xenial/mongodb
     num_units: 1
     constraints: mem=1024
   mysql:
