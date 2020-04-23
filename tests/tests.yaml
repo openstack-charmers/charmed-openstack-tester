@@ -89,13 +89,9 @@ tests:
 tests_options:
   tempest:
     keystone_v2_smoke:
-      #smoke: True
-      whitelist:
-         - "tempest.api.compute.servers.test_create_server.ServersTestManualDisk.test_list_servers"
+      smoke: True
     keystone_v3_smoke:
-      #smoke: True
-      whitelist:
-         - "tempest.api.compute.servers.test_create_server.ServersTestManualDisk.test_list_servers"
+      smoke: True
     keystone_v2_full:
       whitelist:
          - "tempest.api.compute.servers.test_create_server.ServersTestManualDisk.test_list_servers"
