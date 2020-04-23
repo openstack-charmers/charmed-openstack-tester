@@ -1,5 +1,4 @@
 smoke_bundles:
-  - keystone_v2_smoke: trusty-icehouse
   - keystone_v2_smoke: trusty-mitaka
   - keystone_v2_smoke: xenial-mitaka
   - keystone_v2_smoke: xenial-newton
@@ -14,7 +13,6 @@ smoke_bundles:
   - keystone_v3_smoke: eoan-train
   - keystone_v3_smoke: focal-ussuri
 gate_bundles:
-  - keystone_v2_full: trusty-icehouse
   - keystone_v2_full: trusty-mitaka
   - keystone_v2_full: xenial-mitaka
   - keystone_v2_full: xenial-newton
