@@ -193,6 +193,18 @@ applications:
       block-devices: cinder,10G
     constraints: mem=1024
 relations:
+- - keystone:shared-db
+  - mysql:shared-db
+- - nova-cloud-controller:shared-db
+  - mysql:shared-db
+- - glance:shared-db
+  - mysql:shared-db
+- - cinder:shared-db
+  - mysql:shared-db
+- - heat:shared-db
+  - mysql:shared-db
+- - neutron-api:shared-db
+  - mysql:shared-db
 - - nova-cloud-controller:amqp
   - rabbitmq-server:amqp
 - - nova-cloud-controller:image-service
@@ -269,6 +281,10 @@ relations:
   - rabbitmq-server:amqp
 - - ceph-osd:mon
   - ceph-mon:osd
+- - aodh:shared-db
+  - mysql:shared-db
+- - designate:shared-db
+  - mysql:shared-db
 - - aodh:amqp
   - rabbitmq-server:amqp
 - - aodh:identity-service
@@ -281,6 +297,8 @@ relations:
   - designate-bind:dns-backend
 - - designate:coordinator-memcached
   - memcached:cache
+- - gnocchi:shared-db
+  - mysql:shared-db
 - - gnocchi:storage-ceph
   - ceph-mon:client
 - - gnocchi:amqp
@@ -297,6 +315,8 @@ relations:
   - keystone:identity-credentials
 - - designate:dnsaas
   - neutron-api:external-dns
+- - barbican:shared-db
+  - mysql:shared-db
 - - barbican:amqp
   - rabbitmq-server:amqp
 - - barbican:identity-service
@@ -305,47 +325,5 @@ relations:
   - keystone:identity-service
 - - placement:placement
   - nova-cloud-controller:placement
-- - keystone-mysql-router:db-router
-  - mysql-innodb-cluster:db-router
-- - nova-mysql-router:db-router
-  - mysql-innodb-cluster:db-router
-- - glance-mysql-router:db-router
-  - mysql-innodb-cluster:db-router
-- - cinder-mysql-router:db-router
-  - mysql-innodb-cluster:db-router
-- - heat-mysql-router:db-router
-  - mysql-innodb-cluster:db-router
-- - neutron-mysql-router:db-router
-  - mysql-innodb-cluster:db-router
-- - aodh-mysql-router:db-router
-  - mysql-innodb-cluster:db-router
-- - designate-mysql-router:db-router
-  - mysql-innodb-cluster:db-router
-- - gnocchi-mysql-router:db-router
-  - mysql-innodb-cluster:db-router
-- - barbican-mysql-router:db-router
-  - mysql-innodb-cluster:db-router
-- - placement-mysql-router:db-router
-  - mysql-innodb-cluster:db-router
-- - keystone:shared-db
-  - keystone-mysql-router:shared-db
-- - nova-cloud-controller:shared-db
-  - nova-mysql-router:shared-db
-- - glance:shared-db
-  - glance-mysql-router:shared-db
-- - cinder:shared-db
-  - cinder-mysql-router:shared-db
-- - heat:shared-db
-  - heat-mysql-router:shared-db
-- - neutron-api:shared-db
-  - neutron-mysql-router:shared-db
-- - aodh:shared-db
-  - aodh-mysql-router:shared-db
-- - designate:shared-db
-  - designate-mysql-router:shared-db
-- - gnocchi:shared-db
-  - gnocchi-mysql-router:shared-db
-- - barbican:shared-db
-  - barbican-mysql-router:shared-db
 - - placement:shared-db
-  - placement-mysql-router:shared-db
+  - mysql:shared-db
