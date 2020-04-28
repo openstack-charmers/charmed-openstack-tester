@@ -84,7 +84,6 @@ applications:
     num_units: 1
     options:
       admin-password: openstack
-      admin-token: ubuntutesting
       openstack-origin: *openstack-origin
     constraints: mem=1024
   memcached:
@@ -105,6 +104,8 @@ applications:
     charm: cs:~openstack-charmers-next/neutron-api
     num_units: 1
     options:
+      manage-neutron-plugin-legacy-mode: True
+      neutron-plugin: ovs
       enable-ml2-port-security: true
       enable-qos: true
       enable-vlan-trunking: true
