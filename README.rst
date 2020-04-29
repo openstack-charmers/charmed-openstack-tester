@@ -21,18 +21,11 @@ It uses the following to get this done:
 Getting Started
 ===============
 
-
-Run all smoke tests across all release combinations:
+Run smoke tests:
 
 .. code-block:: bash
 
   tox -e func-smoke
-
-Run specific charm functional test:
-
-.. code-block:: bash
-
-  tox -e func-target xenial-queens
 
 Rerun a specific zaza phase:
 
