@@ -56,6 +56,10 @@ Specifying the tests to run can be done with the following keys: smoke, whitelis
         regex:
            - "tempest.api.network.*"
 
+Debugging Tests
+===============
+Client environment auth scripts are located in the scripts directory if you need to manually run OpenStack commands.
+
 Contact
 =======
 IRC: #openstack-charms on Freenode (irc.freenode.net)
