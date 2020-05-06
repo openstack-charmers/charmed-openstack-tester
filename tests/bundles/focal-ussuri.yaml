@@ -353,6 +353,8 @@ relations:
 - - vault:certificates
   - neutron-api-plugin-ovn:certificates
 - - vault:certificates
+  - cinder:certificates
+- - vault:certificates
   - glance:certificates
 - - vault:certificates
   - keystone:certificates
