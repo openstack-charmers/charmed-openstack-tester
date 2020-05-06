@@ -58,7 +58,9 @@ Specifying the tests to run can be done with the following keys: smoke, whitelis
 
 Debugging Tests
 ===============
-Client environment auth scripts are located in the scripts directory if you need to manually run OpenStack commands.
+
+* Update tests.yaml tests_options with whitelist of failing tests and re-run tests with functest-test.
+* Client environment auth scripts are also located in the scripts directory needed for manually running OpenStack commands.
 
 Contact
 =======
