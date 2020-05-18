@@ -32,9 +32,9 @@ Rerun a specific zaza phase:
 .. code-block:: bash
 
   source .tox/func-smoke/bin/activate
-  functest-deploy -m keystone_v3_smoke:zaza-9f452734f430
-  functest-configure -m keystone_v3_smoke:zaza-9f452734f430
-  functest-test -m keystone_v3_smoke:zaza-9f452734f430
+  functest-deploy -m keystone_v3_smoke:MODEL -b BUNDLE
+  functest-configure -m keystone_v3_smoke:MODEL
+  functest-test -m keystone_v3_smoke:MODEL
 
 Specifying Tests to Run
 =======================
