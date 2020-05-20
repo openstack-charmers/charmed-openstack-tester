@@ -345,6 +345,8 @@ relations:
 - - vault:certificates
   - barbican:certificates
 - - vault:certificates
+  - ceilometer:certificates
+- - vault:certificates
   - designate:certificates
 - - vault:certificates
   - gnocchi:certificates
@@ -364,6 +366,8 @@ relations:
   - placement:certificates
 - - vault:certificates
   - swift-proxy:certificates
+- - vault:certificates
+  - openstack-dashboard:certificates
 - - keystone-mysql-router:db-router
   - mysql-innodb-cluster:db-router
 - - nova-mysql-router:db-router
