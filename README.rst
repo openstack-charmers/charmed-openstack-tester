@@ -40,19 +40,19 @@ Run smoke tests:
 
   tox -e func-smoke
 
-Rerun a specific zaza phase:
+Re-run a specific zaza phase:
 
 .. code-block:: bash
 
   source .tox/func-smoke/bin/activate
-  functest-deploy -m keystone_v3_smoke:MODEL -b BUNDLE (or juju deploy BUNDLE)
-  functest-configure -m keystone_v3_smoke:MODEL
-  functest-test -m keystone_v3_smoke:MODEL
+  juju deploy -m MODEL BUNDLE
+  functest-configure -m MODEL_ALIAS:MODEL
+  functest-test -m MODEL_ALIAS:MODEL
 
 Specifying Tests to Run
 =======================
 
-Specifying the tests to run can be done with the following keys: smoke, whitelist, blacklist, and regex. For example:
+Specifying which tests to run can be done with the following keys: smoke, whitelist, blacklist, and regex. For example:
 
 .. code-block:: yaml
 
@@ -72,8 +72,32 @@ Specifying the tests to run can be done with the following keys: smoke, whitelis
 Debugging Tests
 ===============
 
-* Update tests.yaml tests_options with whitelist of failing tests and re-run tests with functest-test.
-* Client environment auth scripts are also located in the scripts directory needed for manually running OpenStack commands.
+Update tests.yaml tests_options with whitelist of failing tests and re-run tests with functest-test.
+
+Client environment auth scripts are located in the scripts directory for manually running OpenStack commands:
+
+.. code-block:: bash
+
+  # For xenial-pike and below
+  source scripts/novarc
+  
+  # For xenial-queens through bionic-ussuri
+  source scripts/novarcv3_domain
+  source scripts/novarcv3_domain
+
+  # For focal-ussuri and above
+  source scripts/novarcv3_ssl_domain
+  source scripts/novarcv3_ssl_domain
+
+Enable Dashboard
+================
+
+Prior to focal-ussuri, bundles don't use SSL, therefore no additional config is needed. As of focal-ussuri, the following is needed to enable the horizon to work with the keystone SSL endpoint.
+
+.. code-block:: bash
+
+  juju run --unit vault/leader 'leader-get root-ca' > /tmp/root-ca.crt
+  juju config openstack-dashboard ssl_cert="$(cat /tmp/root-ca.crt | base64)"
 
 Contact
 =======
