@@ -5,3 +5,4 @@ tempest.log
 .stestr
 .stestr.conf
 tests/id_rsa_zaza
+tempest-workspace
