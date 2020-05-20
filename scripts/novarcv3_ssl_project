@@ -8,6 +8,8 @@ unset _OS_PARAMS
 
 _keystone_ip=$(juju run $_juju_model_arg --unit keystone/leader 'unit-get private-address')
 _password=$(juju run $_juju_model_arg --unit keystone/leader 'leader-get admin_passwd')
+juju run $_juju_model_arg --unit vault/leader 'leader-get root-ca' > /tmp/root-ca.crt
+_root_ca=/tmp/root-ca.crt
 
 export OS_AUTH_URL=${OS_AUTH_PROTOCOL:-http}://${_keystone_ip}:5000/v3
 export OS_USERNAME=admin
@@ -21,3 +23,6 @@ export OS_IDENTITY_API_VERSION=3
 export OS_AUTH_VERSION=3
 # Gnocchi needs this
 export OS_AUTH_TYPE=password
+# SSL support
+export OS_AUTH_PROTOCOL=https
+export OS_CACERT=${_root_ca}
