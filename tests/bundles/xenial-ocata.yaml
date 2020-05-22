@@ -63,6 +63,11 @@ applications:
     options:
       openstack-origin: *openstack-origin
     constraints: mem=1024
+  gnocchi:
+    charm: cs:gnocchi
+    num_units: 1
+    options:
+      openstack-origin: *openstack-origin
   heat:
     charm: cs:heat
     num_units: 1
@@ -288,3 +293,17 @@ relations:
   - designate-bind:dns-backend
 - - designate:coordinator-memcached
   - memcached:cache
+- - gnocchi:shared-db
+  - mysql:shared-db
+- - gnocchi:storage-ceph
+  - ceph-mon:client
+- - gnocchi:amqp
+  - rabbitmq-server:amqp
+- - gnocchi:coordinator-memcached
+  - memcached:cache
+- - gnocchi:metric-service
+  - ceilometer:metric-service
+- - gnocchi:identity-service
+  - keystone:identity-service
+- - cinder-ceph:ceph-access
+  - nova-compute:ceph-access
