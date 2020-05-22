@@ -89,16 +89,6 @@ Client environment auth scripts are located in the scripts directory for manuall
   source scripts/novarcv3_ssl_domain
   source scripts/novarcv3_ssl_domain
 
-Enable Dashboard
-================
-
-Prior to focal-ussuri, bundles don't use SSL, therefore no additional config is needed. As of focal-ussuri, the following is needed to enable the horizon to work with the keystone SSL endpoint.
-
-.. code-block:: bash
-
-  juju run --unit vault/leader 'leader-get root-ca' > /tmp/root-ca.crt
-  juju config openstack-dashboard ssl_cert="$(cat /tmp/root-ca.crt | base64)"
-
 Contact
 =======
 IRC: #openstack-charms on Freenode (irc.freenode.net)
