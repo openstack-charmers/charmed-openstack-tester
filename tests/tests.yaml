@@ -6,26 +6,13 @@ smoke_bundles:
   - keystone_v2_smoke: xenial-pike
   - keystone_v3_smoke: xenial-queens
   - keystone_v3_smoke: bionic-queens
-  - keystone_v3_smoke: bionic-rocky
+  - keystone_v3_smoke_rocky: bionic-rocky
   - keystone_v3_smoke: bionic-stein
   - keystone_v3_smoke: bionic-train
   - keystone_v3_smoke: bionic-ussuri
-  - keystone_v3_smoke: eoan-train
-  - keystone_v3_smoke: focal-ussuri
-gate_bundles:
-  - keystone_v2_full: trusty-mitaka
-  - keystone_v2_full: xenial-mitaka
-  - keystone_v2_full: xenial-newton
-  - keystone_v2_full: xenial-ocata
-  - keystone_v2_full: xenial-pike
-  - keystone_v3_full: xenial-queens
-  - keystone_v3_full: bionic-queens
-  - keystone_v3_full: bionic-rocky
-  - keystone_v3_full: bionic-stein
-  - keystone_v3_full: bionic-train
-  - keystone_v3_full: bionic-ussuri
-  - keystone_v3_full: eoan-train
-  - keystone_v3_full: focal-ussuri
+  - keystone_v3_smoke_eoan: eoan-train
+  - keystone_v3_ssl_smoke_bionic_ussuri: focal-ussuri
+  - keystone_v3_ssl_smoke_focal_ussuri: focal-ussuri
 configure:
   - keystone_v2_smoke:
     - zaza.openstack.charm_tests.ceilometer.setup.basic_setup
@@ -41,7 +28,6 @@ configure:
     - zaza.openstack.charm_tests.tempest.setup.render_tempest_config_keystone_v2
   - keystone_v3_smoke:
     - zaza.openstack.charm_tests.ceilometer.setup.basic_setup
-    - zaza.openstack.charm_tests.vault.setup.auto_initialize
     - zaza.openstack.charm_tests.glance.setup.add_lts_image
     - zaza.openstack.charm_tests.neutron.setup.basic_overcloud_network
     - zaza.openstack.charm_tests.nova.setup.create_flavors
@@ -52,7 +38,7 @@ configure:
     - zaza.openstack.charm_tests.tempest.setup.add_tempest_flavors
     - zaza.openstack.charm_tests.tempest.setup.add_tempest_roles
     - zaza.openstack.charm_tests.tempest.setup.render_tempest_config_keystone_v3
-  - keystone_v2_full:
+  - keystone_v3_smoke_rocky:
     - zaza.openstack.charm_tests.ceilometer.setup.basic_setup
     - zaza.openstack.charm_tests.glance.setup.add_lts_image
     - zaza.openstack.charm_tests.neutron.setup.basic_overcloud_network
@@ -63,10 +49,35 @@ configure:
     - zaza.openstack.charm_tests.tempest.setup.add_cirros_alt_image
     - zaza.openstack.charm_tests.tempest.setup.add_tempest_flavors
     - zaza.openstack.charm_tests.tempest.setup.add_tempest_roles
-    - zaza.openstack.charm_tests.tempest.setup.render_tempest_config_keystone_v2
-  - keystone_v3_full:
+    - zaza.openstack.charm_tests.tempest.setup.render_tempest_config_keystone_v3
+  - keystone_v3_smoke_eoan:
     - zaza.openstack.charm_tests.ceilometer.setup.basic_setup
+    - zaza.openstack.charm_tests.glance.setup.add_lts_image
+    - zaza.openstack.charm_tests.neutron.setup.basic_overcloud_network
+    - zaza.openstack.charm_tests.nova.setup.create_flavors
+    - zaza.openstack.charm_tests.nova.setup.manage_ssh_key
+    - zaza.openstack.charm_tests.keystone.setup.add_demo_user
+    - zaza.openstack.charm_tests.glance.setup.add_cirros_image
+    - zaza.openstack.charm_tests.tempest.setup.add_cirros_alt_image
+    - zaza.openstack.charm_tests.tempest.setup.add_tempest_flavors
+    - zaza.openstack.charm_tests.tempest.setup.add_tempest_roles
+    - zaza.openstack.charm_tests.tempest.setup.render_tempest_config_keystone_v3
+  - keystone_v3_ssl_smoke_bionic_ussuri:
     - zaza.openstack.charm_tests.vault.setup.auto_initialize
+    - zaza.openstack.charm_tests.ceilometer.setup.basic_setup
+    - zaza.openstack.charm_tests.glance.setup.add_lts_image
+    - zaza.openstack.charm_tests.neutron.setup.basic_overcloud_network
+    - zaza.openstack.charm_tests.nova.setup.create_flavors
+    - zaza.openstack.charm_tests.nova.setup.manage_ssh_key
+    - zaza.openstack.charm_tests.keystone.setup.add_demo_user
+    - zaza.openstack.charm_tests.glance.setup.add_cirros_image
+    - zaza.openstack.charm_tests.tempest.setup.add_cirros_alt_image
+    - zaza.openstack.charm_tests.tempest.setup.add_tempest_flavors
+    - zaza.openstack.charm_tests.tempest.setup.add_tempest_roles
+    - zaza.openstack.charm_tests.tempest.setup.render_tempest_config_keystone_v3
+  - keystone_v3_ssl_smoke_focal_ussuri:
+    - zaza.openstack.charm_tests.vault.setup.auto_initialize
+    - zaza.openstack.charm_tests.ceilometer.setup.basic_setup
     - zaza.openstack.charm_tests.glance.setup.add_lts_image
     - zaza.openstack.charm_tests.neutron.setup.basic_overcloud_network
     - zaza.openstack.charm_tests.nova.setup.create_flavors
@@ -82,9 +93,13 @@ tests:
     - zaza.openstack.charm_tests.tempest.tests.TempestTest
   - keystone_v3_smoke:
     - zaza.openstack.charm_tests.tempest.tests.TempestTest
-  - keystone_v2_full:
+  - keystone_v3_smoke_rocky:
     - zaza.openstack.charm_tests.tempest.tests.TempestTest
-  - keystone_v3_full:
+  - keystone_v3_smoke_eoan:
+    - zaza.openstack.charm_tests.tempest.tests.TempestTest
+  - keystone_v3_ssl_smoke_bionic_ussuri:
+    - zaza.openstack.charm_tests.tempest.tests.TempestTest
+  - keystone_v3_ssl_smoke_focal_ussuri:
     - zaza.openstack.charm_tests.tempest.tests.TempestTest
 tests_options:
   tempest:
@@ -92,22 +107,31 @@ tests_options:
       smoke: True
     keystone_v3_smoke:
       smoke: True
-    keystone_v2_full:
-      whitelist:
-         - "tempest.api.compute.servers.test_create_server.ServersTestManualDisk.test_list_servers"
-         - "tempest.api.compute.servers.test_create_server.ServersTestManualDisk.test_verify_server_details"
+    keystone_v3_smoke_rocky:
+      smoke: True
       blacklist:
-         - "tempest.api.identity.admin.v3.test_policies.PoliciesTestJSON.test_create_update_delete_policy"
-      regex:
-         - "tempest.api.network.*"
-    keystone_v3_full:
-      whitelist:
-         - "tempest.api.compute.servers.test_create_server.ServersTestManualDisk.test_list_servers"
-         - "tempest.api.compute.servers.test_create_server.ServersTestManualDisk.test_verify_server_details"
+        - "tempest.api.identity.v3.test_domains.DefaultDomainTestJSON.test_default_domain_exists"
+    keystone_v3_smoke_eoan:
+      smoke: True
       blacklist:
-         - "tempest.api.identity.admin.v3.test_policies.PoliciesTestJSON.test_create_update_delete_policy"
-      regex:
-         - "tempest.api.network.*"
+        - "tempest.api.compute.servers.test_attach_interfaces.AttachInterfacesUnderV243Test.test_add_remove_fixed_ip"
+    keystone_v3_ssl_smoke_bionic_ussuri:
+      smoke: True
+      blacklist:
+        # 404 'Floating IP pool not found' floating IP failure on ussuri
+        - "tempest.scenario.test_server_basic_ops.TestServerBasicOps.test_server_basic_ops"
+    keystone_v3_ssl_smoke_focal_ussuri:
+      smoke: True
+      blacklist:
+        # 404 'Floating IP pool not found' floating IP failure on ussuri
+        - "tempest.scenario.test_server_basic_ops.TestServerBasicOps.test_server_basic_ops"
+        # 'openstack extension list --network' is missing 'l3_agent_scheduler'
+        # Only applicable when conventional layer-3 agent enabled:
+        # https://docs.openstack.org/networking-ovn/2.0.1/features.html
+        - "tempest.api.network.test_extensions.ExtensionsTestJSON.test_list_show_extensions"
+        # Attempts to ping internal DHCP Port from floating IP inside guest times out:
+        # AssertionError: Timed out waiting for 192.168.21.2 to become reachable from 10.5.150.209
+        - "tempest.scenario.test_network_basic_ops.TestNetworkBasicOps.test_network_basic_ops"
   force_deploy:
     - focal-ussuri
 target_deploy_status:
