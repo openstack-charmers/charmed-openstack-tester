@@ -9,9 +9,8 @@ smoke_bundles:
   - keystone_v3_smoke_rocky: bionic-rocky
   - keystone_v3_smoke: bionic-stein
   - keystone_v3_smoke: bionic-train
-  - keystone_v3_smoke: bionic-ussuri
   - keystone_v3_smoke_eoan: eoan-train
-  - keystone_v3_ssl_smoke_bionic_ussuri: focal-ussuri
+  - keystone_v3_ssl_smoke_bionic_ussuri: bionic-ussuri
   - keystone_v3_ssl_smoke_focal_ussuri: focal-ussuri
 configure:
   - keystone_v2_smoke:
