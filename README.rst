@@ -36,7 +36,13 @@ Common setup:
   export OS_TEST_CIDR_PRIV=192.168.21.0/24
   export OS_TEST_SWIFT_IP=10.245.161.162
 
-Run smoke tests:
+Deploy and test a specific bundle:
+
+.. code-block:: bash
+
+  tox -e func-target keystone_v3_smoke:bionic-ussuri
+
+Deploy and test all smoke bundles:
 
 .. code-block:: bash
 
