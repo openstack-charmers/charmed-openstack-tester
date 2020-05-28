@@ -78,7 +78,6 @@ applications:
     num_units: 1
     options:
       admin-password: openstack
-      admin-token: ubuntutesting
       openstack-origin: *openstack-origin
     constraints: mem=1024
   memcached:
