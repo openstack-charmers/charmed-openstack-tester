@@ -1,8 +1,8 @@
 ========================
-OpenStack Charms Tempest
+Charmed OpenStack Tester
 ========================
 
-OpenStack Charms Tempest deploys OpenStack clouds and runs tempest tests against them.
+Charmed OpenStack Tester deploys OpenStack clouds and runs tempest tests against them.
 It uses the following to get this done:
 
 * `OpenStack Charms`_
