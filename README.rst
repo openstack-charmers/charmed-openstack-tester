@@ -2,7 +2,9 @@
 Charmed OpenStack Tester
 ========================
 
-Charmed OpenStack Tester deploys OpenStack clouds and runs tempest tests against them.
+Charmed OpenStack Tester deploys OpenStack clouds and runs tempest
+(or other tests) against them.
+
 It uses the following to get this done:
 
 * `OpenStack Charms`_
