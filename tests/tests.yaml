@@ -10,8 +10,8 @@ smoke_bundles:
   - keystone_v3_smoke: bionic-stein
   - keystone_v3_smoke: bionic-train
   - keystone_v3_smoke_eoan: eoan-train
-  - keystone_v3_smoke_ussuri: bionic-ussuri
-  - keystone_v3_smoke_ussuri: focal-ussuri
+  - keystone_v3_smoke: bionic-ussuri
+  - keystone_v3_smoke_focal_ussuri: focal-ussuri
 configure:
   - keystone_v2_smoke:
     - zaza.openstack.charm_tests.ceilometer.setup.basic_setup
@@ -61,7 +61,7 @@ configure:
     - zaza.openstack.charm_tests.tempest.setup.add_tempest_flavors
     - zaza.openstack.charm_tests.tempest.setup.add_tempest_roles
     - zaza.openstack.charm_tests.tempest.setup.render_tempest_config_keystone_v3
-  - keystone_v3_smoke_ussuri:
+  - keystone_v3_smoke_focal_ussuri:
     - zaza.openstack.charm_tests.vault.setup.auto_initialize
     - zaza.openstack.charm_tests.ceilometer.setup.basic_setup
     - zaza.openstack.charm_tests.glance.setup.add_lts_image
@@ -83,7 +83,7 @@ tests:
     - zaza.openstack.charm_tests.tempest.tests.TempestTest
   - keystone_v3_smoke_eoan:
     - zaza.openstack.charm_tests.tempest.tests.TempestTest
-  - keystone_v3_smoke_ussuri:
+  - keystone_v3_smoke_focal_ussuri:
     - zaza.openstack.charm_tests.tempest.tests.TempestTest
 tests_options:
   tempest:
@@ -99,7 +99,7 @@ tests_options:
       smoke: True
       blacklist:
         - "tempest.api.compute.servers.test_attach_interfaces.AttachInterfacesUnderV243Test.test_add_remove_fixed_ip"
-    keystone_v3_smoke_ussuri:
+    keystone_v3_smoke_focal_ussuri:
       smoke: True
   force_deploy:
     - focal-ussuri
