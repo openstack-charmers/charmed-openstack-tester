@@ -1,0 +1,7 @@
+smoke_bundles:
+  - magpie
+target_deploy_status:
+  magpie:
+    # Only checking the start of the message, if there is an issue
+    # it will surface through the workload-status being blocked.
+    workload-status-message: "icmp ok, local hostname ok, dns ok"

@@ -1,0 +1,5 @@
+series: focal
+services:
+  magpie:
+    charm: cs:~admcleod/magpie
+    num_units: 6
