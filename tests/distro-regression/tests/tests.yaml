@@ -20,10 +20,9 @@ configure:
     - zaza.openstack.charm_tests.nova.setup.create_flavors
     - zaza.openstack.charm_tests.nova.setup.manage_ssh_key
     - zaza.openstack.charm_tests.keystone.setup.add_demo_user
+    - zaza.openstack.charm_tests.keystone.setup.add_tempest_roles
     - zaza.openstack.charm_tests.glance.setup.add_cirros_image
-    - zaza.openstack.charm_tests.tempest.setup.add_cirros_alt_image
-    - zaza.openstack.charm_tests.tempest.setup.add_tempest_flavors
-    - zaza.openstack.charm_tests.tempest.setup.add_tempest_roles
+    - zaza.openstack.charm_tests.glance.setup.add_cirros_alt_image
     - zaza.openstack.charm_tests.tempest.setup.render_tempest_config_keystone_v2
   - keystone_v3_smoke:
     - zaza.openstack.charm_tests.ceilometer.setup.basic_setup
@@ -32,10 +31,9 @@ configure:
     - zaza.openstack.charm_tests.nova.setup.create_flavors
     - zaza.openstack.charm_tests.nova.setup.manage_ssh_key
     - zaza.openstack.charm_tests.keystone.setup.add_demo_user
+    - zaza.openstack.charm_tests.keystone.setup.add_tempest_roles
     - zaza.openstack.charm_tests.glance.setup.add_cirros_image
-    - zaza.openstack.charm_tests.tempest.setup.add_cirros_alt_image
-    - zaza.openstack.charm_tests.tempest.setup.add_tempest_flavors
-    - zaza.openstack.charm_tests.tempest.setup.add_tempest_roles
+    - zaza.openstack.charm_tests.glance.setup.add_cirros_alt_image
     - zaza.openstack.charm_tests.tempest.setup.render_tempest_config_keystone_v3
   - keystone_v3_smoke_rocky:
     - zaza.openstack.charm_tests.ceilometer.setup.basic_setup
@@ -44,10 +42,9 @@ configure:
     - zaza.openstack.charm_tests.nova.setup.create_flavors
     - zaza.openstack.charm_tests.nova.setup.manage_ssh_key
     - zaza.openstack.charm_tests.keystone.setup.add_demo_user
+    - zaza.openstack.charm_tests.keystone.setup.add_tempest_roles
     - zaza.openstack.charm_tests.glance.setup.add_cirros_image
-    - zaza.openstack.charm_tests.tempest.setup.add_cirros_alt_image
-    - zaza.openstack.charm_tests.tempest.setup.add_tempest_flavors
-    - zaza.openstack.charm_tests.tempest.setup.add_tempest_roles
+    - zaza.openstack.charm_tests.glance.setup.add_cirros_alt_image
     - zaza.openstack.charm_tests.tempest.setup.render_tempest_config_keystone_v3
   - keystone_v3_smoke_eoan:
     - zaza.openstack.charm_tests.ceilometer.setup.basic_setup
@@ -56,10 +53,9 @@ configure:
     - zaza.openstack.charm_tests.nova.setup.create_flavors
     - zaza.openstack.charm_tests.nova.setup.manage_ssh_key
     - zaza.openstack.charm_tests.keystone.setup.add_demo_user
+    - zaza.openstack.charm_tests.keystone.setup.add_tempest_roles
     - zaza.openstack.charm_tests.glance.setup.add_cirros_image
-    - zaza.openstack.charm_tests.tempest.setup.add_cirros_alt_image
-    - zaza.openstack.charm_tests.tempest.setup.add_tempest_flavors
-    - zaza.openstack.charm_tests.tempest.setup.add_tempest_roles
+    - zaza.openstack.charm_tests.glance.setup.add_cirros_alt_image
     - zaza.openstack.charm_tests.tempest.setup.render_tempest_config_keystone_v3
   - keystone_v3_smoke_focal_ussuri:
     - zaza.openstack.charm_tests.vault.setup.auto_initialize
@@ -69,10 +65,9 @@ configure:
     - zaza.openstack.charm_tests.nova.setup.create_flavors
     - zaza.openstack.charm_tests.nova.setup.manage_ssh_key
     - zaza.openstack.charm_tests.keystone.setup.add_demo_user
+    - zaza.openstack.charm_tests.keystone.setup.add_tempest_roles
     - zaza.openstack.charm_tests.glance.setup.add_cirros_image
-    - zaza.openstack.charm_tests.tempest.setup.add_cirros_alt_image
-    - zaza.openstack.charm_tests.tempest.setup.add_tempest_flavors
-    - zaza.openstack.charm_tests.tempest.setup.add_tempest_roles
+    - zaza.openstack.charm_tests.glance.setup.add_cirros_alt_image
     - zaza.openstack.charm_tests.tempest.setup.render_tempest_config_keystone_v3
 tests:
   - keystone_v2_smoke:
