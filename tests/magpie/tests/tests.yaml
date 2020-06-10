@@ -1,5 +1,5 @@
 smoke_bundles:
-  - magpie
+  - magpie-focal
 target_deploy_status:
   magpie:
     # Only checking the start of the message, if there is an issue
