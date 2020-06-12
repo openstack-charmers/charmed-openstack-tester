@@ -19,8 +19,6 @@ target_deploy_status:
     workload-status-message: Certificate Authority connected.
   etcd:
     workload-status-message: Healthy
-  postgresql:
-    workload-status-message: Live
   vault:
     workload-status: blocked
     workload-status-message: Vault needs to be initialized
