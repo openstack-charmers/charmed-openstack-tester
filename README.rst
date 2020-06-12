@@ -53,6 +53,7 @@ Re-run a specific zaza phase:
 .. code-block:: bash
 
   source .tox/func-smoke/bin/activate
+  cd tests/<scenario>/
   juju deploy -m MODEL BUNDLE
   functest-configure -m MODEL_ALIAS:MODEL
   functest-test -m MODEL_ALIAS:MODEL
