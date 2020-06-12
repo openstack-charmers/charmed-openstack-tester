@@ -11,7 +11,7 @@ configure:
 tests:
   - zaza.openstack.charm_tests.charm_upgrade.tests.FullCloudCharmUpgradeTest
 smoke_bundles:
-  - kitchen-sink-focal-ussuri
+  - kitchen-sink-focal-ussuri-stable
 target_deploy_status:
   easyrsa:
     workload-status-message: Certificate Authority connected.
