@@ -24,9 +24,6 @@ target_deploy_status:
   vault:
     workload-status: blocked
     workload-status-message: Vault needs to be initialized
-  ceph-mon:
-    workload-status: waiting
-    workload-status-message: "Monitor bootstrapped but waiting for number of OSDs to reach expected-osd-count (3)"
   ceilometer:
     workload-status: blocked
     workload-status-message: "Run the ceilometer-upgrade action on the leader to initialize ceilometer and gnocchi"
