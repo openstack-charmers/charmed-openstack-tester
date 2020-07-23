@@ -9,9 +9,10 @@ smoke_bundles:
   - keystone_v3_smoke_rocky: bionic-rocky
   - keystone_v3_smoke: bionic-stein
   - keystone_v3_smoke: bionic-train
-  - keystone_v3_smoke_eoan: eoan-train
   - keystone_v3_smoke: bionic-ussuri
-  - keystone_v3_smoke_focal_ussuri: focal-ussuri
+  - keystone_v3_smoke_focal: focal-ussuri
+  - keystone_v3_smoke_focal: focal-victoria
+  - keystone_v3_smoke_focal: groovy-victoria
 configure:
   - keystone_v2_smoke:
     - zaza.openstack.charm_tests.ceilometer.setup.basic_setup
@@ -46,18 +47,7 @@ configure:
     - zaza.openstack.charm_tests.glance.setup.add_cirros_image
     - zaza.openstack.charm_tests.glance.setup.add_cirros_alt_image
     - zaza.openstack.charm_tests.tempest.setup.render_tempest_config_keystone_v3
-  - keystone_v3_smoke_eoan:
-    - zaza.openstack.charm_tests.ceilometer.setup.basic_setup
-    - zaza.openstack.charm_tests.glance.setup.add_lts_image
-    - zaza.openstack.charm_tests.neutron.setup.basic_overcloud_network
-    - zaza.openstack.charm_tests.nova.setup.create_flavors
-    - zaza.openstack.charm_tests.nova.setup.manage_ssh_key
-    - zaza.openstack.charm_tests.keystone.setup.add_demo_user
-    - zaza.openstack.charm_tests.keystone.setup.add_tempest_roles
-    - zaza.openstack.charm_tests.glance.setup.add_cirros_image
-    - zaza.openstack.charm_tests.glance.setup.add_cirros_alt_image
-    - zaza.openstack.charm_tests.tempest.setup.render_tempest_config_keystone_v3
-  - keystone_v3_smoke_focal_ussuri:
+  - keystone_v3_smoke_focal:
     - zaza.openstack.charm_tests.vault.setup.auto_initialize
     - zaza.openstack.charm_tests.ceilometer.setup.basic_setup
     - zaza.openstack.charm_tests.glance.setup.add_lts_image
@@ -76,9 +66,7 @@ tests:
     - zaza.openstack.charm_tests.tempest.tests.TempestTest
   - keystone_v3_smoke_rocky:
     - zaza.openstack.charm_tests.tempest.tests.TempestTest
-  - keystone_v3_smoke_eoan:
-    - zaza.openstack.charm_tests.tempest.tests.TempestTest
-  - keystone_v3_smoke_focal_ussuri:
+  - keystone_v3_smoke_focal:
     - zaza.openstack.charm_tests.tempest.tests.TempestTest
 tests_options:
   tempest:
@@ -90,14 +78,10 @@ tests_options:
       smoke: True
       blacklist:
         - "tempest.api.identity.v3.test_domains.DefaultDomainTestJSON.test_default_domain_exists"
-    keystone_v3_smoke_eoan:
-      smoke: True
-      blacklist:
-        - "tempest.api.compute.servers.test_attach_interfaces.AttachInterfacesUnderV243Test.test_add_remove_fixed_ip"
-    keystone_v3_smoke_focal_ussuri:
+    keystone_v3_smoke_focal:
       smoke: True
   force_deploy:
-    - focal-ussuri
+    - groovy-victoria
 target_deploy_status:
   ceilometer:
     workload-status: blocked
@@ -108,12 +92,21 @@ target_deploy_status:
   neutron-api-plugin-ovn:
     workload-status: waiting
     workload-status-message: "'ovsdb-cms' incomplete"
+    # Use the following with 20.08 charms:
+    # workload-status: waiting
+    # workload-status-message: "'certificates' awaiting server certificate data, 'ovsdb-cms' incomplete"
   ovn-central:
     workload-status: blocked
     workload-status-message: "'certificates' missing"
+    # Use the following with 20.08 charms:
+    # workload-status: waiting
+    # workload-status-message: "'ovsdb-peer' incomplete, 'certificates' awaiting server certificate data"
   ovn-chassis:
     workload-status: blocked
     workload-status-message: "'certificates' missing"
+    # Use the following with 20.08 charms:
+    # workload-status: waiting
+    # workload-status-message: "'certificates' awaiting server certificate data"
   vault:
     workload-status: blocked
     workload-status-message: Vault needs to be initialized
