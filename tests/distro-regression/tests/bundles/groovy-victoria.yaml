@@ -59,7 +59,7 @@ applications:
     charm: cs:~openstack-charmers-next/designate
     num_units: 1
     options:
-      nameservers: ns1.ubuntu.com
+      nameservers: ns1.ubuntu.com.
       neutron-domain: serverstack.ubuntu.com.
       neutron-domain-email: bob@serverstack.ubuntu.com
       nova-domain: serverstack.ubuntu.com.
