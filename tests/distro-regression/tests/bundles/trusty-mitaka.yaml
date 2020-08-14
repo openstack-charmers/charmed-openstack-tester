@@ -56,7 +56,7 @@ applications:
       openstack-origin: *openstack-origin
     constraints: mem=1024
   mongodb:
-    charm: cs:trusty/mongodb
+    charm: cs:trusty/mongodb-53
     num_units: 1
     options:
       source: *source
