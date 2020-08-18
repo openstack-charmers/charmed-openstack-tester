@@ -81,7 +81,18 @@ Specifying which tests to run can be done with the following keys: smoke, whitel
 Debugging Tests
 ===============
 
-Update tests.yaml tests_options with whitelist of failing tests and re-run tests with functest-test.
+By default, the tempest workspace gets cleaned up after each tempest run. To keep the workspace around for
+re-running tests, set keep-workspace to True in tests.yaml:
+
+.. code-block:: yaml
+
+  tests_options:
+    tempest:
+      keystone_v3_smoke:
+        smoke: True
+        keep-workspace: True
+
+Then, update tests.yaml with whitelist of failing tests and re-run tests with functest-test.
 
 Client environment auth scripts are located in the scripts directory for manually running OpenStack commands:
 
@@ -89,7 +100,7 @@ Client environment auth scripts are located in the scripts directory for manuall
 
   # For xenial-pike and below
   source scripts/novarc
-  
+
   # For xenial-queens through bionic-ussuri
   source scripts/novarcv3_domain
   source scripts/novarcv3_domain
