@@ -16,11 +16,15 @@ applications:
     charm: vault
     to:
     - lxd:0
+    bindings:
+      "": public-space
   mysql:
     charm: cs:~openstack-charmers-next/percona-cluster
     num_units: 1
     to:
     - lxd:1
+    bindings:
+      "": public-space
   ceph-mon:
     charm: cs:~openstack-charmers-next/ceph-mon
     num_units: 3
@@ -30,6 +34,8 @@ applications:
     - lxd:0
     - lxd:1
     - lxd:2
+    bindings:
+      "": public-space
   ceph-osd:
     charm: cs:~openstack-charmers-next/ceph-osd
     num_units: 3
@@ -39,6 +45,8 @@ applications:
     - '0'
     - '1'
     - '2'
+    bindings:
+      "": public-space
 relations:
 - - vault:shared-db
   - mysql:shared-db
