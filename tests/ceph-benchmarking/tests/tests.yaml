@@ -1,0 +1,26 @@
+configure:
+- zaza.openstack.charm_tests.vault.setup.auto_initialize
+gate_bundles:
+- bionic-nautilus
+- bionic-nautilus-encrypted
+dev_bundles:
+- focal-octopus
+- focal-octopus-encrypted
+- ruxton-bionic-nautilus
+- ruxton-bionic-nautilus-encrypted
+- icarus-bionic-nautilus
+- icarus-bionic-nautilus-encrypted
+smoke_bundles:
+- bionic-nautilus-encrypted
+target_deploy_status:
+  vault:
+    workload-status: blocked
+    workload-status-message: Vault needs to be initialized
+  ceph-osd:
+    workload-status: waiting
+    workload-status-message: "Incomplete relation: vault"
+  ceph-mon:
+    workload-status: waiting
+    workload-status-message: "Monitor bootstrapped but waiting for number of OSDs to reach expected-osd-count (3)"
+tests:
+- zaza.openstack.charm_tests.ceph.benchmarking.tests.BenchmarkTests

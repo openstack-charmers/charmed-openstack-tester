@@ -1,0 +1,46 @@
+series: bionic
+machines:
+  '0':
+    series: bionic
+    constraints: tags=metal arch=amd64
+  '1':
+    series: bionic
+    constraints: tags=metal arch=amd64
+  '2':
+    series: bionic
+    constraints: tags=metal arch=amd64
+applications:
+  vault:
+    num_units: 1
+    series: bionic
+    charm: vault
+    to:
+    - lxd:0
+  mysql:
+    charm: cs:~openstack-charmers-next/percona-cluster
+    num_units: 1
+    to:
+    - lxd:1
+  ceph-mon:
+    charm: cs:~openstack-charmers-next/ceph-mon
+    num_units: 3
+    options:
+      source: cloud:bionic-train
+    to:
+    - lxd:0
+    - lxd:1
+    - lxd:2
+  ceph-osd:
+    charm: cs:~openstack-charmers-next/ceph-osd
+    num_units: 3
+    options:
+      source: cloud:bionic-train
+    to:
+    - '0'
+    - '1'
+    - '2'
+relations:
+- - vault:shared-db
+  - mysql:shared-db
+- - ceph-mon:osd
+  - ceph-osd:mon
