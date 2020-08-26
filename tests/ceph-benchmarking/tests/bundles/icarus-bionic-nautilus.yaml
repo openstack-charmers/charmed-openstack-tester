@@ -14,8 +14,6 @@ applications:
     num_units: 1
     series: bionic
     charm: vault
-    options:
-      totally-unsecure-auto-unlock: True
     to:
     - lxd:0
     bindings:

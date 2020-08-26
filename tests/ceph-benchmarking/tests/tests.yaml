@@ -1,3 +1,5 @@
+configure:
+- zaza.openstack.charm_tests.vault.setup.auto_initialize_no_validation
 gate_bundles:
 - bionic-nautilus
 - bionic-nautilus-encrypted

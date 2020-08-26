@@ -39,8 +39,6 @@ applications:
   vault:
     num_units: 1
     charm: vault
-    options:
-      totally-unsecure-auto-unlock: True
     to:
       - '3'
 

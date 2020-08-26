@@ -4,8 +4,6 @@ applications:
     num_units: 1
     series: bionic
     charm: vault
-    options:
-      totally-unsecure-auto-unlock: True
   mysql:
     charm: cs:~openstack-charmers-next/percona-cluster
     num_units: 1
