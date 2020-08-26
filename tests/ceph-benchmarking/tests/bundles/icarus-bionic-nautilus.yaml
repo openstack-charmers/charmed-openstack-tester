@@ -40,6 +40,7 @@ applications:
     charm: cs:~openstack-charmers-next/ceph-osd
     num_units: 3
     options:
+      osd-devices: /dev/bcache0
       source: cloud:bionic-train
     to:
     - '0'

@@ -1,5 +1,5 @@
 configure:
-- zaza.openstack.charm_tests.vault.setup.auto_initialize
+- zaza.openstack.charm_tests.vault.setup.auto_initialize_no_validation
 gate_bundles:
 - bionic-nautilus
 - bionic-nautilus-encrypted
@@ -11,7 +11,7 @@ dev_bundles:
 - icarus-bionic-nautilus
 - icarus-bionic-nautilus-encrypted
 smoke_bundles:
-- bionic-nautilus-encrypted
+- icarus-bionic-nautilus-encrypted
 target_deploy_status:
   vault:
     workload-status: blocked
