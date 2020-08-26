@@ -47,7 +47,7 @@ applications:
     charm: cs:designate
     num_units: 1
     options:
-      nameservers: ns1.ubuntu.com
+      nameservers: ns1.ubuntu.com.
       neutron-domain: serverstack.ubuntu.com.
       neutron-domain-email: bob@serverstack.ubuntu.com
       nova-domain: serverstack.ubuntu.com.
@@ -265,6 +265,8 @@ relations:
   - neutron-gateway:neutron-plugin-api
 - - neutron-openvswitch:neutron-plugin
   - nova-compute:neutron-plugin
+- - cinder-ceph:ceph-access
+  - nova-compute:ceph-access
 - - neutron-openvswitch:amqp
   - rabbitmq-server:amqp
 - - ceph-osd:mon
