@@ -91,22 +91,13 @@ target_deploy_status:
     workload-status-message: ""
   neutron-api-plugin-ovn:
     workload-status: waiting
-    workload-status-message: "'ovsdb-cms' incomplete"
-    # Use the following with 20.08 charms:
-    # workload-status: waiting
-    # workload-status-message: "'certificates' awaiting server certificate data, 'ovsdb-cms' incomplete"
+    workload-status-message: "'certificates' awaiting server certificate data, 'ovsdb-cms' incomplete"
   ovn-central:
-    workload-status: blocked
-    workload-status-message: "'certificates' missing"
-    # Use the following with 20.08 charms:
-    # workload-status: waiting
-    # workload-status-message: "'ovsdb-peer' incomplete, 'certificates' awaiting server certificate data"
+    workload-status: waiting
+    workload-status-message: "'ovsdb-peer' incomplete, 'certificates' awaiting server certificate data"
   ovn-chassis:
-    workload-status: blocked
-    workload-status-message: "'certificates' missing"
-    # Use the following with 20.08 charms:
-    # workload-status: waiting
-    # workload-status-message: "'certificates' awaiting server certificate data"
+    workload-status: waiting
+    workload-status-message: "'certificates' awaiting server certificate data"
   vault:
     workload-status: blocked
     workload-status-message: Vault needs to be initialized
