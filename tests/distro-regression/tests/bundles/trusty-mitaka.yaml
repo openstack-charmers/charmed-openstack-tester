@@ -187,6 +187,8 @@ relations:
   - mysql:shared-db
 - - neutron-api:shared-db
   - mysql:shared-db
+- - designate:shared-db
+  - mysql:shared-db
 - - nova-cloud-controller:amqp
   - rabbitmq-server:amqp
 - - nova-cloud-controller:image-service
