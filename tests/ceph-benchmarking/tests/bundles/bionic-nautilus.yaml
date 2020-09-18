@@ -1,5 +1,11 @@
 series: bionic
 applications:
+  ceph-benchmarking:
+    num_units: 1
+    series: bionic
+    charm: /home/thedac/dev/ceph-benchmarking/build
+    options:
+      block-devices: /dev/bcache0
   vault:
     num_units: 1
     series: bionic
@@ -19,8 +25,17 @@ applications:
       source: cloud:bionic-train
     storage:
       osd-devices: 10G,2
+  ceph-radosgw:
+    charm: cs:~openstack-charmers-next/ceph-radosgw
+    num_units: 1
+    options:
+      source: cloud:bionic-train
 relations:
 - - vault:shared-db
   - mysql:shared-db
 - - ceph-mon:osd
   - ceph-osd:mon
+- - ceph-benchmarking:ceph-client
+  - ceph-mon:client
+- - ceph-radosgw:mon
+  - ceph-mon:radosgw

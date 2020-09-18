@@ -9,7 +9,20 @@ machines:
   '2':
     series: bionic
     constraints: tags=metal arch=amd64
+  '3':
+    series: bionic
+    constraints: tags=metal arch=amd64
 applications:
+  ceph-benchmarking:
+    num_units: 1
+    series: bionic
+    charm: /home/thedac/dev/ceph-benchmarking/build/builds/ceph-benchmarking
+    options:
+      block-devices: /dev/bcache0
+    to:
+      - '3'
+    bindings:
+      "": public-space
   vault:
     num_units: 1
     series: bionic
@@ -53,3 +66,5 @@ relations:
   - mysql:shared-db
 - - ceph-mon:osd
   - ceph-osd:mon
+- - ceph-benchmarking:storage-ceph
+  - ceph-mon:client
