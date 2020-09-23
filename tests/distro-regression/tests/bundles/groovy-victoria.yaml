@@ -210,6 +210,35 @@ applications:
     storage:
       block-devices: cinder,10G
     constraints: mem=1024
+  neutron-openvswitch-octavia:
+    series: bionic
+    charm: cs:~openstack-charmers-next/neutron-openvswitch
+    num_units: 0
+    options:
+      debug: True
+      prevent-arp-spoofing: False
+      firewall-driver: openvswitch
+  octavia:
+    charm: cs:octavia
+    num_units: 1
+    options:
+      openstack-origin: *openstack-origin
+      spare-pool-size: 2
+      loadbalancer-topology: 'ACTIVE_STANDBY'
+  octavia-mysql-router:
+    charm: cs:~openstack-charmers-next/mysql-router
+  glance-simplestreams-sync:
+    charm: cs:glance-simplestreams-sync
+    num_units: 1
+    options:
+      source: ppa:simplestreams-dev/trunk
+      use_swift: true
+  octavia-diskimage-retrofit:
+    charm: cs:octavia-diskimage-retrofit
+    options:
+      amp-image-tag: 'octavia-amphora'
+      retrofit-uca-pocket: rocky
+      retrofit-series: bionic
 relations:
 - - nova-cloud-controller:amqp
   - rabbitmq-server:amqp
@@ -401,3 +430,31 @@ relations:
   - placement-mysql-router:shared-db
 - - vault-mysql-router:db-router
   - mysql-innodb-cluster:db-router
+- - octavia-mysql-router:db-router
+  - mysql-innodb-cluster:db-router
+- - octavia-mysql-router:shared-db
+  - octavia:shared-db
+- - keystone:identity-service
+  - octavia:identity-service
+- - rabbitmq-server:amqp
+  - octavia:amqp
+- - neutron-api:neutron-load-balancer
+  - octavia:neutron-api
+- - rabbitmq-server:amqp
+  - neutron-openvswitch-octavia:amqp
+- - neutron-api:neutron-plugin-api
+  - neutron-openvswitch-octavia:neutron-plugin-api
+- - neutron-openvswitch-octavia:neutron-plugin
+  - octavia:neutron-openvswitch
+- - glance-simplestreams-sync:juju-info
+  - octavia-diskimage-retrofit:juju-info
+- - keystone:identity-service
+  - glance-simplestreams-sync:identity-service
+- - keystone:identity-credentials
+  - octavia-diskimage-retrofit:identity-credentials
+- - vault:certificates
+  - octavia:certificates
+- - vault:certificates
+  - octavia-diskimage-retrofit:certificates
+- - vault:certificates
+  - glance-simplestreams-sync:certificates

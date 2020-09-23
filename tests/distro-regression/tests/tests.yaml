@@ -7,9 +7,9 @@ smoke_bundles:
   - keystone_v3_smoke: xenial-queens
   - keystone_v3_smoke: bionic-queens
   - keystone_v3_smoke_rocky: bionic-rocky
-  - keystone_v3_smoke: bionic-stein
-  - keystone_v3_smoke: bionic-train
-  - keystone_v3_smoke: bionic-ussuri
+  - keystone_v3_smoke_stein: bionic-stein
+  - keystone_v3_smoke_stein: bionic-train
+  - keystone_v3_smoke_stein: bionic-ussuri
   - keystone_v3_smoke_focal: focal-ussuri
   - keystone_v3_smoke_focal: focal-victoria
   - keystone_v3_smoke_focal: groovy-victoria
@@ -38,7 +38,11 @@ configure:
     - zaza.openstack.charm_tests.tempest.setup.render_tempest_config_keystone_v3
   - keystone_v3_smoke_rocky:
     - zaza.openstack.charm_tests.ceilometer.setup.basic_setup
+    - zaza.openstack.charm_tests.glance_simplestreams_sync.setup.sync_images
     - zaza.openstack.charm_tests.glance.setup.add_lts_image
+    - zaza.openstack.charm_tests.octavia.setup.ensure_lts_images
+    - zaza.openstack.charm_tests.octavia.diskimage_retrofit.setup.retrofit_amphora_image
+    - zaza.openstack.charm_tests.octavia.setup.configure_octavia
     - zaza.openstack.charm_tests.neutron.setup.basic_overcloud_network
     - zaza.openstack.charm_tests.nova.setup.create_flavors
     - zaza.openstack.charm_tests.nova.setup.manage_ssh_key
@@ -46,11 +50,32 @@ configure:
     - zaza.openstack.charm_tests.keystone.setup.add_tempest_roles
     - zaza.openstack.charm_tests.glance.setup.add_cirros_image
     - zaza.openstack.charm_tests.glance.setup.add_cirros_alt_image
+    - zaza.openstack.charm_tests.octavia.setup.centralized_fip_network
+    - zaza.openstack.charm_tests.tempest.setup.render_tempest_config_keystone_v3
+  - keystone_v3_smoke_stein:
+    - zaza.openstack.charm_tests.ceilometer.setup.basic_setup
+    - zaza.openstack.charm_tests.glance_simplestreams_sync.setup.sync_images
+    - zaza.openstack.charm_tests.glance.setup.add_lts_image
+    - zaza.openstack.charm_tests.octavia.setup.ensure_lts_images
+    - zaza.openstack.charm_tests.octavia.diskimage_retrofit.setup.retrofit_amphora_image
+    - zaza.openstack.charm_tests.octavia.setup.configure_octavia
+    - zaza.openstack.charm_tests.neutron.setup.basic_overcloud_network
+    - zaza.openstack.charm_tests.nova.setup.create_flavors
+    - zaza.openstack.charm_tests.nova.setup.manage_ssh_key
+    - zaza.openstack.charm_tests.keystone.setup.add_demo_user
+    - zaza.openstack.charm_tests.keystone.setup.add_tempest_roles
+    - zaza.openstack.charm_tests.glance.setup.add_cirros_image
+    - zaza.openstack.charm_tests.glance.setup.add_cirros_alt_image
+    - zaza.openstack.charm_tests.octavia.setup.centralized_fip_network
     - zaza.openstack.charm_tests.tempest.setup.render_tempest_config_keystone_v3
   - keystone_v3_smoke_focal:
     - zaza.openstack.charm_tests.vault.setup.auto_initialize
     - zaza.openstack.charm_tests.ceilometer.setup.basic_setup
+    - zaza.openstack.charm_tests.glance_simplestreams_sync.setup.sync_images
     - zaza.openstack.charm_tests.glance.setup.add_lts_image
+    - zaza.openstack.charm_tests.octavia.setup.ensure_lts_images
+    - zaza.openstack.charm_tests.octavia.diskimage_retrofit.setup.retrofit_amphora_image
+    - zaza.openstack.charm_tests.octavia.setup.configure_octavia
     - zaza.openstack.charm_tests.neutron.setup.basic_overcloud_network
     - zaza.openstack.charm_tests.nova.setup.create_flavors
     - zaza.openstack.charm_tests.nova.setup.manage_ssh_key
@@ -58,6 +83,7 @@ configure:
     - zaza.openstack.charm_tests.keystone.setup.add_tempest_roles
     - zaza.openstack.charm_tests.glance.setup.add_cirros_image
     - zaza.openstack.charm_tests.glance.setup.add_cirros_alt_image
+    - zaza.openstack.charm_tests.octavia.setup.centralized_fip_network
     - zaza.openstack.charm_tests.tempest.setup.render_tempest_config_keystone_v3
 tests:
   - keystone_v2_smoke:
@@ -65,6 +91,8 @@ tests:
   - keystone_v3_smoke:
     - zaza.openstack.charm_tests.tempest.tests.TempestTest
   - keystone_v3_smoke_rocky:
+    - zaza.openstack.charm_tests.tempest.tests.TempestTest
+  - keystone_v3_smoke_stein:
     - zaza.openstack.charm_tests.tempest.tests.TempestTest
   - keystone_v3_smoke_focal:
     - zaza.openstack.charm_tests.tempest.tests.TempestTest
@@ -78,6 +106,8 @@ tests_options:
       smoke: True
       blacklist:
         - "tempest.api.identity.v3.test_domains.DefaultDomainTestJSON.test_default_domain_exists"
+    keystone_v3_smoke_stein:
+      smoke: True
     keystone_v3_smoke_focal:
       smoke: True
   force_deploy:
@@ -86,12 +116,18 @@ target_deploy_status:
   ceilometer:
     workload-status: blocked
     workload-status-message: "Run the ceilometer-upgrade action on the leader to initialize ceilometer and gnocchi"
+  glance-simplestreams-sync:
+    workload-status: unknown
+    workload-status-message: ""
   mongodb:
     workload-status: unknown
     workload-status-message: ""
   neutron-api-plugin-ovn:
     workload-status: waiting
     workload-status-message: "'certificates' awaiting server certificate data, 'ovsdb-cms' incomplete"
+  octavia:
+    workload-status: blocked
+    workload-status-message: Awaiting
   ovn-central:
     workload-status: waiting
     workload-status-message: "'ovsdb-peer' incomplete, 'certificates' awaiting server certificate data"
