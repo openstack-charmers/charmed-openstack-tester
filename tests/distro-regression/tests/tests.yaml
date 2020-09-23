@@ -7,9 +7,9 @@ smoke_bundles:
   - keystone_v3_smoke: xenial-queens
   - keystone_v3_smoke: bionic-queens
   - keystone_v3_smoke_rocky: bionic-rocky
-  - keystone_v3_smoke_octavia: bionic-stein
-  - keystone_v3_smoke_octavia: bionic-train
-  - keystone_v3_smoke_octavia: bionic-ussuri
+  - keystone_v3_smoke_stein: bionic-stein
+  - keystone_v3_smoke_stein: bionic-train
+  - keystone_v3_smoke_stein: bionic-ussuri
   - keystone_v3_smoke_focal: focal-ussuri
   - keystone_v3_smoke_focal: focal-victoria
   - keystone_v3_smoke_focal: groovy-victoria
@@ -52,7 +52,7 @@ configure:
     - zaza.openstack.charm_tests.glance.setup.add_cirros_alt_image
     - zaza.openstack.charm_tests.octavia.setup.centralized_fip_network
     - zaza.openstack.charm_tests.tempest.setup.render_tempest_config_keystone_v3
-  - keystone_v3_smoke_octavia:
+  - keystone_v3_smoke_stein:
     - zaza.openstack.charm_tests.ceilometer.setup.basic_setup
     - zaza.openstack.charm_tests.glance_simplestreams_sync.setup.sync_images
     - zaza.openstack.charm_tests.glance.setup.add_lts_image
@@ -92,7 +92,7 @@ tests:
     - zaza.openstack.charm_tests.tempest.tests.TempestTest
   - keystone_v3_smoke_rocky:
     - zaza.openstack.charm_tests.tempest.tests.TempestTest
-  - keystone_v3_smoke_octavia:
+  - keystone_v3_smoke_stein:
     - zaza.openstack.charm_tests.tempest.tests.TempestTest
   - keystone_v3_smoke_focal:
     - zaza.openstack.charm_tests.tempest.tests.TempestTest
@@ -106,7 +106,7 @@ tests_options:
       smoke: True
       blacklist:
         - "tempest.api.identity.v3.test_domains.DefaultDomainTestJSON.test_default_domain_exists"
-    keystone_v3_smoke_octavia:
+    keystone_v3_smoke_stein:
       smoke: True
     keystone_v3_smoke_focal:
       smoke: True
