@@ -219,7 +219,7 @@ applications:
       prevent-arp-spoofing: False
       firewall-driver: openvswitch
   octavia:
-    charm: cs:octavia
+    charm: cs:~openstack-charmers-next/octavia
     num_units: 1
     options:
       openstack-origin: *openstack-origin
@@ -228,13 +228,13 @@ applications:
   octavia-mysql-router:
     charm: cs:~openstack-charmers-next/mysql-router
   glance-simplestreams-sync:
-    charm: cs:glance-simplestreams-sync
+    charm: cs:~openstach-charmers-next/glance-simplestreams-sync
     num_units: 1
     options:
       source: ppa:simplestreams-dev/trunk
       use_swift: true
   octavia-diskimage-retrofit:
-    charm: cs:octavia-diskimage-retrofit
+    charm: cs:~openstach-charmers-next/octavia-diskimage-retrofit
     options:
       amp-image-tag: 'octavia-amphora'
       retrofit-uca-pocket: rocky
