@@ -1,5 +1,5 @@
 configure:
-- zaza.openstack.charm_tests.vault.setup.auto_initialize_no_validation
+- zaza.openstack.charm_tests.vault.setup.auto_initialize_no_validation_no_wait
 gate_bundles:
 - bionic-nautilus
 - bionic-nautilus-encrypted
@@ -11,7 +11,7 @@ dev_bundles:
 - icarus-bionic-nautilus
 - icarus-bionic-nautilus-encrypted
 smoke_bundles:
-- icarus-bionic-nautilus-encrypted
+- bionic-nautilus
 target_deploy_status:
   vault:
     workload-status: blocked
@@ -23,4 +23,7 @@ target_deploy_status:
     workload-status: waiting
     workload-status-message: "Monitor bootstrapped but waiting for number of OSDs to reach expected-osd-count (3)"
 tests:
-- zaza.openstack.charm_tests.ceph.benchmarking.tests.BenchmarkTests
+- zaza.openstack.charm_tests.ceph.benchmarking.tests.RadosBenchmarkTests
+- zaza.openstack.charm_tests.ceph.benchmarking.tests.RBDBenchmarkTests
+- zaza.openstack.charm_tests.ceph.benchmarking.tests.FIOBenchmarkTests
+- zaza.openstack.charm_tests.ceph.benchmarking.tests.SwiftBenchmarkTests
