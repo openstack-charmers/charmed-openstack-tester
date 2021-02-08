@@ -1,11 +1,3 @@
-git+https://opendev.org/openstack/tempest.git#egg=tempest;python_version>='3.6'
-tempest;python_version<'3.6'
 git+https://github.com/openstack-charmers/zaza.git#egg=zaza
 git+https://github.com/openstack-charmers/zaza-openstack-tests.git#egg=zaza.openstack
-git+https://opendev.org/openstack/cinder-tempest-plugin.git#egg=cinder-tempest-plugin;python_version>='3.6'
-git+https://opendev.org/openstack/designate-tempest-plugin.git#egg=designate-tempest-plugin;python_version>='3.6'
-cinder-tempest-plugin;python_version<'3.6'
-designate-tempest-plugin;python_version<'3.6'
 setuptools<50.0.0  # https://github.com/pypa/setuptools/commit/04e3df22df840c6bb244e9b27bc56750c44b7c85
-git+https://opendev.org/openstack/octavia-tempest-plugin.git#egg=octavia-tempest-plugin;python_version>='3.6'
-octavia-tempest-plugin;python_version<'3.6'
