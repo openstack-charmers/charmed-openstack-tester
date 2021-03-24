@@ -1,0 +1,54 @@
+before_deploy:
+  - bionic-to-focal-ussuri-ha:
+    - zaza.openstack.configure.pre_deploy_certs.set_cidr_certs
+  - xenial-to-bionic-queens-ha:
+    - zaza.openstack.configure.pre_deploy_certs.set_cidr_certs
+  - trusty-to-xenial-mitaka-ha:
+    - zaza.openstack.configure.pre_deploy_certs.set_cidr_certs
+configure:
+  - bionic-to-focal-ussuri-ha:
+    - zaza.openstack.charm_tests.ceilometer.setup.basic_setup
+    - zaza.openstack.charm_tests.vault.setup.auto_initialize
+    - zaza.openstack.charm_tests.glance.setup.add_cirros_image
+    - zaza.openstack.charm_tests.glance.setup.add_lts_image
+    - zaza.openstack.charm_tests.neutron.setup.basic_overcloud_network
+    - zaza.openstack.charm_tests.nova.setup.create_flavors
+    - zaza.openstack.charm_tests.nova.setup.manage_ssh_key
+  - xenial-to-bionic-queens-ha:
+    - zaza.openstack.charm_tests.ceilometer.setup.basic_setup
+    - zaza.openstack.charm_tests.vault.setup.auto_initialize
+    - zaza.openstack.charm_tests.glance.setup.add_cirros_image
+    - zaza.openstack.charm_tests.glance.setup.add_lts_image
+    - zaza.openstack.charm_tests.neutron.setup.basic_overcloud_network
+    - zaza.openstack.charm_tests.nova.setup.create_flavors
+    - zaza.openstack.charm_tests.nova.setup.manage_ssh_key
+  - trusty-to-xenial-mitaka-ha:
+    - zaza.openstack.charm_tests.ceilometer.setup.basic_setup
+    - zaza.openstack.charm_tests.vault.setup.auto_initialize
+    - zaza.openstack.charm_tests.glance.setup.add_cirros_image
+    - zaza.openstack.charm_tests.glance.setup.add_lts_image
+    - zaza.openstack.charm_tests.neutron.setup.basic_overcloud_network
+    - zaza.openstack.charm_tests.nova.setup.create_flavors
+    - zaza.openstack.charm_tests.nova.setup.manage_ssh_key
+tests:
+  - bionic-to-focal-ussuri-ha:
+    - zaza.openstack.charm_tests.series_upgrade.parallel_tests.BionicFocalSeriesUpgrade
+  - xenial-to-bionic-queens-ha:
+    - zaza.openstack.charm_tests.series_upgrade.parallel_tests.XenialBionicSeriesUpgrade
+  - trusty-to-xenial-mitaka-ha:
+    - zaza.openstack.charm_tests.series_upgrade.parallel_tests.TrustyXenialSeriesUpgrade
+smoke_bundles:
+  - bionic-to-focal-ussuri-ha: bionic-to-focal-ussuri-ha
+  - xenial-to-bionic-queens-ha: xenial-to-bionic-queens-ha
+  - trusty-to-xenial-mitaka-ha: trusty-to-xenial-mitaka-ha
+target_deploy_status:
+  easyrsa:
+    workload-status-message: Certificate Authority connected.
+  etcd:
+    workload-status-message: Healthy
+  vault:
+    workload-status: blocked
+    workload-status-message: Vault needs to be initialized
+  ceilometer:
+    workload-status: blocked
+    workload-status-message: "Run the ceilometer-upgrade action on the leader to initialize ceilometer and gnocchi"

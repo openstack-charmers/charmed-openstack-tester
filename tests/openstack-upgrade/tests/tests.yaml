@@ -1,0 +1,29 @@
+before_deploy:
+  - kitchen-sink-focal-ussuri:
+    - zaza.openstack.configure.pre_deploy_certs.set_cidr_certs
+configure:
+  - kitchen-sink-focal-ussuri:
+    - zaza.openstack.charm_tests.ceilometer.setup.basic_setup
+    - zaza.openstack.charm_tests.vault.setup.auto_initialize
+    - zaza.openstack.charm_tests.glance.setup.add_cirros_image
+    - zaza.openstack.charm_tests.glance.setup.add_lts_image
+    - zaza.openstack.charm_tests.neutron.setup.basic_overcloud_network
+    - zaza.openstack.charm_tests.nova.setup.create_flavors
+    - zaza.openstack.charm_tests.nova.setup.manage_ssh_key
+tests:
+  - kitchen-sink-focal-ussuri:
+    - zaza.openstack.charm_tests.openstack_upgrade.tests.WaitForMySQL
+    - zaza.openstack.charm_tests.openstack_upgrade.tests.OpenStackUpgradeTestsFocalUssuri
+smoke_bundles:
+  - kitchen-sink-focal-ussuri: kitchen-sink-focal-ussuri
+target_deploy_status:
+  easyrsa:
+    workload-status-message: Certificate Authority connected.
+  etcd:
+    workload-status-message: Healthy
+  vault:
+    workload-status: blocked
+    workload-status-message: Vault needs to be initialized
+  ceilometer:
+    workload-status: blocked
+    workload-status-message: "Run the ceilometer-upgrade action on the leader to initialize ceilometer and gnocchi"
