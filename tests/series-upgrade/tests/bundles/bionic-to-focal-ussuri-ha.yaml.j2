@@ -1,9 +1,9 @@
 # This is the bionic-ussuri to focal-ussuri series upgrade bundle with
 # percona-cluster (at bionic).
 #
-# This bundle does not intend to upgrade perconal cluster to mysql8
+# This bundle does not intend to upgrade percona cluster to mysql8
 # (mysql-innodb-cluster and mysql-router) as that will be handled by the
-# perconal-cluster to mysql8 migration test.
+# percona-cluster to mysql8 migration test.
 #
 # TODO:
 #         - Add SSL everywhere
@@ -30,6 +30,8 @@ applications:
       cluster_count: 3
       corosync_transport: unicast
 
+# NOTE(ajkavanagh): barbican is currently disabled as it's not part of the series upgrade tests
+# It is included to make it easier to enable in the future.
 #  barbican:
 #    charm: cs:~openstack-charmers-next/barbican
 #    num_units: 1
