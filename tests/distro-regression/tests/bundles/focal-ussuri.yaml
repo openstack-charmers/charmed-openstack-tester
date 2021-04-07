@@ -212,7 +212,7 @@ applications:
     constraints: mem=1024
   neutron-openvswitch-octavia:
     series: bionic
-    charm: cs:~openstack-charmers-next/neutron-openvswitch
+    charm: cs:neutron-openvswitch
     num_units: 0
     options:
       debug: True
@@ -226,7 +226,7 @@ applications:
       spare-pool-size: 2
       loadbalancer-topology: 'ACTIVE_STANDBY'
   octavia-mysql-router:
-    charm: cs:~openstack-charmers-next/mysql-router
+    charm: cs:mysql-router
   glance-simplestreams-sync:
     charm: cs:glance-simplestreams-sync
     num_units: 1
