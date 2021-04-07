@@ -112,6 +112,7 @@ tests_options:
       smoke: True
   force_deploy:
     - groovy-victoria
+    - hirsute-wallaby
 target_deploy_status:
   ceilometer:
     workload-status: blocked
