@@ -13,6 +13,8 @@ smoke_bundles:
   - keystone_v3_smoke_focal: focal-ussuri
   - keystone_v3_smoke_focal: focal-victoria
   - keystone_v3_smoke_focal: groovy-victoria
+  - keystone_v3_smoke_focal: focal-wallaby
+  - keystone_v3_smoke_focal: hirsute-wallaby
 configure:
   - keystone_v2_smoke:
     - zaza.openstack.charm_tests.ceilometer.setup.basic_setup
