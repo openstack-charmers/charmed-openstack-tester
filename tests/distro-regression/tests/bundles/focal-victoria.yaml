@@ -212,7 +212,7 @@ applications:
     constraints: mem=1024
   neutron-openvswitch-octavia:
     series: bionic
-    charm: cs:/neutron-openvswitch
+    charm: cs:neutron-openvswitch
     num_units: 0
     options:
       debug: True
