@@ -211,7 +211,6 @@ applications:
       block-devices: cinder,10G
     constraints: mem=1024
   neutron-openvswitch-octavia:
-    series: bionic
     charm: cs:~openstack-charmers-next/neutron-openvswitch
     num_units: 0
     options:
