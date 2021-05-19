@@ -113,6 +113,8 @@ tests_options:
     keystone_v3_smoke_focal:
       smoke: True
   force_deploy:
+    - trusty-icehouse
+    - trusty-mitaka
     - groovy-victoria
     - hirsute-wallaby
 target_deploy_status:
