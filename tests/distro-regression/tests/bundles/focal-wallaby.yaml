@@ -133,6 +133,9 @@ applications:
       neutron-security-groups: true
       flat-network-providers: physnet1
       openstack-origin: *openstack-origin
+      enable-ml2-port-security: true
+      enable-qos: true
+      enable-vlan-trunking: true
     constraints: mem=1024
   neutron-mysql-router:
     charm: cs:~openstack-charmers-next/mysql-router
