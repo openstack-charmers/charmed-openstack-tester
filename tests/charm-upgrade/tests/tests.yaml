@@ -4,13 +4,19 @@ configure:
   - zaza.openstack.charm_tests.ceilometer.setup.basic_setup
   - zaza.openstack.charm_tests.vault.setup.auto_initialize
   - zaza.openstack.charm_tests.glance.setup.add_cirros_image
+  - zaza.openstack.charm_tests.glance.setup.add_cirros_alt_image
   - zaza.openstack.charm_tests.glance.setup.add_lts_image
   - zaza.openstack.charm_tests.neutron.setup.basic_overcloud_network
   - zaza.openstack.charm_tests.nova.setup.create_flavors
   - zaza.openstack.charm_tests.nova.setup.manage_ssh_key
+  - zaza.openstack.charm_tests.keystone.setup.add_demo_user
+  - zaza.openstack.charm_tests.keystone.setup.add_tempest_roles
+  - zaza.openstack.charm_tests.tempest.setup.render_tempest_config_keystone_v3
 tests:
   - zaza.openstack.charm_tests.openstack_upgrade.tests.WaitForMySQL
-  - zaza.openstack.charm_tests.charm_upgrade.tests.FullCloudCharmUpgradeTest
+  - zaza.openstack.charm_tests.tempest.tests.TempestTest
+#LA_TODO  - zaza.openstack.charm_tests.charm_upgrade.tests.FullCloudCharmUpgradeTest
+#LA_TODO  - zaza.openstack.charm_tests.tempest.tests.TempestTest
 smoke_bundles:
   - kitchen-sink-focal-ussuri-stable
   - kitchen-sink-focal-victoria-stable
@@ -29,3 +35,12 @@ target_deploy_status:
   ceilometer:
     workload-status: blocked
     workload-status-message: "Run the ceilometer-upgrade action on the leader to initialize ceilometer and gnocchi"
+tests_options:
+  tempest:
+    default:
+      smoke: True
+      blacklist:
+        # NOTE(lourot): fails on focal-ussuri (distro) before charm upgrade at
+        # the moment:
+        - tempest.api.object_storage.test_container_quotas.ContainerQuotasTest.test_upload_too_many_objects
+      keep-workspace: True  # LA_TEMP
