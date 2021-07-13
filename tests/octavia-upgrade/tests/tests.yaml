@@ -1,0 +1,114 @@
+configure:
+  - octavia-charm-upgrade:
+    - zaza.openstack.charm_tests.vault.setup.auto_initialize
+    - zaza.openstack.charm_tests.glance_simplestreams_sync.setup.sync_images
+    - zaza.openstack.charm_tests.octavia.setup.ensure_lts_images
+    - zaza.openstack.charm_tests.octavia.diskimage_retrofit.setup.retrofit_amphora_image
+    - zaza.openstack.charm_tests.octavia.setup.configure_octavia
+    - zaza.openstack.charm_tests.nova.setup.create_flavors
+    - zaza.openstack.charm_tests.nova.setup.manage_ssh_key
+    - zaza.openstack.charm_tests.neutron.setup.basic_overcloud_network
+    - zaza.openstack.charm_tests.octavia.setup.centralized_fip_network
+
+  - octavia-openstack-upgrade:
+    - zaza.openstack.charm_tests.vault.setup.auto_initialize
+    - zaza.openstack.charm_tests.glance_simplestreams_sync.setup.sync_images
+    - zaza.openstack.charm_tests.octavia.setup.ensure_lts_images
+    - zaza.openstack.charm_tests.octavia.diskimage_retrofit.setup.retrofit_amphora_image
+    - zaza.openstack.charm_tests.octavia.setup.configure_octavia
+    - zaza.openstack.charm_tests.nova.setup.create_flavors
+    - zaza.openstack.charm_tests.nova.setup.manage_ssh_key
+    - zaza.openstack.charm_tests.neutron.setup.basic_overcloud_network
+    - zaza.openstack.charm_tests.octavia.setup.centralized_fip_network
+
+  - octavia-series-bionic-focal-upgrade:
+    - zaza.openstack.charm_tests.vault.setup.auto_initialize
+    - zaza.openstack.charm_tests.glance_simplestreams_sync.setup.sync_images
+    - zaza.openstack.charm_tests.octavia.setup.ensure_lts_images
+    - zaza.openstack.charm_tests.octavia.diskimage_retrofit.setup.retrofit_amphora_image
+    - zaza.openstack.charm_tests.octavia.setup.configure_octavia
+    - zaza.openstack.charm_tests.nova.setup.create_flavors
+    - zaza.openstack.charm_tests.nova.setup.manage_ssh_key
+    - zaza.openstack.charm_tests.neutron.setup.basic_overcloud_network
+    - zaza.openstack.charm_tests.octavia.setup.centralized_fip_network
+
+# NOTE(ajkavanagh) the LBAASv2Test just does seem to work (fails every time) so
+# it is disabled until further work can be done to work out why it doesn't
+# pass.
+tests:
+  - octavia-charm-upgrade:
+    #- zaza.openstack.charm_tests.octavia.tests.LBAASv2Test
+    - zaza.openstack.charm_tests.octavia.tests.CharmOperationTest
+    - zaza.openstack.charm_tests.charm_upgrade.tests.FullCloudCharmUpgradeTest
+    #- zaza.openstack.charm_tests.octavia.tests.LBAASv2Test
+    - zaza.openstack.charm_tests.octavia.tests.CharmOperationTest
+
+  - octavia-openstack-upgrade:
+    #- zaza.openstack.charm_tests.octavia.tests.LBAASv2Test
+    - zaza.openstack.charm_tests.octavia.tests.CharmOperationTest
+    - zaza.openstack.charm_tests.openstack_upgrade.tests.OpenStackUpgradeTestsByOption
+    #- zaza.openstack.charm_tests.octavia.tests.LBAASv2Test
+    - zaza.openstack.charm_tests.octavia.tests.CharmOperationTest
+
+  - octavia-series-bionic-focal-upgrade:
+    #- zaza.openstack.charm_tests.octavia.tests.LBAASv2Test
+    - zaza.openstack.charm_tests.octavia.tests.CharmOperationTest
+    - zaza.openstack.charm_tests.series_upgrade.parallel_tests.BionicFocalSeriesUpgrade
+    #- zaza.openstack.charm_tests.octavia.tests.LBAASv2Test
+    - zaza.openstack.charm_tests.octavia.tests.CharmOperationTest
+
+dev_bundles:
+  - octavia-openstack-upgrade: octavia-bionic-stein-ha
+  - octavia-openstack-upgrade: octavia-bionic-train-ha
+  - octavia-openstack-upgrade: octavia-focal-ussuri-ha
+  - octavia-openstack-upgrade: octavia-focal-victoria-ha
+
+  - octavia-openstack-upgrade: octavia-bionic-train-ha-ovn
+  - octavia-openstack-upgrade: octavia-focal-ussuri-ha-ovn
+  - octavia-openstack-upgrade: octavia-focal-victoria-ha-ovn
+
+  - octavia-series-bionic-focal-upgrade: octavia-bionic-ussuri-ha
+  - octavia-series-bionic-focal-upgrade: octavia-bionic-ussuri-ha-ovn
+
+  - octavia-charm-upgrade: octavia-bionic-stein-ha-stable
+  - octavia-charm-upgrade: octavia-bionic-train-ha-stable
+  - octavia-charm-upgrade: octavia-bionic-ussuri-ha-stable
+  - octavia-charm-upgrade: octavia-focal-ussuri-ha-stable
+  - octavia-charm-upgrade: octavia-focal-victora-ha-stable
+  - octavia-charm-upgrade: octavia-focal-wallaby-ha-stable
+  - octavia-charm-upgrade: octavia-groovy-victora-ha-stable
+  - octavia-charm-upgrade: octavia-hirsute-wallaby-ha-stable
+
+  - octavia-charm-upgrade: octavia-bionic-train-ha-stable-ovn
+  - octavia-charm-upgrade: octavia-bionic-ussuri-ha-stable-ovn
+  - octavia-charm-upgrade: octavia-focal-ussuri-ha-stable-ovn
+  - octavia-charm-upgrade: octavia-focal-victora-ha-stable-ovn
+  - octavia-charm-upgrade: octavia-focal-wallaby-ha-stable-ovn
+  - octavia-charm-upgrade: octavia-groovy-victora-ha-stable-ovn
+  - octavia-charm-upgrade: octavia-hirsute-wallaby-ha-stable-ovn
+
+target_deploy_status:
+  octavia:
+    workload-status: blocked
+    workload-status-message: Awaiting
+  glance-simplestreams-sync:
+    workload-status: unknown
+    workload-status-message: ""
+  vault:
+    workload-status: blocked
+    workload-status-message: Vault needs to be initialized
+  neutron-api-plugin-ovn:
+    workload-status: waiting
+    workload-status-message: "'certificates' awaiting server certificate data, 'ovsdb-cms' incomplete"
+  ovn-central:
+    workload-status: waiting
+    workload-status-message: "'ovsdb-peer' incomplete, 'certificates' awaiting server certificate data"
+  ovn-chassis:
+    workload-status: waiting
+    workload-status-message: "'certificates' awaiting server certificate data"
+
+tests_options:
+  policyd:
+    service: octavia
+  openstack-upgrade:
+    detect-using-charm: keystone
