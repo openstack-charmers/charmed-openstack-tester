@@ -39,12 +39,11 @@ tests_options:
     default:
       smoke: True
       exclude-list:
-        # NOTE(lourot): these test cases occasionally fail (at least on
-        # focal-ussuri distro) already before charm upgrade. Blocklisting for
-        # now:
+        - octavia_tempest_plugin  # workaround for zaza-openstack-tests#603
+        # NOTE(lourot): these not-so-important test cases occasionally fail (at
+        # least on focal-ussuri distro) already before charm upgrade.
+        # Blocklisting for now. See charmed-openstack-tester#55
         - tempest.api.identity.admin.v3.test_credentials.CredentialsTestJSON.test_credentials_create_get_update_delete
         - tempest.api.identity.admin.v3.test_roles.RolesV3TestJSON.test_role_create_update_show_list
         - tempest.api.identity.admin.v3.test_services.ServicesTestJSON.test_create_update_get_service
         - tempest.api.object_storage.test_container_quotas.ContainerQuotasTest.test_upload_too_many_objects
-      exclude-regex:
-        - octavia_tempest_plugin  # workaround for zaza-openstack-tests#603
