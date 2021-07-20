@@ -4,13 +4,19 @@ configure:
   - zaza.openstack.charm_tests.ceilometer.setup.basic_setup
   - zaza.openstack.charm_tests.vault.setup.auto_initialize
   - zaza.openstack.charm_tests.glance.setup.add_cirros_image
+  - zaza.openstack.charm_tests.glance.setup.add_cirros_alt_image
   - zaza.openstack.charm_tests.glance.setup.add_lts_image
   - zaza.openstack.charm_tests.neutron.setup.basic_overcloud_network
   - zaza.openstack.charm_tests.nova.setup.create_flavors
   - zaza.openstack.charm_tests.nova.setup.manage_ssh_key
+  - zaza.openstack.charm_tests.keystone.setup.add_demo_user
+  - zaza.openstack.charm_tests.keystone.setup.add_tempest_roles
+  - zaza.openstack.charm_tests.tempest.setup.render_tempest_config_keystone_v3
 tests:
   - zaza.openstack.charm_tests.openstack_upgrade.tests.WaitForMySQL
+  - zaza.openstack.charm_tests.tempest.tests.TempestTest
   - zaza.openstack.charm_tests.charm_upgrade.tests.FullCloudCharmUpgradeTest
+  - zaza.openstack.charm_tests.tempest.tests.TempestTest
 smoke_bundles:
   - kitchen-sink-focal-ussuri-stable
   - kitchen-sink-focal-victoria-stable
@@ -29,3 +35,17 @@ target_deploy_status:
   ceilometer:
     workload-status: blocked
     workload-status-message: "Run the ceilometer-upgrade action on the leader to initialize ceilometer and gnocchi"
+tests_options:
+  tempest:
+    default:
+      smoke: True
+      blacklist:
+        # NOTE(lourot): these test cases occasionally fail (at least on
+        # focal-ussuri distro) already before charm upgrade. Blocklisting for
+        # now:
+        - tempest.api.identity.admin.v3.test_credentials.CredentialsTestJSON.test_credentials_create_get_update_delete
+        - tempest.api.identity.admin.v3.test_roles.RolesV3TestJSON.test_role_create_update_show_list
+        - tempest.api.identity.admin.v3.test_services.ServicesTestJSON.test_create_update_get_service
+        - tempest.api.object_storage.test_container_quotas.ContainerQuotasTest.test_upload_too_many_objects
+      black-regex:
+        - octavia_tempest_plugin  # workaround for zaza-openstack-tests#603
