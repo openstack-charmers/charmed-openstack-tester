@@ -216,7 +216,7 @@ applications:
       enable-resize: true
       migration-auth-type: ssh
       openstack-origin: *openstack-origin
-    constraints: mem=4096
+    constraints: mem=4096M cores=4
   openstack-dashboard:
     charm: cs:~openstack-charmers-next/openstack-dashboard
     num_units: 3
