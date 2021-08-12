@@ -106,7 +106,7 @@ tests_options:
       smoke: True
     keystone_v3_smoke_rocky:
       smoke: True
-      blacklist:
+      exclude-list:
         - "tempest.api.identity.v3.test_domains.DefaultDomainTestJSON.test_default_domain_exists"
     keystone_v3_smoke_stein:
       smoke: True
