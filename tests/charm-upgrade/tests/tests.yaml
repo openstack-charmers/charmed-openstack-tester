@@ -39,7 +39,7 @@ tests_options:
   tempest:
     default:
       smoke: True
-      blacklist:
+      exclude-list:
         # NOTE(lourot): these test cases occasionally fail (at least on
         # focal-ussuri distro) already before charm upgrade. Blocklisting for
         # now:
@@ -47,5 +47,5 @@ tests_options:
         - tempest.api.identity.admin.v3.test_roles.RolesV3TestJSON.test_role_create_update_show_list
         - tempest.api.identity.admin.v3.test_services.ServicesTestJSON.test_create_update_get_service
         - tempest.api.object_storage.test_container_quotas.ContainerQuotasTest.test_upload_too_many_objects
-      black-regex:
+      exclude-regex:
         - octavia_tempest_plugin  # workaround for zaza-openstack-tests#603
