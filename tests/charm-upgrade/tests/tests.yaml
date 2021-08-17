@@ -49,3 +49,9 @@ tests_options:
         - tempest.api.object_storage.test_container_quotas.ContainerQuotasTest.test_upload_too_many_objects
       exclude-regex:
         - octavia_tempest_plugin  # workaround for zaza-openstack-tests#603
+      # NOTE(lourot): Because we're running TempestTest twice we need to keep
+      # the workspace at the end of the first run otherwise the second run will
+      # fail with:
+      # Config file: /home/ubuntu/.tempest/zaza-498c0cdde90c/etc/tempest.conf doesn't exist
+      # A workspace was not found with name: zaza-498c0cdde90c
+      keep-workspace: True
