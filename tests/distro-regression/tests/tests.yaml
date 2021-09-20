@@ -18,7 +18,7 @@ smoke_bundles:
   - keystone_v3_smoke_focal: focal-xena
   - keystone_v3_smoke_focal: impish-xena
 configure:
-  - keystone_v2_smoke:
+  - keystone_v2_smoke: &configure_queens_and_older
     - zaza.openstack.charm_tests.ceilometer.setup.basic_setup
     - zaza.openstack.charm_tests.glance.setup.add_lts_image
     - zaza.openstack.charm_tests.neutron.setup.basic_overcloud_network
@@ -28,17 +28,8 @@ configure:
     - zaza.openstack.charm_tests.keystone.setup.add_tempest_roles
     - zaza.openstack.charm_tests.glance.setup.add_cirros_image
     - zaza.openstack.charm_tests.glance.setup.add_cirros_alt_image
-  - keystone_v3_smoke:
-    - zaza.openstack.charm_tests.ceilometer.setup.basic_setup
-    - zaza.openstack.charm_tests.glance.setup.add_lts_image
-    - zaza.openstack.charm_tests.neutron.setup.basic_overcloud_network
-    - zaza.openstack.charm_tests.nova.setup.create_flavors
-    - zaza.openstack.charm_tests.nova.setup.manage_ssh_key
-    - zaza.openstack.charm_tests.keystone.setup.add_demo_user
-    - zaza.openstack.charm_tests.keystone.setup.add_tempest_roles
-    - zaza.openstack.charm_tests.glance.setup.add_cirros_image
-    - zaza.openstack.charm_tests.glance.setup.add_cirros_alt_image
-  - keystone_v3_smoke_rocky:
+  - keystone_v3_smoke: *configure_queens_and_older
+  - keystone_v3_smoke_rocky: &configure_rocky_to_ussuri_without_vault
     - zaza.openstack.charm_tests.ceilometer.setup.basic_setup
     - zaza.openstack.charm_tests.glance_simplestreams_sync.setup.sync_images
     - zaza.openstack.charm_tests.glance.setup.add_lts_image
@@ -53,21 +44,7 @@ configure:
     - zaza.openstack.charm_tests.glance.setup.add_cirros_image
     - zaza.openstack.charm_tests.glance.setup.add_cirros_alt_image
     - zaza.openstack.charm_tests.octavia.setup.centralized_fip_network
-  - keystone_v3_smoke_stein:
-    - zaza.openstack.charm_tests.ceilometer.setup.basic_setup
-    - zaza.openstack.charm_tests.glance_simplestreams_sync.setup.sync_images
-    - zaza.openstack.charm_tests.glance.setup.add_lts_image
-    - zaza.openstack.charm_tests.octavia.setup.ensure_lts_images
-    - zaza.openstack.charm_tests.octavia.diskimage_retrofit.setup.retrofit_amphora_image
-    - zaza.openstack.charm_tests.octavia.setup.configure_octavia
-    - zaza.openstack.charm_tests.neutron.setup.basic_overcloud_network
-    - zaza.openstack.charm_tests.nova.setup.create_flavors
-    - zaza.openstack.charm_tests.nova.setup.manage_ssh_key
-    - zaza.openstack.charm_tests.keystone.setup.add_demo_user
-    - zaza.openstack.charm_tests.keystone.setup.add_tempest_roles
-    - zaza.openstack.charm_tests.glance.setup.add_cirros_image
-    - zaza.openstack.charm_tests.glance.setup.add_cirros_alt_image
-    - zaza.openstack.charm_tests.octavia.setup.centralized_fip_network
+  - keystone_v3_smoke_stein: *configure_rocky_to_ussuri_without_vault
   - keystone_v3_smoke_focal:
     - zaza.openstack.charm_tests.vault.setup.auto_initialize
     - zaza.openstack.charm_tests.ceilometer.setup.basic_setup
