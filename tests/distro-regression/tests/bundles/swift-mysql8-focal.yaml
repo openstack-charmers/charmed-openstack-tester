@@ -1,0 +1,93 @@
+# Please refer to the OpenStack Charms Deployment Guide for more information.
+# https://docs.openstack.org/project-deploy-guide/charm-deployment-guide
+series: focal
+variables:
+  worker-multiplier: &worker-multiplier 0.25
+  block-devices: &block-devices /dev/sdb /dev/vdb
+  options: &options
+machines:
+  '0':
+    constraints: tags=uosci
+  '1':
+    constraints: tags=uosci
+  '2':
+    constraints: tags=uosci
+relations:
+- - keystone:shared-db
+  - keystone-mysql-router:shared-db
+- - keystone-mysql-router:db-router
+  - mysql-innodb-cluster:db-router
+- - swift-proxy:identity-service
+  - keystone:identity-service
+- - swift-proxy:swift-storage
+  - swift-storage-z1:swift-storage
+- - swift-proxy:swift-storage
+  - swift-storage-z2:swift-storage
+- - swift-proxy:swift-storage
+  - swift-storage-z3:swift-storage
+
+applications:
+  keystone-mysql-router:
+    charm: cs:~openstack-charmers-next/mysql-router
+  keystone:
+    charm: cs:~openstack-charmers-next/keystone
+    num_units: 1
+    options:
+      worker-multiplier: *worker-multiplier
+    to:
+    - lxd:0
+    bindings:
+      "": public-space
+  mysql-innodb-cluster:
+    charm: cs:~openstack-charmers-next/mysql-innodb-cluster
+    num_units: 3
+    to:
+    - lxd:0
+    - lxd:1
+    - lxd:2
+    bindings:
+      "": public-space
+  swift-proxy:
+    charm: cs:~openstack-charmers-next/swift-proxy
+    num_units: 1
+    options:
+      replicas: 3
+      swift-hash: fdfef9d4-8b06-11e2-8ac0-531c923c8fae
+      zone-assignment: manual
+    to:
+    - lxd:1
+    bindings:
+      "": public-space
+  swift-storage-z1:
+    charm: cs:~openstack-charmers-next/swift-storage
+    num_units: 1
+    options:
+      zone: 1
+      block-device: *block-devices
+      worker-multiplier: *worker-multiplier
+    to:
+    - 0
+    bindings:
+      "": public-space
+  swift-storage-z2:
+    charm: cs:~openstack-charmers-next/swift-storage
+    num_units: 1
+    options:
+      zone: 2
+      block-device: *block-devices
+      worker-multiplier: *worker-multiplier
+    to:
+    - 1
+    bindings:
+      "": public-space
+  swift-storage-z3:
+    charm: cs:~openstack-charmers-next/swift-storage
+    num_units: 1
+    options:
+      zone: 3
+      block-device: *block-devices
+      worker-multiplier: *worker-multiplier
+    to:
+    - 2
+    bindings:
+      "": public-space

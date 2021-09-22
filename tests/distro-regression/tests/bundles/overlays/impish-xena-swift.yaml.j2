@@ -1,0 +1,20 @@
+series: impish
+variables:
+  openstack-origin: &openstack-origin distro-proposed
+
+applications:
+  keystone:
+    options:
+      openstack-origin: *openstack-origin
+  swift-proxy:
+    options:
+      openstack-origin: *openstack-origin
+  swift-storage-z1:
+    options:
+      openstack-origin: *openstack-origin
+  swift-storage-z2:
+    options:
+      openstack-origin: *openstack-origin
+  swift-storage-z3:
+    options:
+      openstack-origin: *openstack-origin

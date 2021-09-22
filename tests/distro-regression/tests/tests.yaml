@@ -1,41 +1,110 @@
+# TODO(coreycb):
+# - create tempest flavor that uses sr-iov alias
+# - create instance and test connectivity before/after dist-upgrade
+# - Update zaza-openstack-tests to update openstack-origin to proposed
+#   or testing PPA followed by package-upgrade action to perform stable
+#   upgrade (see tests section below).
 smoke_bundles:
-  - keystone_v2_smoke: trusty-mitaka
-  - keystone_v2_smoke: xenial-mitaka
-  - keystone_v2_smoke: xenial-newton
-  - keystone_v2_smoke: xenial-ocata
-  - keystone_v2_smoke: xenial-pike
-  - keystone_v3_smoke: xenial-queens
-  - keystone_v3_smoke: bionic-queens
-  - keystone_v3_smoke_rocky: bionic-rocky
-  - keystone_v3_smoke_stein: bionic-stein
-  - keystone_v3_smoke_stein: bionic-train
-  - keystone_v3_smoke_stein: bionic-ussuri
-  - keystone_v3_smoke_focal: focal-ussuri
-  - keystone_v3_smoke_focal: focal-victoria
-  - keystone_v3_smoke_focal: groovy-victoria
-  - keystone_v3_smoke_focal: focal-wallaby
-  - keystone_v3_smoke_focal: hirsute-wallaby
-  - keystone_v3_smoke_focal: focal-xena
-  - keystone_v3_smoke_focal: impish-xena
+  # bionic-queens
+  - keystone_v3_swift: bionic-queens-swift
+  - keystone_v3_queens_two_computes: bionic-queens-ovs
+  - keystone_v3_queens_two_computes_minimal: bionic-queens-ovs-l3ha-dvr
+  - keystone_v3_queens_two_computes_minimal: bionic-queens-ovs-l3ha-dvr-snat
+  - keystone_v3_queens_two_computes_minimal_sriov: bionic-queens-ovs-sriov
+  # bionic-rocky
+  - keystone_v3_swift: bionic-rocky-swift
+  - keystone_v3_queens_two_computes: bionic-rocky-ovs
+  - keystone_v3_queens_two_computes_minimal: bionic-rocky-ovs-l3ha-dvr
+  - keystone_v3_queens_two_computes_minimal: bionic-rocky-ovs-l3ha-dvr-snat
+  - keystone_v3_queens_two_computes_minimal_sriov: bionic-rocky-ovs-sriov
+  # bionic-stein
+  - keystone_v3_swift: bionic-stein-swift
+  - keystone_v3_stein_two_computes: bionic-stein-ovs
+  - keystone_v3_stein_two_computes_minimal: bionic-stein-ovs-l3ha-dvr
+  - keystone_v3_stein_two_computes_minimal: bionic-stein-ovs-l3ha-dvr-snat
+  - keystone_v3_stein_two_computes_minimal_sriov: bionic-stein-ovs-sriov
+  # bionic-train
+  - keystone_v3_swift: bionic-train-swift
+  - keystone_v3_stein_two_computes: bionic-train-ovs
+  - keystone_v3_stein_two_computes_minimal: bionic-train-ovs-l3ha-dvr
+  - keystone_v3_stein_two_computes_minimal: bionic-train-ovs-l3ha-dvr-snat
+  - keystone_v3_stein_two_computes_minimal_sriov: bionic-train-ovs-sriov
+  # bionic-ussuri
+  - keystone_v3_swift: bionic-ussuri-swift
+  - keystone_v3_stein_two_computes: bionic-ussuri-ovs
+  - keystone_v3_stein_two_computes_minimal: bionic-ussuri-ovs-l3ha-dvr
+  - keystone_v3_stein_two_computes_minimal: bionic-ussuri-ovs-l3ha-dvr-snat
+  - keystone_v3_stein_two_computes_minimal_sriov: bionic-ussuri-ovs-sriov
+  - keystone_v3_stein: bionic-ussuri-ovn
+  - keystone_v3_stein_two_computes_minimal_sriov_ovn: bionic-ussuri-ovn-sriov
+  # focal-ussuri
+  - keystone_v3_swift: focal-ussuri-swift
+  - keystone_v3_focal_two_computes: focal-ussuri-ovs
+  - keystone_v3_focal_two_computes_minimal: focal-ussuri-ovs-l3ha-dvr
+  - keystone_v3_focal_two_computes_minimal: focal-ussuri-ovs-l3ha-dvr-snat
+  - keystone_v3_focal_two_computes_minimal_sriov: focal-ussuri-ovs-sriov
+  - keystone_v3_focal: focal-ussuri-ovn
+  - keystone_v3_focal_two_computes_minimal_sriov: focal-ussuri-ovn-sriov
+  # focal-victoria
+  - keystone_v3_swift: focal-victoria-swift
+  - keystone_v3_focal_two_computes: focal-victoria-ovs
+  - keystone_v3_focal_two_computes_minimal: focal-victoria-ovs-l3ha-dvr
+  - keystone_v3_focal_two_computes_minimal: focal-victoria-ovs-l3ha-dvr-snat
+  - keystone_v3_focal_two_computes_minimal_sriov: focal-victoria-ovs-sriov
+  - keystone_v3_focal: focal-victoria-ovn
+  - keystone_v3_focal_two_computes_minimal_sriov: focal-victoria-ovn-sriov
+  # focal-wallaby
+  - keystone_v3_swift: focal-wallaby-swift
+  - keystone_v3_focal_two_computes: focal-wallaby-ovs
+  - keystone_v3_focal_two_computes: focal-wallaby-ovs
+  - keystone_v3_focal_two_computes_minimal: focal-wallaby-ovs-l3ha-dvr
+  - keystone_v3_focal_two_computes_minimal: focal-wallaby-ovs-l3ha-dvr-snat
+  - keystone_v3_focal_two_computes_minimal_sriov: focal-wallaby-ovs-sriov
+  - keystone_v3_focal: focal-wallaby-ovn
+  - keystone_v3_focal_two_computes_minimal_sriov: focal-wallaby-ovn-sriov
+  # focal-xena
+  - keystone_v3_swift: focal-xena-swift
+  - keystone_v3_focal_two_computes: focal-xena-ovs
+  - keystone_v3_focal_two_computes: focal-xena-ovs
+  - keystone_v3_focal_two_computes_minimal: focal-xena-ovs-l3ha-dvr
+  - keystone_v3_focal_two_computes_minimal: focal-xena-ovs-l3ha-dvr-snat
+  - keystone_v3_focal_two_computes_minimal_sriov: focal-xena-ovs-sriov
+  - keystone_v3_focal: focal-xena-ovn
+  - keystone_v3_focal_two_computes_minimal_sriov: focal-xena-ovn-sriov
+  # focal-yoga
+  - keystone_v3_swift: focal-yoga-swift
+  - keystone_v3_focal_two_computes: focal-yoga-ovs
+  - keystone_v3_focal_two_computes_minimal: focal-yoga-ovs-l3ha-dvr
+  - keystone_v3_focal_two_computes_minimal: focal-yoga-ovs-l3ha-dvr-snat
+  - keystone_v3_focal_two_computes_minimal_sriov: focal-yoga-ovs-sriov
+  - keystone_v3_focal: focal-yoga-ovn
+  - keystone_v3_focal_two_computes_minimal_sriov: focal-yoga-ovn-sriov
+  # impish-xena
+  - keystone_v3_swift: impish-xena-swift
+  - keystone_v3_focal_two_computes: impish-wallaby-ovs
+  - keystone_v3_focal_two_computes_minimal: impish-xena-ovs-l3ha-dvr
+  - keystone_v3_focal_two_computes_minimal: impish-xena-ovs-l3ha-dvr-snat
+  - keystone_v3_focal_two_computes_minimal_sriov: impish-xena-ovs-sriov
+  - keystone_v3_focal: impish-xena-ovn
+  - keystone_v3_focal_two_computes_minimal_sriov: impish-xena-ovn-sriov
+  # jammy-yoga
+  - keystone_v3_swift: jammy-yoga-swift
+  - keystone_v3_focal_two_computes: jammy-yoga-ovs
+  - keystone_v3_focal_two_computes_minimal: jammy-yoga-ovs-l3ha-dvr
+  - keystone_v3_focal_two_computes_minimal: jammy-yoga-ovs-l3ha-dvr-snat
+  - keystone_v3_focal_two_computes_minimal_sriov: jammy-yoga-ovs-sriov
+  - keystone_v3_focal: jammy-yoga-ovn
+  - keystone_v3_focal_two_computes_minimal_sriov: jammy-yoga-ovn-sriov
 configure:
-  - keystone_v2_smoke: &configure_queens_and_older
-    - zaza.openstack.charm_tests.ceilometer.setup.basic_setup
-    - zaza.openstack.charm_tests.glance.setup.add_lts_image
-    - zaza.openstack.charm_tests.neutron.setup.basic_overcloud_network
-    - zaza.openstack.charm_tests.nova.setup.create_flavors
-    - zaza.openstack.charm_tests.nova.setup.manage_ssh_key
+  - keystone_v3_swift:
     - zaza.openstack.charm_tests.keystone.setup.add_demo_user
     - zaza.openstack.charm_tests.keystone.setup.add_tempest_roles
-    - zaza.openstack.charm_tests.glance.setup.add_cirros_image
-    - zaza.openstack.charm_tests.glance.setup.add_cirros_alt_image
-  - keystone_v3_smoke: *configure_queens_and_older
-  - keystone_v3_smoke_rocky: &configure_rocky_to_ussuri_without_vault
+    - zaza.openstack.charm_tests.tempest.setup.render_tempest_config_keystone_v3
+  - keystone_v3_queens_two_computes: &configure_keystone_v3_queens_two_computes
+    - zaza.openstack.charm_tests.vault.setup.auto_initialize
     - zaza.openstack.charm_tests.ceilometer.setup.basic_setup
     - zaza.openstack.charm_tests.glance_simplestreams_sync.setup.sync_images
     - zaza.openstack.charm_tests.glance.setup.add_lts_image
-    - zaza.openstack.charm_tests.octavia.setup.ensure_lts_images
-    - zaza.openstack.charm_tests.octavia.diskimage_retrofit.setup.retrofit_amphora_image
-    - zaza.openstack.charm_tests.octavia.setup.configure_octavia
     - zaza.openstack.charm_tests.neutron.setup.basic_overcloud_network
     - zaza.openstack.charm_tests.nova.setup.create_flavors
     - zaza.openstack.charm_tests.nova.setup.manage_ssh_key
@@ -43,9 +112,33 @@ configure:
     - zaza.openstack.charm_tests.keystone.setup.add_tempest_roles
     - zaza.openstack.charm_tests.glance.setup.add_cirros_image
     - zaza.openstack.charm_tests.glance.setup.add_cirros_alt_image
-    - zaza.openstack.charm_tests.octavia.setup.centralized_fip_network
-  - keystone_v3_smoke_stein: *configure_rocky_to_ussuri_without_vault
-  - keystone_v3_smoke_focal:
+    - zaza.openstack.charm_tests.tempest.setup.render_tempest_config_keystone_v3
+  - keystone_v3_queens_two_computes_minimal: &configure_keystone_v3_queens_two_computes_minimal
+    - zaza.openstack.charm_tests.vault.setup.auto_initialize
+    - zaza.openstack.charm_tests.glance_simplestreams_sync.setup.sync_images
+    - zaza.openstack.charm_tests.glance.setup.add_lts_image
+    - zaza.openstack.charm_tests.neutron.setup.basic_overcloud_network
+    - zaza.openstack.charm_tests.nova.setup.create_flavors
+    - zaza.openstack.charm_tests.nova.setup.manage_ssh_key
+    - zaza.openstack.charm_tests.keystone.setup.add_demo_user
+    - zaza.openstack.charm_tests.keystone.setup.add_tempest_roles
+    - zaza.openstack.charm_tests.glance.setup.add_cirros_image
+    - zaza.openstack.charm_tests.glance.setup.add_cirros_alt_image
+    - zaza.openstack.charm_tests.tempest.setup.render_tempest_config_keystone_v3
+  - keystone_v3_queens_two_computes_minimal_sriov: &configure_keystone_v3_queens_two_computes_minimal_sriov
+    - zaza.openstack.charm_tests.vault.setup.auto_initialize
+    - zaza.openstack.charm_tests.glance.setup.add_lts_image
+    - zaza.openstack.charm_tests.nova.setup.reboot_sriov_computes
+    - zaza.openstack.charm_tests.nova.setup.create_flavors
+    - zaza.openstack.charm_tests.nova.setup.manage_ssh_key
+    - zaza.openstack.charm_tests.neutron.setup.basic_overcloud_network
+    - zaza.openstack.charm_tests.neutron.setup.vlan_provider_overcloud_network
+    - zaza.openstack.charm_tests.keystone.setup.add_demo_user
+    - zaza.openstack.charm_tests.keystone.setup.add_tempest_roles
+    - zaza.openstack.charm_tests.glance.setup.add_cirros_image
+    - zaza.openstack.charm_tests.glance.setup.add_cirros_alt_image
+    - zaza.openstack.charm_tests.tempest.setup.render_tempest_config_keystone_v3
+  - keystone_v3_stein: &configure_keystone_v3_stein
     - zaza.openstack.charm_tests.vault.setup.auto_initialize
     - zaza.openstack.charm_tests.ceilometer.setup.basic_setup
     - zaza.openstack.charm_tests.glance_simplestreams_sync.setup.sync_images
@@ -61,59 +154,184 @@ configure:
     - zaza.openstack.charm_tests.glance.setup.add_cirros_image
     - zaza.openstack.charm_tests.glance.setup.add_cirros_alt_image
     - zaza.openstack.charm_tests.octavia.setup.centralized_fip_network
+    - zaza.openstack.charm_tests.tempest.setup.render_tempest_config_keystone_v3
+  - keystone_v3_stein_two_computes: *configure_keystone_v3_stein
+  - keystone_v3_stein_two_computes_minimal: *configure_keystone_v3_queens_two_computes_minimal
+  - keystone_v3_stein_two_computes_minimal_sriov: *configure_keystone_v3_queens_two_computes_minimal_sriov
+  - keystone_v3_stein_two_computes_minimal_sriov_ovn: *configure_keystone_v3_queens_two_computes_minimal_sriov
+  - keystone_v3_focal: *configure_keystone_v3_stein
+  - keystone_v3_focal_two_computes: *configure_keystone_v3_stein
+  - keystone_v3_focal_two_computes_minimal: *configure_keystone_v3_queens_two_computes_minimal
+  - keystone_v3_focal_two_computes_minimal_sriov: *configure_keystone_v3_queens_two_computes_minimal_sriov
+configure_options:
+  sriov_compute_application_name: "nova-compute-sriov"
 tests:
-  - keystone_v2_smoke:
-    - zaza.openstack.charm_tests.tempest.tests.TempestTestWithKeystoneV2
-  - keystone_v3_smoke:
+  - keystone_v3_swift: &tests_keystone_v3
     - zaza.openstack.charm_tests.tempest.tests.TempestTestWithKeystoneV3
-  - keystone_v3_smoke_rocky:
-    - zaza.openstack.charm_tests.tempest.tests.TempestTestWithKeystoneV3
-  - keystone_v3_smoke_stein:
-    - zaza.openstack.charm_tests.tempest.tests.TempestTestWithKeystoneV3
-  - keystone_v3_smoke_focal:
-    - zaza.openstack.charm_tests.tempest.tests.TempestTestWithKeystoneV3
+    # TODO(coreycb): Update zaza-openstack-tests to update openstack-origin to proposed
+    # or testing PPA followed by package-upgrade action to perform stable
+    # upgrade.
+    #- zaza.openstack.charm_tests.stable_upgrades.tests.StableUpgradeToProposedTest
+    #- zaza.openstack.charm_tests.stable_upgrades.tests.StableUpgradeToPPATest
+    #- zaza.openstack.charm_tests.tempest.tests.TempestTestWithKeystoneV3
+  - keystone_v3_queens_two_computes: *tests_keystone_v3
+  - keystone_v3_queens_two_computes_minimal: *tests_keystone_v3
+  - keystone_v3_queens_two_computes_minimal_sriov: *tests_keystone_v3
+  - keystone_v3_stein: *tests_keystone_v3
+  - keystone_v3_stein_two_computes: *tests_keystone_v3
+  - keystone_v3_stein_two_computes_minimal: *tests_keystone_v3
+  - keystone_v3_stein_two_computes_minimal_sriov: *tests_keystone_v3
+  - keystone_v3_stein_two_computes_minimal_sriov_ovn: *tests_keystone_v3
+  - keystone_v3_focal: *tests_keystone_v3
+  - keystone_v3_focal_two_computes: *tests_keystone_v3
+  - keystone_v3_focal_two_computes_minimal: *tests_keystone_v3
+  - keystone_v3_focal_two_computes_minimal_sriov: *tests_keystone_v3
+  - keystone_v3_focal_sriov: *tests_keystone_v3
 tests_options:
+  upgrade_ppa: "ppa:corey.bryant/bionic-train-snapshots"
   tempest:
-    keystone_v2_smoke:
+    keystone_v3_swift:
       smoke: True
-    keystone_v3_smoke:
-      smoke: True
-    keystone_v3_smoke_rocky:
+      include-list:
+        - "tempest.api.object_storage.*"
+      exclude-list:
+        - "designate_tempest_plugin.*"
+        - "tempest.api.object_storage.test_container_sync*"
+        - "tempest.api.object_storage.test_crossdomain.*"
+    keystone_v3_queens_two_computes:
       smoke: True
       exclude-list:
-        - "tempest.api.identity.v3.test_domains.DefaultDomainTestJSON.test_default_domain_exists"
-    keystone_v3_smoke_stein:
+        - "octavia_tempest_plugin.tests.scenario.v2.test_traffic_ops.TrafficOperationsScenarioTest"
+        - "tempest.api.object_storage.test_account_quotas.AccountQuotasTest.test_admin_modify_quota"
+        - "tempest.api.object_storage.test_account_quotas.AccountQuotasTest.test_upload_valid_object"
+        - "tempest.scenario.test_network_basic_ops.TestNetworkBasicOps.test_network_basic_ops"
+        - "tempest.scenario.test_server_multinode.TestServerMultinode.test_schedule_to_all_nodes"
+    keystone_v3_queens_two_computes_minimal:
       smoke: True
-    keystone_v3_smoke_focal:
+      exclude-list:
+        - "designate_tempest_plugin.*"
+        - "octavia_tempest_plugin.*"
+        - "tempest.api.object_storage.test_account_quotas.AccountQuotasTest.test_admin_modify_quota"
+        - "tempest.api.object_storage.test_account_quotas.AccountQuotasTest.test_upload_valid_object"
+        - "tempest.scenario.test_network_basic_ops.TestNetworkBasicOps.test_network_basic_ops"
+        - "tempest.scenario.test_server_multinode.TestServerMultinode.test_schedule_to_all_nodes"
+    keystone_v3_queens_two_computes_minimal_sriov:
       smoke: True
+      exclude-list:
+        - "designate_tempest_plugin.*"
+        - "octavia_tempest_plugin.*"
+        - "tempest.api.object_storage.test_account_quotas.AccountQuotasTest.test_admin_modify_quota"
+        - "tempest.api.object_storage.test_account_quotas.AccountQuotasTest.test_upload_valid_object"
+        - "tempest.scenario.test_network_basic_ops.TestNetworkBasicOps.test_network_basic_ops"
+        - "tempest.scenario.test_server_multinode.TestServerMultinode.test_schedule_to_all_nodes"
+    keystone_v3_stein:
+      smoke: True
+      exclude-list:
+        - "octavia_tempest_plugin.tests.scenario.v2.test_traffic_ops.TrafficOperationsScenarioTest"
+        - "tempest.api.network.test_extensions.ExtensionsTestJSON.test_list_show_extensions"
+        - "tempest.api.object_storage.test_account_quotas.AccountQuotasTest.test_admin_modify_quota"
+        - "tempest.api.object_storage.test_account_quotas.AccountQuotasTest.test_upload_valid_object"
+    keystone_v3_stein_two_computes:
+      smoke: True
+      exclude-list:
+        - "octavia_tempest_plugin.tests.scenario.v2.test_traffic_ops.TrafficOperationsScenarioTest"
+        - "tempest.api.object_storage.test_account_quotas.AccountQuotasTest.test_admin_modify_quota"
+        - "tempest.api.object_storage.test_account_quotas.AccountQuotasTest.test_upload_valid_object"
+        - "tempest.scenario.test_network_basic_ops.TestNetworkBasicOps.test_network_basic_ops"
+        - "tempest.scenario.test_server_multinode.TestServerMultinode.test_schedule_to_all_nodes"
+    keystone_v3_stein_two_computes_minimal:
+      smoke: True
+      exclude-list:
+        - "designate_tempest_plugin.*"
+        - "octavia_tempest_plugin.*"
+        - "tempest.api.object_storage.test_account_quotas.AccountQuotasTest.test_admin_modify_quota"
+        - "tempest.api.object_storage.test_account_quotas.AccountQuotasTest.test_upload_valid_object"
+        - "tempest.scenario.test_network_basic_ops.TestNetworkBasicOps.test_network_basic_ops"
+        - "tempest.scenario.test_server_multinode.TestServerMultinode.test_schedule_to_all_nodes"
+    keystone_v3_stein_two_computes_minimal_sriov:
+      smoke: True
+      exclude-list:
+        - "designate_tempest_plugin.*"
+        - "octavia_tempest_plugin.*"
+        - "tempest.api.object_storage.test_account_quotas.AccountQuotasTest.test_admin_modify_quota"
+        - "tempest.api.object_storage.test_account_quotas.AccountQuotasTest.test_upload_valid_object"
+        - "tempest.scenario.test_network_basic_ops.TestNetworkBasicOps.test_network_basic_ops"
+        - "tempest.scenario.test_server_multinode.TestServerMultinode.test_schedule_to_all_nodes"
+    keystone_v3_stein_two_computes_minimal_sriov_ovn:
+      smoke: True
+      exclude-list:
+        - "designate_tempest_plugin.*"
+        - "octavia_tempest_plugin.*"
+        - "tempest.api.network.test_extensions.ExtensionsTestJSON.test_list_show_extensions"
+        - "tempest.api.object_storage.test_account_quotas.AccountQuotasTest.test_admin_modify_quota"
+        - "tempest.api.object_storage.test_account_quotas.AccountQuotasTest.test_upload_valid_object"
+        - "tempest.scenario.test_network_basic_ops.TestNetworkBasicOps.test_network_basic_ops"
+        - "tempest.scenario.test_server_multinode.TestServerMultinode.test_schedule_to_all_nodes"
+    keystone_v3_focal:
+      smoke: True
+      exclude-list:
+        - "octavia_tempest_plugin.tests.scenario.v2.test_traffic_ops.TrafficOperationsScenarioTest"
+        - "tempest.api.object_storage.test_account_quotas.AccountQuotasTest.test_admin_modify_quota"
+        - "tempest.api.object_storage.test_account_quotas.AccountQuotasTest.test_upload_valid_object"
+    keystone_v3_focal_two_computes:
+      smoke: True
+      exclude-list:
+        - "octavia_tempest_plugin.tests.scenario.v2.test_traffic_ops.TrafficOperationsScenarioTest"
+        - "tempest.api.object_storage.test_account_quotas.AccountQuotasTest.test_admin_modify_quota"
+        - "tempest.api.object_storage.test_account_quotas.AccountQuotasTest.test_upload_valid_object"
+        - "tempest.scenario.test_server_multinode.TestServerMultinode.test_schedule_to_all_nodes"
+    keystone_v3_focal_two_computes_minimal:
+      smoke: True
+      exclude-list:
+        - "designate_tempest_plugin.*"
+        - "octavia_tempest_plugin.*"
+        - "tempest.api.object_storage.test_account_quotas.AccountQuotasTest.test_admin_modify_quota"
+        - "tempest.api.object_storage.test_account_quotas.AccountQuotasTest.test_upload_valid_object"
+        - "tempest.scenario.test_network_basic_ops.TestNetworkBasicOps.test_network_basic_ops"
+        - "tempest.scenario.test_server_multinode.TestServerMultinode.test_schedule_to_all_nodes"
+    keystone_v3_focal_two_computes_minimal_sriov:
+      smoke: True
+      exclude-list:
+        - "designate_tempest_plugin.*"
+        - "octavia_tempest_plugin.*"
+        - "tempest.api.object_storage.test_account_quotas.AccountQuotasTest.test_admin_modify_quota"
+        - "tempest.api.object_storage.test_account_quotas.AccountQuotasTest.test_upload_valid_object"
+        - "tempest.scenario.test_network_basic_ops.TestNetworkBasicOps.test_network_basic_ops"
+        - "tempest.scenario.test_server_multinode.TestServerMultinode.test_schedule_to_all_nodes"
   force_deploy:
-    - trusty-icehouse
-    - trusty-mitaka
-    - groovy-victoria
-    - hirsute-wallaby
     - impish-xena
+    - jammy-yoga
 target_deploy_status:
   ceilometer:
     workload-status: blocked
-    workload-status-message: "Run the ceilometer-upgrade action on the leader to initialize ceilometer and gnocchi"
+    workload-status-message-prefix: "Run the ceilometer-upgrade action on the leader to initialize ceilometer and gnocchi"
   glance-simplestreams-sync:
     workload-status: unknown
-    workload-status-message: ""
+    workload-status-message-prefix: ""
   mongodb:
     workload-status: unknown
-    workload-status-message: ""
+    workload-status-message-prefix: ""
   neutron-api-plugin-ovn:
     workload-status: waiting
-    workload-status-message: "'certificates' awaiting server certificate data, 'ovsdb-cms' incomplete"
+    workload-status-message-prefix: "'certificates' awaiting server certificate data, 'ovsdb-cms' incomplete"
+  ntp:
+    workload-status: active
+    workload-status-message-prefix: "chrony: Ready"
   octavia:
     workload-status: blocked
-    workload-status-message: Awaiting
+    workload-status-message-prefix: Awaiting
   ovn-central:
     workload-status: waiting
-    workload-status-message: "'ovsdb-peer' incomplete, 'certificates' awaiting server certificate data"
+    workload-status-message-prefix: "'ovsdb-peer' incomplete, 'certificates' awaiting server certificate data"
   ovn-chassis:
     workload-status: waiting
-    workload-status-message: "'certificates' awaiting server certificate data"
+    workload-status-message-prefix: "'certificates' awaiting server certificate data"
+  ovn-chassis-octavia:
+    workload-status: waiting
+    workload-status-message-prefix: "'certificates' awaiting server certificate data"
+  ovn-chassis-sriov:
+    workload-status: waiting
+    workload-status-message-prefix: "'certificates' awaiting server certificate data"
   vault:
     workload-status: blocked
-    workload-status-message: Vault needs to be initialized
+    workload-status-message-prefix: Vault needs to be initialized

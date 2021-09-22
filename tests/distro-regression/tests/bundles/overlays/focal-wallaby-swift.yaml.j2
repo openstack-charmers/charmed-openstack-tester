@@ -1,0 +1,20 @@
+series: focal
+variables:
+  openstack-origin: &openstack-origin cloud:focal-wallaby/proposed
+
+applications:
+  keystone:
+    options:
+      openstack-origin: *openstack-origin
+  swift-proxy:
+    options:
+      openstack-origin: *openstack-origin
+  swift-storage-z1:
+    options:
+      openstack-origin: *openstack-origin
+  swift-storage-z2:
+    options:
+      openstack-origin: *openstack-origin
+  swift-storage-z3:
+    options:
+      openstack-origin: *openstack-origin
