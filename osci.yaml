@@ -1,0 +1,81 @@
+- project:
+    periodic-weekly:
+      jobs:
+      - cot_distro-regression_xenial-queens
+      - cot_distro-regression_bionic-queens
+      - cot_distro-regression_bionic-rocky
+      - cot_distro-regression_bionic-stein
+      - cot_distro-regression_bionic-train
+      - cot_distro-regression_bionic-ussuri
+      - cot_distro-regression_focal-ussuri
+      - cot_distro-regression_focal-victoria
+      - cot_distro-regression_groovy-victoria
+      - cot_distro-regression_focal-wallaby
+      - cot_distro-regression_hirsute-wallaby
+      - cot_distro-regression_focal-xena
+      - cot_distro-regression_impish-xena
+- job:
+    name: cot_distro-regression_xenial-queens
+    parent: func-target
+    vars:
+      tox_extra_args: xenial-queens
+- job:
+    name: cot_distro-regression_bionic-queens
+    parent: func-target
+    vars:
+      tox_extra_args: bionic-queens
+- job:
+    name: cot_distro-regression_bionic-rocky
+    parent: func-target
+    vars:
+      tox_extra_args: bionic-rocky
+- job:
+    name: cot_distro-regression_bionic-stein
+    parent: func-target
+    vars:
+      tox_extra_args: bionic-stein
+- job:
+    name: cot_distro-regression_bionic-train
+    parent: func-target
+    vars:
+      tox_extra_args: bionic-train
+- job:
+    name: cot_distro-regression_bionic-ussuri
+    parent: func-target
+    vars:
+      tox_extra_args: bionic-ussuri
+- job:
+    name: cot_distro-regression_focal-ussuri
+    parent: func-target
+    vars:
+      tox_extra_args: focal-ussuri
+- job:
+    name: cot_distro-regression_focal-victoria
+    parent: func-target
+    vars:
+      tox_extra_args: focal-victoria
+- job:
+    name: cot_distro-regression_groovy-victoria
+    parent: func-target
+    vars:
+      tox_extra_args: groovy-victoria
+- job:
+    name: cot_distro-regression_focal-wallaby
+    parent: func-target
+    vars:
+      tox_extra_args: focal-wallaby
+- job:
+    name: cot_distro-regression_hirsute-wallaby
+    parent: func-target
+    vars:
+      tox_extra_args: hirsute-wallaby
+- job:
+    name: cot_distro-regression_focal-xena
+    parent: func-target
+    vars:
+      tox_extra_args: focal-xena
+- job:
+    name: cot_distro-regression_impish-xena
+    parent: func-target
+    vars:
+      tox_extra_args: impish-xena
