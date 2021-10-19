@@ -1,11 +1,12 @@
 before_deploy:
   - queens-to-rocky: &pre_deploy
     - zaza.openstack.configure.pre_deploy_certs.set_cidr_certs
+  - train-to-ussuri: *pre_deploy
   - ussuri-to-victoria: *pre_deploy
   - victoria-to-wallaby: *pre_deploy
 
 configure:
-  - queens-to-rocky:
+  - queens-to-rocky: &configure_without_vault
     - zaza.openstack.charm_tests.ceilometer.setup.basic_setup
     - zaza.openstack.charm_tests.glance.setup.add_cirros_image
     - zaza.openstack.charm_tests.glance.setup.add_cirros_alt_image
@@ -15,6 +16,7 @@ configure:
     - zaza.openstack.charm_tests.nova.setup.manage_ssh_key
     - zaza.openstack.charm_tests.keystone.setup.add_demo_user
     - zaza.openstack.charm_tests.keystone.setup.add_tempest_roles
+  - train-to-ussuri: *configure_without_vault
   - ussuri-to-victoria: &configure_with_vault
     - zaza.openstack.charm_tests.ceilometer.setup.basic_setup
     - zaza.openstack.charm_tests.vault.setup.auto_initialize
@@ -33,6 +35,14 @@ tests:
     - zaza.openstack.charm_tests.tempest.tests.TempestTestWithKeystoneV3
     # NOTE(lourot): the openstack-upgrade action on `keystone` fails on
     # `keystone-manage bootstrap ...`. See lp:1901982
+    # - zaza.openstack.charm_tests.openstack_upgrade.tests.OpenStackUpgradeTestsByOption
+    # - zaza.openstack.charm_tests.tempest.tests.TempestTestWithKeystoneV3
+
+  - train-to-ussuri:
+    - zaza.openstack.charm_tests.tempest.tests.TempestTestWithKeystoneV3
+    # NOTE(lourot): at the end of the upgrade
+    # test_500_validate_openstack_upgraded_cloud fails at pinging a newly
+    # created instance. See charmed-openstack-tester#60
     # - zaza.openstack.charm_tests.openstack_upgrade.tests.OpenStackUpgradeTestsByOption
     # - zaza.openstack.charm_tests.tempest.tests.TempestTestWithKeystoneV3
 
@@ -57,6 +67,7 @@ tests:
 
 smoke_bundles:
   - queens-to-rocky: kitchen-sink-bionic-queens
+  - train-to-ussuri: kitchen-sink-bionic-train
   - ussuri-to-victoria: kitchen-sink-focal-ussuri
   - victoria-to-wallaby: kitchen-sink-focal-victoria
 
@@ -91,7 +102,7 @@ tests_options:
         # charmed-openstack-tester#58
         - tempest.api.volume
         - tempest.api.compute.servers.test_create_server.ServersTestBootFromVolume
-    ussuri-to-victoria:
+    train-to-ussuri:
       smoke: True
       exclude-list: &common_tempest_exclude_list
         - octavia_tempest_plugin  # workaround for zaza-openstack-tests#603
@@ -102,6 +113,9 @@ tests_options:
         - tempest.api.identity.admin.v3.test_roles.RolesV3TestJSON.test_role_create_update_show_list
         - tempest.api.identity.admin.v3.test_services.ServicesTestJSON.test_create_update_get_service
         - tempest.api.object_storage.test_container_quotas.ContainerQuotasTest.test_upload_too_many_objects
+    ussuri-to-victoria:
+      smoke: True
+      exclude-list: *common_tempest_exclude_list
     victoria-to-wallaby:
       smoke: True
       exclude-list: *common_tempest_exclude_list
