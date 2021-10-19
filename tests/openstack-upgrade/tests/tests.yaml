@@ -53,8 +53,8 @@ tests:
     # with `Couldn't pause: Resources still running on unit`. See
     # charmed-openstack-tester#56
     - zaza.openstack.charm_tests.openstack_upgrade.tests.OpenStackUpgradeTestsByOption
-    # NOTE(lourot): test cases involving floating IPs fail at this point. See
-    # charmed-openstack-tester#57
+    # NOTE(lourot): test cases involving object storage fail at this point. See
+    # lp:1952609
     # - zaza.openstack.charm_tests.tempest.tests.TempestTestWithKeystoneV3
 
   - victoria-to-wallaby:
@@ -69,6 +69,7 @@ smoke_bundles:
   - queens-to-rocky: kitchen-sink-bionic-queens
   - train-to-ussuri: kitchen-sink-bionic-train
   - ussuri-to-victoria: kitchen-sink-focal-ussuri
+  - ussuri-to-victoria: kitchen-sink-focal-ussuri-ovn
   - victoria-to-wallaby: kitchen-sink-focal-victoria
 
 target_deploy_status:
@@ -82,6 +83,16 @@ target_deploy_status:
   ceilometer:
     workload-status: blocked
     workload-status-message: "Run the ceilometer-upgrade action on the leader to initialize ceilometer and gnocchi"
+  neutron-api-plugin-ovn:
+    workload-status: waiting
+    workload-status-message: "'certificates' awaiting server certificate data, 'ovsdb-cms' incomplete"
+  ovn-central:
+    workload-status: waiting
+    workload-status-message: "'ovsdb-peer' incomplete, 'certificates' awaiting server certificate data"
+  ovn-chassis:
+    workload-status: waiting
+    workload-status-message: "'certificates' awaiting server certificate data"
+
 tests_options:
   openstack-upgrade:
     detect-using-charm: keystone
