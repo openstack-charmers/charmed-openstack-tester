@@ -206,6 +206,7 @@ applications:
     options:
       source: ppa:simplestreams-dev/trunk
       use_swift: true
+    constraints: root-disk=8G
   octavia-diskimage-retrofit:
     charm: cs:octavia-diskimage-retrofit
     options:
