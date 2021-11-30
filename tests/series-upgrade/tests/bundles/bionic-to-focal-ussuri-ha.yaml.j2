@@ -22,7 +22,7 @@ applications:
     options:
       openstack-origin: *openstack-origin
       vip: {{ TEST_VIP00 }}
-    constraints: mem=1024
+    constraints: mem=1024 root-disk=6G
 
   aodh-hacluster:
     charm: cs:~openstack-charmers-next/hacluster
@@ -37,7 +37,7 @@ applications:
 #    num_units: 1
 #    options:
 #      openstack-origin: *openstack-origin
-#    constraints: mem=1024
+#    constraints: mem=1024 root-disk=6G
 
   ceilometer:
     charm: cs:~openstack-charmers-next/ceilometer
@@ -45,7 +45,7 @@ applications:
     options:
       openstack-origin: *openstack-origin
       vip: {{ TEST_VIP01 }}
-    constraints: mem=1024
+    constraints: mem=1024 root-disk=6G
 
   ceilometer-agent:
     charm: cs:~openstack-charmers-next/ceilometer-agent
@@ -62,13 +62,14 @@ applications:
     options:
       expected-osd-count: 3
       source: *openstack-origin
+    constraints: root-disk=6G
 
   ceph-osd:
     charm: cs:~openstack-charmers-next/ceph-osd
     num_units: 3
     options:
       source: *openstack-origin
-    constraints: mem=1024
+    constraints: mem=1024 root-disk=6G
     storage:
       osd-devices:  cinder,40G
 
@@ -80,7 +81,7 @@ applications:
       glance-api-version: 2
       openstack-origin: *openstack-origin
       vip: {{ TEST_VIP02 }}
-    constraints: mem=1024
+    constraints: mem=1024 root-disk=6G
 
   cinder-ceph:
     charm: cs:~openstack-charmers-next/cinder-ceph
@@ -108,11 +109,12 @@ applications:
       nova-domain-email: ""
       openstack-origin: *openstack-origin
       vip: {{ TEST_VIP03 }}
-    constraints: mem=1024
+    constraints: mem=1024 root-disk=6G
 
   designate-bind:
     charm: cs:~openstack-charmers-next/designate-bind
     num_units: 3
+    constraints: root-disk=6G
 
   designate-hacluster:
     charm: cs:~openstack-charmers-next/hacluster
@@ -123,6 +125,7 @@ applications:
   easyrsa:
     charm: cs:~containers/easyrsa
     num_units: 1
+    constraints: root-disk=6G
 
   etcd:
     series: bionic
@@ -130,6 +133,7 @@ applications:
     num_units: 3
     options:
       channel: 3.1/stable
+    constraints: root-disk=6G
 
   glance:
     charm: cs:~openstack-charmers-next/glance
@@ -137,7 +141,7 @@ applications:
     options:
       openstack-origin: *openstack-origin
       vip: {{ TEST_VIP04 }}
-    constraints: mem=1024
+    constraints: mem=1024 root-disk=6G
 
   glance-hacluster:
     charm: cs:~openstack-charmers-next/hacluster
@@ -151,6 +155,7 @@ applications:
     options:
       openstack-origin: *openstack-origin
       vip: {{ TEST_VIP05 }}
+    constraints: root-disk=6G
 
   gnocchi-hacluster:
     charm: cs:~openstack-charmers-next/hacluster
@@ -164,6 +169,7 @@ applications:
     options:
       openstack-origin: *openstack-origin
       vip: {{ TEST_VIP06 }}
+    constraints: root-disk=6G
 
   heat-hacluster:
     charm: cs:~openstack-charmers-next/hacluster
@@ -177,7 +183,7 @@ applications:
     options:
       openstack-origin: *openstack-origin
       vip: {{ TEST_VIP07 }}
-    constraints: mem=1024
+    constraints: mem=1024 root-disk=6G
 
   keystone-hacluster:
     charm: cs:~openstack-charmers-next/hacluster
@@ -188,10 +194,11 @@ applications:
   memcached:
     charm: cs:memcached
     num_units: 1
+    constraints: root-disk=6G
 
   percona-cluster:
     charm: cs:~openstack-charmers-next/percona-cluster
-    constraints: mem=3072M
+    constraints: mem=3072M root-disk=6G
     num_units: 1
     options:
       #vip: {{ TEST_VIP08 }}
@@ -202,6 +209,7 @@ applications:
 #    num_units: 0
 #    options:
 #      cluster_count: 3
+#   constraints: root-disk=6G
 
   neutron-api:
     charm: cs:~openstack-charmers-next/neutron-api
@@ -216,7 +224,7 @@ applications:
       openstack-origin: *openstack-origin
       reverse-dns-lookup: true
       vip: {{ TEST_VIP09 }}
-    constraints: mem=1024
+    constraints: mem=1024 root-disk=6G
 
   neutron-gateway:
     charm: cs:~openstack-charmers-next/neutron-gateway
@@ -225,7 +233,7 @@ applications:
       bridge-mappings: physnet1:br-ex
       instance-mtu: 1300
       openstack-origin: *openstack-origin
-    constraints: mem=4096
+    constraints: mem=4096 root-disk=6G
 
   neutron-hacluster:
     charm: cs:~openstack-charmers-next/hacluster
@@ -242,6 +250,7 @@ applications:
     options:
       openstack-origin: *openstack-origin
       vip: {{ TEST_VIP14 }}
+    constraints: root-disk=6G
 
   placement-hacluster:
     charm: cs:~openstack-charmers-next/hacluster
@@ -262,7 +271,7 @@ applications:
       network-manager: Neutron
       openstack-origin: *openstack-origin
       vip: {{ TEST_VIP10 }}
-    constraints: mem=2048
+    constraints: mem=2048 root-disk=6G
 
   nova-compute:
     charm: cs:~openstack-charmers-next/nova-compute
@@ -272,7 +281,7 @@ applications:
       enable-resize: true
       migration-auth-type: ssh
       openstack-origin: *openstack-origin
-    constraints: mem=4096
+    constraints: mem=4096 root-disk=6G
 
   openstack-dashboard:
     charm: cs:~openstack-charmers-next/openstack-dashboard
@@ -280,14 +289,14 @@ applications:
     options:
       openstack-origin: *openstack-origin
       vip: {{ TEST_VIP11 }}
-    constraints: mem=1024
+    constraints: mem=1024 root-disk=6G
 
   rabbitmq-server:
     charm: cs:~openstack-charmers-next/rabbitmq-server
     num_units: 1
     options:
       source: *openstack-origin
-    constraints: mem=4096
+    constraints: mem=4096 root-disk=6G
 
   swift-hacluster:
     charm: cs:~openstack-charmers-next/hacluster
@@ -304,7 +313,7 @@ applications:
       swift-hash: fdfef9d4-8b06-11e2-8ac0-531c923c8fae
       vip: {{ TEST_VIP12 }}
       zone-assignment: manual
-    constraints: mem=1024
+    constraints: mem=1024 root-disk=6G
 
   swift-storage-z1:
     charm: cs:~openstack-charmers-next/swift-storage
@@ -312,7 +321,7 @@ applications:
     options:
       openstack-origin: *openstack-origin
       zone: 1
-    constraints: mem=1024
+    constraints: mem=1024 root-disk=6G
     storage:
       block-devices:  cinder,10G
 
@@ -322,7 +331,7 @@ applications:
     options:
       openstack-origin: *openstack-origin
       zone: 2
-    constraints: mem=1024
+    constraints: mem=1024 root-disk=6G
     storage:
       block-devices:  cinder,10G
 
@@ -332,7 +341,7 @@ applications:
     options:
       openstack-origin: *openstack-origin
       zone: 3
-    constraints: mem=1024
+    constraints: mem=1024 root-disk=6G
     storage:
       block-devices:  cinder,10G
 
@@ -344,7 +353,7 @@ applications:
       ssl-cert: {{ TEST_CERT }}
       ssl-key: {{ TEST_KEY }}
       vip: {{ TEST_VIP13 }}
-    constraints: mem=1024
+    constraints: mem=1024 root-disk=6G
 
   vault-hacluster:
     charm: cs:~openstack-charmers-next/hacluster
