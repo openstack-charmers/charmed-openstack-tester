@@ -1,0 +1,41 @@
+series: focal
+variables:
+  openstack-origin: &openstack-origin cloud:focal-wallaby/proposed
+
+applications:
+  ceph-mon:
+    options:
+      source: *openstack-origin
+  ceph-osd:
+    options:
+      source: *openstack-origin
+  ceph-radosgw:
+    options:
+      source: *openstack-origin
+  cinder:
+    options:
+      openstack-origin: *openstack-origin
+  glance:
+    options:
+      openstack-origin: *openstack-origin
+  keystone:
+    options:
+      openstack-origin: *openstack-origin
+  neutron-api:
+    options:
+      openstack-origin: *openstack-origin
+  placement:
+    options:
+      openstack-origin: *openstack-origin
+  neutron-gateway:
+    options:
+      openstack-origin: *openstack-origin
+  nova-cloud-controller:
+    options:
+      openstack-origin: *openstack-origin
+  nova-compute:
+    options:
+      openstack-origin: *openstack-origin
+  rabbitmq-server:
+    options:
+      source: *openstack-origin

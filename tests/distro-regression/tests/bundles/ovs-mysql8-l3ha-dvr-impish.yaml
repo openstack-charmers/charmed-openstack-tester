@@ -1,0 +1,326 @@
+# Please refer to the OpenStack Charms Deployment Guide for more information.
+# https://docs.openstack.org/project-deploy-guide/charm-deployment-guide
+series: impish
+variables:
+  data-port: &data-port br-ex:enp3s0f0
+  worker-multiplier: &worker-multiplier 0.25
+  osd-devices: &osd-devices /dev/sdb /dev/vdb
+  expected-osd-count: &expected-osd-count 2
+  expected-mon-count: &expected-mon-count 2
+machines:
+  '0':
+    constraints: tags=uosci
+  '1':
+    constraints: tags=uosci
+  '2':
+    constraints: tags=uosci
+relations:
+- - nova-compute:amqp
+  - rabbitmq-server:amqp
+- - nova-cloud-controller:identity-service
+  - keystone:identity-service
+- - glance:identity-service
+  - keystone:identity-service
+- - neutron-api:identity-service
+  - keystone:identity-service
+- - neutron-api:amqp
+  - rabbitmq-server:amqp
+- - neutron-api:neutron-plugin-api
+  - neutron-openvswitch:neutron-plugin-api
+- - neutron-openvswitch:neutron-plugin
+  - nova-compute:neutron-plugin
+- - neutron-openvswitch:amqp
+  - rabbitmq-server:amqp
+- - neutron-gateway:quantum-network-service
+  - nova-cloud-controller:quantum-network-service
+- - neutron-gateway:amqp
+  - rabbitmq-server:amqp
+- - neutron-api:neutron-plugin-api
+  - neutron-gateway:neutron-plugin-api
+- - glance:amqp
+  - rabbitmq-server:amqp
+- - nova-cloud-controller:image-service
+  - glance:image-service
+- - nova-compute:image-service
+  - glance:image-service
+- - nova-cloud-controller:cloud-compute
+  - nova-compute:cloud-compute
+- - nova-cloud-controller:amqp
+  - rabbitmq-server:amqp
+- - nova-cloud-controller:neutron-api
+  - neutron-api:neutron-api
+- - cinder:image-service
+  - glance:image-service
+- - cinder:amqp
+  - rabbitmq-server:amqp
+- - cinder:identity-service
+  - keystone:identity-service
+- - cinder:cinder-volume-service
+  - nova-cloud-controller:cinder-volume-service
+- - cinder-ceph:storage-backend
+  - cinder:storage-backend
+- - ceph-mon:client
+  - nova-compute:ceph
+- - nova-compute:ceph-access
+  - cinder-ceph:ceph-access
+- - ceph-mon:client
+  - cinder-ceph:ceph
+- - ceph-mon:client
+  - glance:ceph
+- - ceph-osd:mon
+  - ceph-mon:osd
+- - ntp:juju-info
+  - nova-compute:juju-info
+- - ceph-radosgw:mon
+  - ceph-mon:radosgw
+- - ceph-radosgw:identity-service
+  - keystone:identity-service
+- - placement:identity-service
+  - keystone:identity-service
+- - placement:placement
+  - nova-cloud-controller:placement
+- - keystone:shared-db
+  - keystone-mysql-router:shared-db
+- - cinder:shared-db
+  - cinder-mysql-router:shared-db
+- - glance:shared-db
+  - glance-mysql-router:shared-db
+- - nova-cloud-controller:shared-db
+  - nova-mysql-router:shared-db
+- - neutron-api:shared-db
+  - neutron-mysql-router:shared-db
+- - placement:shared-db
+  - placement-mysql-router:shared-db
+- - vault:shared-db
+  - vault-mysql-router:shared-db
+- - keystone-mysql-router:db-router
+  - mysql-innodb-cluster:db-router
+- - cinder-mysql-router:db-router
+  - mysql-innodb-cluster:db-router
+- - nova-mysql-router:db-router
+  - mysql-innodb-cluster:db-router
+- - glance-mysql-router:db-router
+  - mysql-innodb-cluster:db-router
+- - neutron-mysql-router:db-router
+  - mysql-innodb-cluster:db-router
+- - placement-mysql-router:db-router
+  - mysql-innodb-cluster:db-router
+- - vault-mysql-router:db-router
+  - mysql-innodb-cluster:db-router
+- - neutron-api:certificates
+  - vault:certificates
+- - vault:certificates
+  - cinder:certificates
+- - vault:certificates
+  - glance:certificates
+- - vault:certificates
+  - keystone:certificates
+- - vault:certificates
+  - nova-cloud-controller:certificates
+- - vault:certificates
+  - placement:certificates
+- - vault:certificates
+  - ceph-radosgw:certificates
+- - vault:certificates
+  - mysql-innodb-cluster:certificates
+- - keystone:identity-service
+  - glance-simplestreams-sync:identity-service
+- - vault:certificates
+  - glance-simplestreams-sync:certificates
+
+applications:
+  ceph-mon:
+    charm: cs:ceph-mon
+    num_units: 2
+    options:
+      expected-osd-count: *expected-osd-count
+      monitor-count: *expected-mon-count
+    to:
+    - lxd:0
+    - lxd:1
+    bindings:
+      "": public-space
+  ceph-osd:
+    charm: cs:ceph-osd
+    num_units: 2
+    options:
+      osd-devices: *osd-devices
+    to:
+    - '0'
+    - '1'
+    bindings:
+      "": public-space
+  ceph-radosgw:
+    charm: cs:ceph-radosgw
+    num_units: 1
+    options:
+      ceph-osd-replication-count: *expected-osd-count
+    to:
+    - lxd:0
+    bindings:
+      "": public-space
+  cinder-mysql-router:
+    charm: cs:mysql-router
+  cinder:
+    charm: cs:cinder
+    num_units: 1
+    options:
+      block-device: None
+      glance-api-version: 2
+      ceph-osd-replication-count: *expected-osd-count
+      worker-multiplier: *worker-multiplier
+    to:
+    - lxd:2
+    bindings:
+      "": public-space
+  cinder-ceph:
+    charm: cs:cinder-ceph
+    num_units: 0
+  glance-mysql-router:
+    charm: cs:mysql-router
+  glance:
+    charm: cs:glance
+    num_units: 1
+    options:
+      ceph-osd-replication-count: *expected-osd-count
+      worker-multiplier: *worker-multiplier
+    to:
+    - lxd:2
+    bindings:
+      "": public-space
+  keystone-mysql-router:
+    charm: cs:mysql-router
+  keystone:
+    charm: cs:keystone
+    num_units: 1
+    options:
+      worker-multiplier: *worker-multiplier
+    to:
+    - lxd:0
+    bindings:
+      "": public-space
+  memcached:
+    charm: cs:~memcached-team/memcached
+    num_units: 1
+    # holding at bionic as memcached doesn't support impish yet
+    series: bionic
+    to:
+    - lxd:1
+    bindings:
+      "": public-space
+  neutron-mysql-router:
+    charm: cs:mysql-router
+  neutron-api:
+    charm: cs:neutron-api
+    num_units: 1
+    options:
+      enable-l3ha: True
+      enable-dvr: True
+      l2-population: True
+      manage-neutron-plugin-legacy-mode: True
+      neutron-security-groups: true
+      flat-network-providers: physnet1
+      enable-ml2-port-security: true
+      enable-qos: true
+      enable-vlan-trunking: true
+      worker-multiplier: *worker-multiplier
+    to:
+    - lxd:1
+    bindings:
+      "": public-space
+  placement-mysql-router:
+    charm: cs:mysql-router
+  placement:
+    charm: cs:placement
+    num_units: 1
+    options:
+      worker-multiplier: *worker-multiplier
+    to:
+    - lxd:0
+    bindings:
+      "": public-space
+  neutron-gateway:
+    charm: cs:neutron-gateway
+    num_units: 1
+    options:
+      bridge-mappings: physnet1:br-ex
+      data-port: *data-port
+      instance-mtu: 1300
+      enable-isolated-metadata: True
+      worker-multiplier: *worker-multiplier
+    to:
+    - '2'
+    bindings:
+      "": public-space
+  neutron-openvswitch:
+    charm: cs:neutron-openvswitch
+    num_units: 0
+    options:
+      enable-local-dhcp-and-metadata: True
+      data-port: *data-port
+      flat-network-providers: physnet1
+      bridge-mappings: physnet1:br-ex
+      instance-mtu: 1300
+  nova-mysql-router:
+    charm: cs:mysql-router
+  nova-cloud-controller:
+    charm: cs:nova-cloud-controller
+    num_units: 1
+    options:
+      network-manager: Neutron
+      worker-multiplier: *worker-multiplier
+    to:
+    - lxd:0
+    bindings:
+      "": public-space
+  nova-compute:
+    charm: cs:nova-compute
+    num_units: 2
+    options:
+      config-flags: default_ephemeral_format=ext4
+      enable-live-migration: true
+      enable-resize: true
+      migration-auth-type: ssh
+    to:
+    - '0'
+    - '1'
+    bindings:
+      "": public-space
+  ntp:
+    charm: cs:ntp
+    num_units: 0
+  rabbitmq-server:
+    charm: cs:rabbitmq-server
+    num_units: 1
+    to:
+    - lxd:2
+    bindings:
+      "": public-space
+  mysql-innodb-cluster:
+    charm: cs:mysql-innodb-cluster
+    num_units: 3
+    to:
+    - lxd:0
+    - lxd:1
+    - lxd:2
+    bindings:
+      "": public-space
+  vault-mysql-router:
+    charm: cs:mysql-router
+  vault:
+    charm: cs:vault
+    num_units: 1
+    to:
+    - lxd:0
+    bindings:
+      "": public-space
+  glance-simplestreams-sync:
+    charm: cs:glance-simplestreams-sync
+    num_units: 1
+    options:
+      source: ppa:simplestreams-dev/trunk
+      use_swift: true
+    to:
+    - lxd:1
+    bindings:
+      "": public-space
