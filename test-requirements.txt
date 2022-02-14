@@ -1,4 +1,5 @@
 chardet==3.0.4
+paramiko<2.9.0  # tempest tests fail to ssh into instances with 2.9.1
 git+https://opendev.org/openstack/tempest.git#egg=tempest;python_version>='3.6'
 tempest;python_version<'3.6'
 git+https://github.com/openstack-charmers/zaza.git#egg=zaza
