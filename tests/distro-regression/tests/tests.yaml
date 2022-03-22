@@ -17,6 +17,8 @@ smoke_bundles:
   - keystone_v3_smoke_focal: hirsute-wallaby
   - keystone_v3_smoke_focal: focal-xena
   - keystone_v3_smoke_focal: impish-xena
+  - keystone_v3_smoke_focal: focal-yoga
+  - keystone_v3_smoke_focal: jammy-yoga
 configure:
   - keystone_v2_smoke: &configure_queens_and_older
     - zaza.openstack.charm_tests.ceilometer.setup.basic_setup
@@ -92,6 +94,7 @@ tests_options:
     - groovy-victoria
     - hirsute-wallaby
     - impish-xena
+    - jammy-yoga
 target_deploy_status:
   ceilometer:
     workload-status: blocked
