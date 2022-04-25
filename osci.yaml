@@ -1,6 +1,6 @@
 - semaphore:
     name: distro-regression
-    max: 1
+    max: 2
 - project:
     periodic-weekly:
       jobs:
