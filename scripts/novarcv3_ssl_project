@@ -6,10 +6,13 @@ for param in $_OS_PARAMS; do
 done
 unset _OS_PARAMS
 
+# openstackclients snap can't read files outside the home directory.
+test -d $HOME/.cache || mkdir $HOME/.cache
+_root_ca=$HOME/.cache/openstack-root-ca.crt
+
 _keystone_ip=$(juju run $_juju_model_arg --unit keystone/leader 'unit-get private-address')
 _password=$(juju run $_juju_model_arg --unit keystone/leader 'leader-get admin_passwd')
-juju run $_juju_model_arg --unit vault/leader 'leader-get root-ca' > /tmp/root-ca.crt
-_root_ca=/tmp/root-ca.crt
+juju run $_juju_model_arg --unit vault/leader 'leader-get root-ca' > ${_root_ca}
 
 export OS_AUTH_PROTOCOL=https
 export OS_CACERT=${_root_ca}
