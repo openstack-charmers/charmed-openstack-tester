@@ -13,7 +13,7 @@ applications:
     channel: yoga/edge
   aodh-mysql-router:
     charm: ch:mysql-router
-    channel: latest/edge
+    channel: 8.0.19/edge
   barbican:
     charm: ch:barbican
     num_units: 1
@@ -23,7 +23,7 @@ applications:
     channel: yoga/edge
   barbican-mysql-router:
     charm: ch:mysql-router
-    channel: latest/edge
+    channel: 8.0.19/edge
   ceilometer:
     charm: ch:ceilometer
     num_units: 1
@@ -32,7 +32,8 @@ applications:
     constraints: mem=1024
     channel: yoga/edge
   ceilometer-agent:
-    charm: cs:~openstack-charmers-next/ceilometer-agent
+    charm: ch:ceilometer-agent
+    channel: yoga/edge
   ceph-mon:
     charm: ch:ceph-mon
     num_units: 3
@@ -64,7 +65,7 @@ applications:
     channel: yoga/edge
   cinder-mysql-router:
     charm: ch:mysql-router
-    channel: latest/edge
+    channel: 8.0.19/edge
   designate:
     charm: ch:designate
     num_units: 1
@@ -83,7 +84,7 @@ applications:
     channel: yoga/edge
   designate-mysql-router:
     charm: ch:mysql-router
-    channel: latest/edge
+    channel: 8.0.19/edge
   glance:
     charm: ch:glance
     num_units: 1
@@ -93,7 +94,7 @@ applications:
     channel: yoga/edge
   glance-mysql-router:
     charm: ch:mysql-router
-    channel: latest/edge
+    channel: 8.0.19/edge
   gnocchi:
     charm: ch:gnocchi
     num_units: 1
@@ -102,7 +103,7 @@ applications:
     channel: yoga/edge
   gnocchi-mysql-router:
     charm: ch:mysql-router
-    channel: latest/edge
+    channel: 8.0.19/edge
   heat:
     charm: ch:heat
     num_units: 1
@@ -111,7 +112,7 @@ applications:
     channel: yoga/edge
   heat-mysql-router:
     charm: ch:mysql-router
-    channel: latest/edge
+    channel: 8.0.19/edge
   keystone:
     charm: ch:keystone
     num_units: 1
@@ -122,37 +123,36 @@ applications:
     channel: yoga/edge
   keystone-mysql-router:
     charm: ch:mysql-router
-    channel: latest/edge
+    channel: 8.0.19/edge
   memcached:
     charm: ch:memcached
     num_units: 1
     constraints: mem=1024
-    # holding at bionic as memcached doesn't support focal yet
-    series: bionic
+    channel: latest/edge
   mysql-innodb-cluster:
     charm: ch:mysql-innodb-cluster
     num_units: 3
     constraints: mem=4096
-    channel: latest/edge
+    channel: 8.0.19/edge
   vault:
     charm: ch:vault
     num_units: 1
-    channel: latest/edge
+    channel: 1.7/edge
   vault-mysql-router:
     charm: ch:mysql-router
-    channel: latest/edge
+    channel: 8.0.19/edge
   ovn-central:
     charm: ch:ovn-central
     num_units: 3
     options:
       source: *openstack-origin
-    channel: latest/edge
+    channel: 22.03/edge
   neutron-api-plugin-ovn:
     charm: ch:neutron-api-plugin-ovn
     channel: yoga/edge
   ovn-chassis:
     charm: ch:ovn-chassis
-    channel: latest/edge
+    channel: 22.03/edge
   neutron-api:
     charm: ch:neutron-api
     num_units: 1
@@ -167,7 +167,7 @@ applications:
     channel: yoga/edge
   neutron-mysql-router:
     charm: ch:mysql-router
-    channel: latest/edge
+    channel: 8.0.19/edge
   nova-cloud-controller:
     charm: ch:nova-cloud-controller
     num_units: 1
@@ -188,7 +188,7 @@ applications:
     channel: yoga/edge
   nova-mysql-router:
     charm: ch:mysql-router
-    channel: latest/edge
+    channel: 8.0.19/edge
   openstack-dashboard:
     charm: ch:openstack-dashboard
     num_units: 1
@@ -205,14 +205,14 @@ applications:
     channel: yoga/edge
   placement-mysql-router:
     charm: ch:mysql-router
-    channel: latest/edge
+    channel: 8.0.19/edge
   rabbitmq-server:
     charm: ch:rabbitmq-server
     num_units: 1
     options:
       source: *source
     constraints: mem=1024
-    channel: latest/edge
+    channel: 3.9/edge
   swift-proxy:
     charm: ch:swift-proxy
     num_units: 1
@@ -263,7 +263,7 @@ applications:
     channel: yoga/edge
   octavia-mysql-router:
     charm: ch:mysql-router
-    channel: latest/edge
+    channel: 8.0.19/edge
   glance-simplestreams-sync:
     charm: ch:glance-simplestreams-sync
     num_units: 1
