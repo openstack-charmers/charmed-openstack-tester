@@ -88,6 +88,12 @@ tests_options:
       smoke: True
     keystone_v3_smoke_focal:
       smoke: True
+      include-list:
+        - "manila_tempest_tests.tests.api.admin.test_admin_actions.AdminActionsTest.*"
+        - "manila_tempest_tests.tests.api.admin.test_share_instances.ShareInstancesTest.*"
+        - "manila_tempest_tests.tests.api.admin.test_share_snapshot_instances.ShareSnapshotInstancesTest.*"
+        - "manila_tempest_tests.tests.api.admin.test_share_types.ShareTypesAdminTest.*"
+        - "manila_tempest_tests.tests.api.admin.test_shares_actions.SharesActionsAdminTest.*"
   force_deploy:
     - trusty-icehouse
     - trusty-mitaka
