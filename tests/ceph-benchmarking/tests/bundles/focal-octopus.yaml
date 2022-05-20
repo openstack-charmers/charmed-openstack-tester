@@ -19,7 +19,6 @@ machines:
   '7':
   '8':
   '9':
-  '10':
 
 applications:
 
@@ -48,9 +47,9 @@ applications:
     options:
       source: *openstack-origin
     to:
+      - '4'
       - '5'
       - '6'
-      - '7'
 
   ceph-osd:
     charm: cs:~openstack-charmers-next/ceph-osd
@@ -60,9 +59,9 @@ applications:
     storage:
       osd-devices: 10G,2
     to:
+      - '7'
       - '8'
       - '9'
-      - '10'
 
 relations:
   - - 'vault:shared-db'
