@@ -12,9 +12,7 @@ smoke_bundles:
   - keystone_v3_smoke_stein: bionic-ussuri
   - keystone_v3_smoke_focal: focal-ussuri
   - keystone_v3_smoke_focal: focal-victoria
-  - keystone_v3_smoke_focal: groovy-victoria
   - keystone_v3_smoke_focal: focal-wallaby
-  - keystone_v3_smoke_focal: hirsute-wallaby
   - keystone_v3_smoke_focal: focal-xena
   - keystone_v3_smoke_focal: impish-xena
   - keystone_v3_smoke_focal: focal-yoga
@@ -97,12 +95,7 @@ tests_options:
         - "manila_tempest_tests.tests.api.admin.test_share_types.ShareTypesAdminTest.*"
         - "manila_tempest_tests.tests.api.admin.test_shares_actions.SharesActionsAdminTest.*"
   force_deploy:
-    - trusty-icehouse
-    - trusty-mitaka
-    - groovy-victoria
-    - hirsute-wallaby
     - impish-xena
-    - jammy-yoga
     - kinetic-zed
 target_deploy_status:
   ceilometer:
