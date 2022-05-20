@@ -13,7 +13,7 @@ applications:
     channel: yoga/edge
   aodh-mysql-router:
     charm: ch:mysql-router
-    channel: 8.0.19/edge
+    channel: 8.0/edge
   barbican:
     charm: ch:barbican
     num_units: 1
@@ -23,7 +23,7 @@ applications:
     channel: yoga/edge
   barbican-mysql-router:
     charm: ch:mysql-router
-    channel: 8.0.19/edge
+    channel: 8.0/edge
   ceilometer:
     charm: ch:ceilometer
     num_units: 1
@@ -71,7 +71,7 @@ applications:
     channel: yoga/edge
   cinder-mysql-router:
     charm: ch:mysql-router
-    channel: 8.0.19/edge
+    channel: 8.0/edge
   designate:
     charm: ch:designate
     num_units: 1
@@ -90,7 +90,7 @@ applications:
     channel: yoga/edge
   designate-mysql-router:
     charm: ch:mysql-router
-    channel: 8.0.19/edge
+    channel: 8.0/edge
   glance:
     charm: ch:glance
     num_units: 1
@@ -100,7 +100,7 @@ applications:
     channel: yoga/edge
   glance-mysql-router:
     charm: ch:mysql-router
-    channel: 8.0.19/edge
+    channel: 8.0/edge
   gnocchi:
     charm: ch:gnocchi
     num_units: 1
@@ -109,7 +109,7 @@ applications:
     channel: yoga/edge
   gnocchi-mysql-router:
     charm: ch:mysql-router
-    channel: 8.0.19/edge
+    channel: 8.0/edge
   heat:
     charm: ch:heat
     num_units: 1
@@ -118,7 +118,7 @@ applications:
     channel: yoga/edge
   heat-mysql-router:
     charm: ch:mysql-router
-    channel: 8.0.19/edge
+    channel: 8.0/edge
   keystone:
     charm: ch:keystone
     num_units: 1
@@ -129,7 +129,7 @@ applications:
     channel: yoga/edge
   keystone-mysql-router:
     charm: ch:mysql-router
-    channel: 8.0.19/edge
+    channel: 8.0/edge
   manila:
     charm: ch:manila
     num_units: 1
@@ -140,7 +140,7 @@ applications:
     channel: yoga/edge
   manila-mysql-router:
     charm: ch:mysql-router
-    channel: 8.0.19/edge
+    channel: 8.0/edge
   manila-ganesha:
     charm: ch:manila-ganesha
     num_units: 1
@@ -149,7 +149,7 @@ applications:
     channel: yoga/edge
   manila-ganesha-mysql-router:
     charm: ch:mysql-router
-    channel: 8.0.19/edge
+    channel: 8.0/edge
   memcached:
     charm: ch:memcached
     num_units: 1
@@ -159,14 +159,14 @@ applications:
     charm: ch:mysql-innodb-cluster
     num_units: 3
     constraints: mem=4096
-    channel: 8.0.19/edge
+    channel: 8.0/edge
   vault:
     charm: ch:vault
     num_units: 1
     channel: 1.7/edge
   vault-mysql-router:
     charm: ch:mysql-router
-    channel: 8.0.19/edge
+    channel: 8.0/edge
   ovn-central:
     charm: ch:ovn-central
     num_units: 3
@@ -193,7 +193,7 @@ applications:
     channel: yoga/edge
   neutron-mysql-router:
     charm: ch:mysql-router
-    channel: 8.0.19/edge
+    channel: 8.0/edge
   nova-cloud-controller:
     charm: ch:nova-cloud-controller
     num_units: 1
@@ -214,7 +214,7 @@ applications:
     channel: yoga/edge
   nova-mysql-router:
     charm: ch:mysql-router
-    channel: 8.0.19/edge
+    channel: 8.0/edge
   openstack-dashboard:
     charm: ch:openstack-dashboard
     num_units: 1
@@ -231,7 +231,7 @@ applications:
     channel: yoga/edge
   placement-mysql-router:
     charm: ch:mysql-router
-    channel: 8.0.19/edge
+    channel: 8.0/edge
   rabbitmq-server:
     charm: ch:rabbitmq-server
     num_units: 1
@@ -289,7 +289,7 @@ applications:
     channel: yoga/edge
   octavia-mysql-router:
     charm: ch:mysql-router
-    channel: 8.0.19/edge
+    channel: 8.0/edge
   glance-simplestreams-sync:
     charm: ch:glance-simplestreams-sync
     num_units: 1
