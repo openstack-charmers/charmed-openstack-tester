@@ -19,6 +19,8 @@ smoke_bundles:
   - keystone_v3_smoke_focal: impish-xena
   - keystone_v3_smoke_focal: focal-yoga
   - keystone_v3_smoke_focal: jammy-yoga
+  - keystone_v3_smoke_focal: jammy-zed
+  - keystone_v3_smoke_focal: kinetic-zed
 configure:
   - keystone_v2_smoke: &configure_queens_and_older
     - zaza.openstack.charm_tests.ceilometer.setup.basic_setup
@@ -88,6 +90,12 @@ tests_options:
       smoke: True
     keystone_v3_smoke_focal:
       smoke: True
+      include-list:
+        - "manila_tempest_tests.tests.api.admin.test_admin_actions.AdminActionsTest.*"
+        - "manila_tempest_tests.tests.api.admin.test_share_instances.ShareInstancesTest.*"
+        - "manila_tempest_tests.tests.api.admin.test_share_snapshot_instances.ShareSnapshotInstancesTest.*"
+        - "manila_tempest_tests.tests.api.admin.test_share_types.ShareTypesAdminTest.*"
+        - "manila_tempest_tests.tests.api.admin.test_shares_actions.SharesActionsAdminTest.*"
   force_deploy:
     - trusty-icehouse
     - trusty-mitaka
@@ -95,6 +103,7 @@ tests_options:
     - hirsute-wallaby
     - impish-xena
     - jammy-yoga
+    - kinetic-zed
 target_deploy_status:
   ceilometer:
     workload-status: blocked

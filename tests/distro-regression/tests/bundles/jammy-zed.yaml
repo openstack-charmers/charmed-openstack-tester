@@ -1,62 +1,79 @@
 variables:
-  source: &source proposed
-  openstack-origin: &openstack-origin distro-proposed
+  source: &source cloud:jammy-zed/proposed
+  openstack-origin: &openstack-origin cloud:jammy-zed/proposed
 
-series: &series groovy
+series: &series jammy
 applications:
   aodh:
-    charm: cs:aodh
+    charm: ch:aodh
     num_units: 1
     options:
       openstack-origin: *openstack-origin
     constraints: mem=1024
+    channel: latest/edge
   aodh-mysql-router:
-    charm: cs:mysql-router
+    charm: ch:mysql-router
+    channel: latest/edge
   barbican:
-    charm: cs:barbican
+    charm: ch:barbican
     num_units: 1
     options:
       openstack-origin: *openstack-origin
     constraints: mem=1024
+    channel: latest/edge
   barbican-mysql-router:
-    charm: cs:mysql-router
+    charm: ch:mysql-router
+    channel: latest/edge
   ceilometer:
-    charm: cs:ceilometer
+    charm: ch:ceilometer
     num_units: 1
     options:
       openstack-origin: *openstack-origin
     constraints: mem=1024
+    channel: latest/edge
   ceilometer-agent:
-    charm: cs:ceilometer-agent
+    charm: ch:ceilometer-agent
+    channel: latest/edge
+  ceph-fs:
+    num_units: 1
+    charm: ch:ceph-fs
+    options:
+      source: *openstack-origin
+    channel: latest/edge
   ceph-mon:
-    charm: cs:ceph-mon
+    charm: ch:ceph-mon
     num_units: 3
     options:
       expected-osd-count: 3
       source: *source
     constraints: mem=1024
+    channel: latest/edge
   ceph-osd:
-    charm: cs:ceph-osd
+    charm: ch:ceph-osd
     num_units: 3
     options:
       source: *source
     storage:
       osd-devices: cinder,10G
     constraints: mem=1024
+    channel: latest/edge
   cinder:
-    charm: cs:cinder
+    charm: ch:cinder
     num_units: 1
     options:
       block-device: None
       glance-api-version: 2
       openstack-origin: *openstack-origin
     constraints: mem=1024
+    channel: latest/edge
   cinder-ceph:
-    charm: cs:cinder-ceph
+    charm: ch:cinder-ceph
+    channel: latest/edge
   cinder-mysql-router:
-    charm: cs:mysql-router
+    charm: ch:mysql-router
+    channel: latest/edge
   designate:
-    charm: cs:designate
+    charm: ch:designate
     num_units: 1
     options:
       nameservers: ns1.ubuntu.com.
@@ -66,68 +83,104 @@ applications:
       nova-domain-email: bob@serverstack.ubuntu.com
       openstack-origin: *openstack-origin
     constraints: mem=1024
+    channel: latest/edge
   designate-bind:
-    charm: cs:designate-bind
+    charm: ch:designate-bind
     num_units: 1
+    channel: latest/edge
   designate-mysql-router:
-    charm: cs:mysql-router
+    charm: ch:mysql-router
+    channel: latest/edge
   glance:
-    charm: cs:glance
+    charm: ch:glance
     num_units: 1
     options:
       openstack-origin: *openstack-origin
     constraints: mem=1024
+    channel: latest/edge
   glance-mysql-router:
-    charm: cs:mysql-router
+    charm: ch:mysql-router
+    channel: latest/edge
   gnocchi:
-    charm: cs:gnocchi
+    charm: ch:gnocchi
     num_units: 1
     options:
       openstack-origin: *openstack-origin
+    channel: latest/edge
   gnocchi-mysql-router:
-    charm: cs:mysql-router
+    charm: ch:mysql-router
+    channel: latest/edge
   heat:
-    charm: cs:heat
+    charm: ch:heat
     num_units: 1
     options:
       openstack-origin: *openstack-origin
+    channel: latest/edge
   heat-mysql-router:
-    charm: cs:mysql-router
+    charm: ch:mysql-router
+    channel: latest/edge
   keystone:
-    charm: cs:keystone
+    charm: ch:keystone
     num_units: 1
     options:
       admin-password: openstack
       openstack-origin: *openstack-origin
     constraints: mem=1024
+    channel: latest/edge
   keystone-mysql-router:
-    charm: cs:mysql-router
+    charm: ch:mysql-router
+    channel: latest/edge
+  manila:
+    charm: ch:manila
+    num_units: 1
+    options:
+      default-share-backend: cephfsnfs1
+      share-protocols: NFS
+      openstack-origin: *openstack-origin
+    channel: latest/edge
+  manila-mysql-router:
+    charm: ch:mysql-router
+    channel: latest/edge
+  manila-ganesha:
+    charm: ch:manila-ganesha
+    num_units: 1
+    options:
+      openstack-origin: *openstack-origin
+    channel: latest/edge
+  manila-ganesha-mysql-router:
+    charm: ch:mysql-router
+    channel: latest/edge
   memcached:
-    charm: cs:~memcached-team/memcached
+    charm: ch:memcached
     num_units: 1
     constraints: mem=1024
-    # holding at bionic as memcached doesn't support focal yet
-    series: bionic
+    channel: latest/edge
   mysql-innodb-cluster:
-    charm: cs:mysql-innodb-cluster
+    charm: ch:mysql-innodb-cluster
     num_units: 3
     constraints: mem=4096
+    channel: latest/edge
   vault:
-    charm: cs:vault
+    charm: ch:vault
     num_units: 1
+    channel: latest/edge
   vault-mysql-router:
-    charm: cs:mysql-router
+    charm: ch:mysql-router
+    channel: latest/edge
   ovn-central:
-    charm: cs:ovn-central
+    charm: ch:ovn-central
     num_units: 3
     options:
       source: *openstack-origin
+    channel: latest/edge
   neutron-api-plugin-ovn:
-    charm: cs:neutron-api-plugin-ovn
+    charm: ch:neutron-api-plugin-ovn
+    channel: latest/edge
   ovn-chassis:
-    charm: cs:ovn-chassis
+    charm: ch:ovn-chassis
+    channel: latest/edge
   neutron-api:
-    charm: cs:neutron-api
+    charm: ch:neutron-api
     num_units: 1
     options:
       neutron-security-groups: true
@@ -137,17 +190,20 @@ applications:
       enable-qos: true
       enable-vlan-trunking: true
     constraints: mem=1024
+    channel: latest/edge
   neutron-mysql-router:
-    charm: cs:mysql-router
+    charm: ch:mysql-router
+    channel: latest/edge
   nova-cloud-controller:
-    charm: cs:nova-cloud-controller
+    charm: ch:nova-cloud-controller
     num_units: 1
     options:
       network-manager: Neutron
       openstack-origin: *openstack-origin
     constraints: mem=2048
+    channel: latest/edge
   nova-compute:
-    charm: cs:nova-compute
+    charm: ch:nova-compute
     num_units: 3
     options:
       enable-live-migration: true
@@ -155,30 +211,36 @@ applications:
       migration-auth-type: ssh
       openstack-origin: *openstack-origin
     constraints: mem=4096
+    channel: latest/edge
   nova-mysql-router:
-    charm: cs:mysql-router
+    charm: ch:mysql-router
+    channel: latest/edge
   openstack-dashboard:
-    charm: cs:openstack-dashboard
+    charm: ch:openstack-dashboard
     num_units: 1
     options:
       openstack-origin: *openstack-origin
     constraints: mem=1024
+    channel: latest/edge
   placement:
-    charm: cs:placement
+    charm: ch:placement
     num_units: 1
     options:
       openstack-origin: *openstack-origin
     constraints: mem=1024
+    channel: latest/edge
   placement-mysql-router:
-    charm: cs:mysql-router
+    charm: ch:mysql-router
+    channel: latest/edge
   rabbitmq-server:
-    charm: cs:rabbitmq-server
+    charm: ch:rabbitmq-server
     num_units: 1
     options:
       source: *source
     constraints: mem=1024
+    channel: latest/edge
   swift-proxy:
-    charm: cs:swift-proxy
+    charm: ch:swift-proxy
     num_units: 1
     options:
       openstack-origin: *openstack-origin
@@ -186,8 +248,9 @@ applications:
       swift-hash: fdfef9d4-8b06-11e2-8ac0-531c923c8fae
       zone-assignment: manual
     constraints: mem=1024
+    channel: latest/edge
   swift-storage-z1:
-    charm: cs:swift-storage
+    charm: ch:swift-storage
     num_units: 1
     options:
       openstack-origin: *openstack-origin
@@ -195,8 +258,9 @@ applications:
     storage:
       block-devices: cinder,10G
     constraints: mem=1024
+    channel: latest/edge
   swift-storage-z2:
-    charm: cs:swift-storage
+    charm: ch:swift-storage
     num_units: 1
     options:
       openstack-origin: *openstack-origin
@@ -204,8 +268,9 @@ applications:
     storage:
       block-devices: cinder,10G
     constraints: mem=1024
+    channel: latest/edge
   swift-storage-z3:
-    charm: cs:swift-storage
+    charm: ch:swift-storage
     num_units: 1
     options:
       openstack-origin: *openstack-origin
@@ -213,27 +278,32 @@ applications:
     storage:
       block-devices: cinder,10G
     constraints: mem=1024
+    channel: latest/edge
   octavia:
-    charm: cs:octavia
+    charm: ch:octavia
     num_units: 1
     options:
       openstack-origin: *openstack-origin
       spare-pool-size: 2
       loadbalancer-topology: 'ACTIVE_STANDBY'
+    channel: latest/edge
   octavia-mysql-router:
-    charm: cs:mysql-router
+    charm: ch:mysql-router
+    channel: latest/edge
   glance-simplestreams-sync:
-    charm: cs:glance-simplestreams-sync
+    charm: ch:glance-simplestreams-sync
     num_units: 1
     options:
       use_swift: true
     constraints: root-disk=8G
+    channel: latest/edge
   octavia-diskimage-retrofit:
-    charm: cs:octavia-diskimage-retrofit
+    charm: ch:octavia-diskimage-retrofit
     options:
       amp-image-tag: 'octavia-amphora'
       retrofit-uca-pocket: rocky
       retrofit-series: bionic
+    channel: latest/edge
 relations:
 - - nova-cloud-controller:amqp
   - rabbitmq-server:amqp
@@ -297,6 +367,8 @@ relations:
   - nova-cloud-controller:neutron-api
 - - neutron-api:identity-service
   - keystone:identity-service
+- - ceph-mon
+  - ceph-fs
 - - ceph-osd:mon
   - ceph-mon:osd
 - - aodh:amqp
@@ -373,6 +445,8 @@ relations:
   - glance:certificates
 - - vault:certificates
   - keystone:certificates
+- - vault:certificates
+  - manila:certificates
 - - vault:certificates
   - nova-cloud-controller:certificates
 - - vault:certificates
@@ -451,3 +525,23 @@ relations:
   - octavia-diskimage-retrofit:certificates
 - - vault:certificates
   - glance-simplestreams-sync:certificates
+- - ceph-mon
+  - manila-ganesha
+- - manila:shared-db
+  - manila-mysql-router:shared-db
+- - manila-mysql-router:db-router
+  - mysql-innodb-cluster:db-router
+- - manila-ganesha
+  - rabbitmq-server
+- - manila-ganesha
+  - keystone
+- - manila
+  - manila-ganesha
+- - manila-ganesha:shared-db
+  - manila-ganesha-mysql-router:shared-db
+- - manila-ganesha-mysql-router:db-router
+  - mysql-innodb-cluster:db-router
+- - manila
+  - rabbitmq-server
+- - manila
+  - keystone
