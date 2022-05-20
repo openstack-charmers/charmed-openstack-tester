@@ -1,9 +1,4 @@
 smoke_bundles:
-  - keystone_v2_smoke: xenial-mitaka
-  - keystone_v2_smoke: xenial-newton
-  - keystone_v2_smoke: xenial-ocata
-  - keystone_v2_smoke: xenial-pike
-  - keystone_v3_smoke: xenial-queens
   - keystone_v3_smoke: bionic-queens
   - keystone_v3_smoke_rocky: bionic-rocky
   - keystone_v3_smoke_stein: bionic-stein
