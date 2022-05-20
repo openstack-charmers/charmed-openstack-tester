@@ -1,5 +1,4 @@
 smoke_bundles:
-  - keystone_v2_smoke: trusty-mitaka
   - keystone_v2_smoke: xenial-mitaka
   - keystone_v2_smoke: xenial-newton
   - keystone_v2_smoke: xenial-ocata
