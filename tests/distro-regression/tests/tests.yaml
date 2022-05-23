@@ -89,6 +89,11 @@ tests_options:
         - "manila_tempest_tests.tests.api.admin.test_share_types.ShareTypesAdminTest.*"
         - "manila_tempest_tests.tests.api.admin.test_shares_actions.SharesActionsAdminTest.*"
   force_deploy:
+    - bionic-queens
+    - bionic-rocky
+    - bionic-stein
+    - bionic-train
+    - bionic-ussuri
     - impish-xena
     - kinetic-zed
 target_deploy_status:
