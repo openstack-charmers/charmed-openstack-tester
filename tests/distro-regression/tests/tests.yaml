@@ -8,7 +8,6 @@ smoke_bundles:
   - keystone_v3_smoke_focal: focal-victoria
   - keystone_v3_smoke_focal: focal-wallaby
   - keystone_v3_smoke_focal: focal-xena
-  - keystone_v3_smoke_focal: impish-xena
   - keystone_v3_smoke_focal: focal-yoga
   - keystone_v3_smoke_focal: jammy-yoga
   - keystone_v3_smoke_focal: jammy-zed
@@ -94,7 +93,6 @@ tests_options:
     - bionic-stein
     - bionic-train
     - bionic-ussuri
-    - impish-xena
     - kinetic-zed
 target_deploy_status:
   ceilometer:
