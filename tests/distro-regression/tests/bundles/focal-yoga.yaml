@@ -10,7 +10,7 @@ applications:
     options:
       openstack-origin: *openstack-origin
     constraints: mem=1024
-    channel: yoga/edge
+    channel: yoga/stable
   aodh-mysql-router:
     charm: ch:mysql-router
     channel: 8.0/edge
@@ -20,7 +20,7 @@ applications:
     options:
       openstack-origin: *openstack-origin
     constraints: mem=1024
-    channel: yoga/edge
+    channel: yoga/stable
   barbican-mysql-router:
     charm: ch:mysql-router
     channel: 8.0/edge
@@ -30,10 +30,10 @@ applications:
     options:
       openstack-origin: *openstack-origin
     constraints: mem=1024
-    channel: yoga/edge
+    channel: yoga/stable
   ceilometer-agent:
     charm: ch:ceilometer-agent
-    channel: yoga/edge
+    channel: yoga/stable
   ceph-fs:
     num_units: 1
     charm: ch:ceph-fs
@@ -65,10 +65,10 @@ applications:
       glance-api-version: 2
       openstack-origin: *openstack-origin
     constraints: mem=1024
-    channel: yoga/edge
+    channel: yoga/stable
   cinder-ceph:
     charm: ch:cinder-ceph
-    channel: yoga/edge
+    channel: yoga/stable
   cinder-mysql-router:
     charm: ch:mysql-router
     channel: 8.0/edge
@@ -83,11 +83,11 @@ applications:
       nova-domain-email: bob@serverstack.ubuntu.com
       openstack-origin: *openstack-origin
     constraints: mem=1024
-    channel: yoga/edge
+    channel: yoga/stable
   designate-bind:
     charm: ch:designate-bind
     num_units: 1
-    channel: yoga/edge
+    channel: yoga/stable
   designate-mysql-router:
     charm: ch:mysql-router
     channel: 8.0/edge
@@ -97,7 +97,7 @@ applications:
     options:
       openstack-origin: *openstack-origin
     constraints: mem=1024
-    channel: yoga/edge
+    channel: yoga/stable
   glance-mysql-router:
     charm: ch:mysql-router
     channel: 8.0/edge
@@ -106,7 +106,7 @@ applications:
     num_units: 1
     options:
       openstack-origin: *openstack-origin
-    channel: yoga/edge
+    channel: yoga/stable
   gnocchi-mysql-router:
     charm: ch:mysql-router
     channel: 8.0/edge
@@ -115,7 +115,7 @@ applications:
     num_units: 1
     options:
       openstack-origin: *openstack-origin
-    channel: yoga/edge
+    channel: yoga/stable
   heat-mysql-router:
     charm: ch:mysql-router
     channel: 8.0/edge
@@ -126,7 +126,7 @@ applications:
       admin-password: openstack
       openstack-origin: *openstack-origin
     constraints: mem=1024
-    channel: yoga/edge
+    channel: yoga/stable
   keystone-mysql-router:
     charm: ch:mysql-router
     channel: 8.0/edge
@@ -137,7 +137,7 @@ applications:
       default-share-backend: cephfsnfs1
       share-protocols: NFS
       openstack-origin: *openstack-origin
-    channel: yoga/edge
+    channel: yoga/stable
   manila-mysql-router:
     charm: ch:mysql-router
     channel: 8.0/edge
@@ -146,7 +146,7 @@ applications:
     num_units: 1
     options:
       openstack-origin: *openstack-origin
-    channel: yoga/edge
+    channel: yoga/stable
   manila-ganesha-mysql-router:
     charm: ch:mysql-router
     channel: 8.0/edge
@@ -175,7 +175,7 @@ applications:
     channel: 22.03/edge
   neutron-api-plugin-ovn:
     charm: ch:neutron-api-plugin-ovn
-    channel: yoga/edge
+    channel: yoga/stable
   ovn-chassis:
     charm: ch:ovn-chassis
     channel: 22.03/edge
@@ -190,7 +190,7 @@ applications:
       enable-qos: true
       enable-vlan-trunking: true
     constraints: mem=1024
-    channel: yoga/edge
+    channel: yoga/stable
   neutron-mysql-router:
     charm: ch:mysql-router
     channel: 8.0/edge
@@ -201,7 +201,7 @@ applications:
       network-manager: Neutron
       openstack-origin: *openstack-origin
     constraints: mem=2048
-    channel: yoga/edge
+    channel: yoga/stable
   nova-compute:
     charm: ch:nova-compute
     num_units: 3
@@ -211,7 +211,7 @@ applications:
       migration-auth-type: ssh
       openstack-origin: *openstack-origin
     constraints: mem=4096
-    channel: yoga/edge
+    channel: yoga/stable
   nova-mysql-router:
     charm: ch:mysql-router
     channel: 8.0/edge
@@ -221,14 +221,14 @@ applications:
     options:
       openstack-origin: *openstack-origin
     constraints: mem=1024
-    channel: yoga/edge
+    channel: yoga/stable
   placement:
     charm: ch:placement
     num_units: 1
     options:
       openstack-origin: *openstack-origin
     constraints: mem=1024
-    channel: yoga/edge
+    channel: yoga/stable
   placement-mysql-router:
     charm: ch:mysql-router
     channel: 8.0/edge
@@ -248,7 +248,7 @@ applications:
       swift-hash: fdfef9d4-8b06-11e2-8ac0-531c923c8fae
       zone-assignment: manual
     constraints: mem=1024
-    channel: yoga/edge
+    channel: yoga/stable
   swift-storage-z1:
     charm: ch:swift-storage
     num_units: 1
@@ -258,7 +258,7 @@ applications:
     storage:
       block-devices: cinder,10G
     constraints: mem=1024
-    channel: yoga/edge
+    channel: yoga/stable
   swift-storage-z2:
     charm: ch:swift-storage
     num_units: 1
@@ -268,7 +268,7 @@ applications:
     storage:
       block-devices: cinder,10G
     constraints: mem=1024
-    channel: yoga/edge
+    channel: yoga/stable
   swift-storage-z3:
     charm: ch:swift-storage
     num_units: 1
@@ -278,7 +278,7 @@ applications:
     storage:
       block-devices: cinder,10G
     constraints: mem=1024
-    channel: yoga/edge
+    channel: yoga/stable
   octavia:
     charm: ch:octavia
     num_units: 1
@@ -286,7 +286,7 @@ applications:
       openstack-origin: *openstack-origin
       spare-pool-size: 2
       loadbalancer-topology: 'ACTIVE_STANDBY'
-    channel: yoga/edge
+    channel: yoga/stable
   octavia-mysql-router:
     charm: ch:mysql-router
     channel: 8.0/edge
@@ -296,14 +296,14 @@ applications:
     options:
       use_swift: true
     constraints: root-disk=8G
-    channel: yoga/edge
+    channel: yoga/stable
   octavia-diskimage-retrofit:
     charm: ch:octavia-diskimage-retrofit
     options:
       amp-image-tag: 'octavia-amphora'
       retrofit-uca-pocket: rocky
       retrofit-series: bionic
-    channel: yoga/edge
+    channel: yoga/stable
 relations:
 - - nova-cloud-controller:amqp
   - rabbitmq-server:amqp
