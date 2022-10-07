@@ -1,6 +1,7 @@
 variables:
   source: &source cloud:bionic-rocky/proposed
   openstack-origin: &openstack-origin cloud:bionic-rocky/proposed
+  retrofit-uca-pocket: &retrofit-uca-pocket rocky
 
 series: &series bionic
 applications:
@@ -239,8 +240,8 @@ applications:
     charm: ch:octavia-diskimage-retrofit
     options:
       amp-image-tag: 'octavia-amphora'
-      retrofit-uca-pocket: rocky
-      retrofit-series: bionic
+      retrofit-series: *series
+      retrofit-uca-pocket: *retrofit-uca-pocket
     channel: rocky/edge
 relations:
 - - keystone:shared-db
