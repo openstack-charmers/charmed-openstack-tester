@@ -38,7 +38,7 @@ applications:
     num_units: 1
     charm: ch:ceph-fs
     options:
-      source: *openstack-origin
+      source: *source
     channel: latest/edge
   ceph-mon:
     charm: ch:ceph-mon
