@@ -295,6 +295,10 @@ applications:
     num_units: 1
     options:
       use_swift: true
+      mirror_list: "[{url: 'http://cloud-images.ubuntu.com/releases/',
+                      name_prefix: 'ubuntu:released',
+                      path: 'streams/v1/index.sjson', max: 1,
+                      item_filters: ['release~(jammy|kinetic)', 'arch~(x86_64|amd64)', 'ftype~(disk1.img|disk.img)']}]"
     constraints: root-disk=8G
     channel: latest/edge
   octavia-diskimage-retrofit:
