@@ -5,52 +5,60 @@ variables:
 series: &series bionic
 applications:
   aodh:
-    charm: cs:aodh
+    charm: ch:aodh
     num_units: 1
     options:
       openstack-origin: *openstack-origin
     constraints: mem=1024
+    channel: rocky/edge
   barbican:
-    charm: cs:barbican
+    charm: ch:barbican
     num_units: 1
     options:
       openstack-origin: *openstack-origin
     constraints: mem=1024
+    channel: rocky/edge
   ceilometer:
-    charm: cs:ceilometer
+    charm: ch:ceilometer
     num_units: 1
     options:
       openstack-origin: *openstack-origin
     constraints: mem=1024
+    channel: rocky/edge
   ceilometer-agent:
-    charm: cs:ceilometer-agent
+    charm: ch:ceilometer-agent
+    channel: rocky/edge
   ceph-mon:
-    charm: cs:ceph-mon
+    charm: ch:ceph-mon
     num_units: 3
     options:
       expected-osd-count: 3
       source: *source
     constraints: mem=1024
+    channel: mimic/edge
   ceph-osd:
-    charm: cs:ceph-osd
+    charm: ch:ceph-osd
     num_units: 3
     options:
       source: *source
     storage:
       osd-devices: cinder,10G
     constraints: mem=4096
+    channel: mimic/edge
   cinder:
-    charm: cs:cinder
+    charm: ch:cinder
     num_units: 1
     options:
       block-device: None
       glance-api-version: 2
       openstack-origin: *openstack-origin
     constraints: mem=1024
+    channel: rocky/edge
   cinder-ceph:
-    charm: cs:cinder-ceph
+    charm: ch:cinder-ceph
+    channel: rocky/edge
   designate:
-    charm: cs:designate
+    charm: ch:designate
     num_units: 1
     options:
       nameservers: ns1.ubuntu.com.
@@ -60,38 +68,45 @@ applications:
       nova-domain-email: bob@serverstack.ubuntu.com
       openstack-origin: *openstack-origin
     constraints: mem=1024
+    channel: rocky/edge
   designate-bind:
-    charm: cs:designate-bind
+    charm: ch:designate-bind
     num_units: 1
+    channel: rocky/edge
   glance:
-    charm: cs:glance
+    charm: ch:glance
     num_units: 1
     options:
       openstack-origin: *openstack-origin
     constraints: mem=1024
+    channel: rocky/edge
   gnocchi:
-    charm: cs:gnocchi
+    charm: ch:gnocchi
     num_units: 1
     options:
       openstack-origin: *openstack-origin
+    channel: rocky/edge
   heat:
-    charm: cs:heat
+    charm: ch:heat
     num_units: 1
     options:
       openstack-origin: *openstack-origin
+    channel: rocky/edge
   keystone:
-    charm: cs:keystone
+    charm: ch:keystone
     num_units: 1
     options:
       admin-password: openstack
       openstack-origin: *openstack-origin
     constraints: mem=1024
+    channel: rocky/edge
   memcached:
-    charm: cs:memcached
+    charm: ch:memcached
     num_units: 1
     constraints: mem=1024
+    channel: latest/edge
   mysql:
-    charm: cs:percona-cluster
+    charm: ch:percona-cluster
     num_units: 1
     options:
       dataset-size: 50%
@@ -100,8 +115,9 @@ applications:
       source: *source
       sst-password: ChangeMe123
     constraints: mem=4096
+    channel: latest/edge
   neutron-api:
-    charm: cs:neutron-api
+    charm: ch:neutron-api
     num_units: 1
     options:
       enable-ml2-port-security: true
@@ -111,25 +127,29 @@ applications:
       neutron-security-groups: true
       openstack-origin: *openstack-origin
     constraints: mem=1024
+    channel: rocky/edge
   neutron-gateway:
-    charm: cs:neutron-gateway
+    charm: ch:neutron-gateway
     num_units: 1
     options:
       bridge-mappings: physnet1:br-ex
       instance-mtu: 1300
       openstack-origin: *openstack-origin
     constraints: mem=4096
+    channel: rocky/edge
   neutron-openvswitch:
-    charm: cs:neutron-openvswitch
+    charm: ch:neutron-openvswitch
+    channel: rocky/edge
   nova-cloud-controller:
-    charm: cs:nova-cloud-controller
+    charm: ch:nova-cloud-controller
     num_units: 1
     options:
       network-manager: Neutron
       openstack-origin: *openstack-origin
     constraints: mem=2048
+    channel: rocky/edge
   nova-compute:
-    charm: cs:nova-compute
+    charm: ch:nova-compute
     num_units: 3
     options:
       enable-live-migration: true
@@ -137,20 +157,23 @@ applications:
       migration-auth-type: ssh
       openstack-origin: *openstack-origin
     constraints: mem=4096
+    channel: rocky/edge
   openstack-dashboard:
-    charm: cs:openstack-dashboard
+    charm: ch:openstack-dashboard
     num_units: 1
     options:
       openstack-origin: *openstack-origin
     constraints: mem=1024
+    channel: rocky/edge
   rabbitmq-server:
-    charm: cs:rabbitmq-server
+    charm: ch:rabbitmq-server
     num_units: 1
     options:
       source: *source
     constraints: mem=1024
+    channel: 3.8/edge
   swift-proxy:
-    charm: cs:swift-proxy
+    charm: ch:swift-proxy
     num_units: 1
     options:
       openstack-origin: *openstack-origin
@@ -158,8 +181,9 @@ applications:
       swift-hash: fdfef9d4-8b06-11e2-8ac0-531c923c8fae
       zone-assignment: manual
     constraints: mem=1024
+    channel: rocky/edge
   swift-storage-z1:
-    charm: cs:swift-storage
+    charm: ch:swift-storage
     num_units: 1
     options:
       openstack-origin: *openstack-origin
@@ -167,8 +191,9 @@ applications:
     storage:
       block-devices: cinder,10G
     constraints: mem=1024
+    channel: rocky/edge
   swift-storage-z2:
-    charm: cs:swift-storage
+    charm: ch:swift-storage
     num_units: 1
     options:
       openstack-origin: *openstack-origin
@@ -176,8 +201,9 @@ applications:
     storage:
       block-devices: cinder,10G
     constraints: mem=1024
+    channel: rocky/edge
   swift-storage-z3:
-    charm: cs:swift-storage
+    charm: ch:swift-storage
     num_units: 1
     options:
       openstack-origin: *openstack-origin
@@ -185,33 +211,37 @@ applications:
     storage:
       block-devices: cinder,10G
     constraints: mem=1024
+    channel: rocky/edge
   neutron-openvswitch-octavia:
-    series: bionic
-    charm: cs:neutron-openvswitch
+    charm: ch:neutron-openvswitch
     num_units: 0
     options:
       debug: True
       prevent-arp-spoofing: False
       firewall-driver: openvswitch
+    channel: rocky/edge
   octavia:
-    charm: cs:octavia
+    charm: ch:octavia
     num_units: 1
     options:
       openstack-origin: *openstack-origin
       spare-pool-size: 2
       loadbalancer-topology: 'ACTIVE_STANDBY'
+    channel: rocky/edge
   glance-simplestreams-sync:
-    charm: cs:glance-simplestreams-sync
+    charm: ch:glance-simplestreams-sync
     num_units: 1
     options:
       use_swift: true
     constraints: root-disk=8G
+    channel: rocky/edge
   octavia-diskimage-retrofit:
-    charm: cs:octavia-diskimage-retrofit
+    charm: ch:octavia-diskimage-retrofit
     options:
       amp-image-tag: 'octavia-amphora'
       retrofit-uca-pocket: rocky
       retrofit-series: bionic
+    channel: rocky/edge
 relations:
 - - keystone:shared-db
   - mysql:shared-db
