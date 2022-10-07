@@ -60,7 +60,7 @@ applications:
       source: *source
     storage:
       osd-devices: cinder,10G
-    constraints: mem=1024
+    constraints: mem=4096
     channel: edge
   cinder:
     charm: ch:cinder
