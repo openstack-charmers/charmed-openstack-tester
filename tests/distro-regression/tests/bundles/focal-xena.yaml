@@ -1,6 +1,7 @@
 variables:
   source: &source cloud:focal-xena/proposed
   openstack-origin: &openstack-origin cloud:focal-xena/proposed
+  retrofit-uca-pocket: &retrofit-uca-pocket xena
 
 series: &series focal
 applications:
@@ -301,8 +302,8 @@ applications:
     charm: ch:octavia-diskimage-retrofit
     options:
       amp-image-tag: 'octavia-amphora'
-      retrofit-uca-pocket: rocky
-      retrofit-series: bionic
+      retrofit-series: *series
+      retrofit-uca-pocket: *retrofit-uca-pocket
     channel: xena/edge
 relations:
 - - nova-cloud-controller:amqp

@@ -1,6 +1,7 @@
 variables:
   source: &source cloud:bionic-ussuri/proposed
   openstack-origin: &openstack-origin cloud:bionic-ussuri/proposed
+  retrofit-uca-pocket: &retrofit-uca-pocket ussuri
 
 series: &series bionic
 applications:
@@ -248,8 +249,8 @@ applications:
     charm: ch:octavia-diskimage-retrofit
     options:
       amp-image-tag: 'octavia-amphora'
-      retrofit-uca-pocket: rocky
-      retrofit-series: bionic
+      retrofit-series: *series
+      retrofit-uca-pocket: *retrofit-uca-pocket
     channel: ussuri/edge
 relations:
 - - keystone:shared-db

@@ -310,8 +310,7 @@ applications:
     charm: ch:octavia-diskimage-retrofit
     options:
       amp-image-tag: 'octavia-amphora'
-      retrofit-uca-pocket: rocky
-      retrofit-series: bionic
+      retrofit-series: *series
     channel: latest/edge
 relations:
 - - nova-cloud-controller:amqp
