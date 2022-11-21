@@ -4,7 +4,6 @@
 - project:
     periodic-weekly:
       jobs:
-      - cot_distro-regression_xenial-queens
       - cot_distro-regression_bionic-queens
       - cot_distro-regression_bionic-rocky
       - cot_distro-regression_bionic-stein
@@ -12,21 +11,17 @@
       - cot_distro-regression_bionic-ussuri
       - cot_distro-regression_focal-ussuri
       - cot_distro-regression_focal-victoria
-      - cot_distro-regression_groovy-victoria
       - cot_distro-regression_focal-wallaby
-      - cot_distro-regression_hirsute-wallaby
       - cot_distro-regression_focal-xena
-      - cot_distro-regression_impish-xena
+      - cot_distro-regression_focal-yoga
+      - cot_distro-regression_jammy-yoga
+      - cot_distro-regression_jammy-zed
+      - cot_distro-regression_kinetic-zed
 - job:
     name: cot-func-target
     parent: func-target
     semaphore: distro-regression
     abstract: true
-- job:
-    name: cot_distro-regression_xenial-queens
-    parent: cot-func-target
-    vars:
-      tox_extra_args: xenial-queens
 - job:
     name: cot_distro-regression_bionic-queens
     parent: cot-func-target
@@ -63,27 +58,32 @@
     vars:
       tox_extra_args: focal-victoria
 - job:
-    name: cot_distro-regression_groovy-victoria
-    parent: cot-func-target
-    vars:
-      tox_extra_args: groovy-victoria
-- job:
     name: cot_distro-regression_focal-wallaby
     parent: cot-func-target
     vars:
       tox_extra_args: focal-wallaby
-- job:
-    name: cot_distro-regression_hirsute-wallaby
-    parent: cot-func-target
-    vars:
-      tox_extra_args: hirsute-wallaby
 - job:
     name: cot_distro-regression_focal-xena
     parent: cot-func-target
     vars:
       tox_extra_args: focal-xena
 - job:
-    name: cot_distro-regression_impish-xena
+    name: cot_distro-regression_focal-yoga
     parent: cot-func-target
     vars:
-      tox_extra_args: impish-xena
+      tox_extra_args: focal-yoga
+- job:
+    name: cot_distro-regression_jammy-yoga
+    parent: cot-func-target
+    vars:
+      tox_extra_args: jammy-yoga
+- job:
+    name: cot_distro-regression_jammy-zed
+    parent: cot-func-target
+    vars:
+      tox_extra_args: jammy-zed
+- job:
+    name: cot_distro-regression_kinetic-zed
+    parent: cot-func-target
+    vars:
+      tox_extra_args: kinetic-zed
