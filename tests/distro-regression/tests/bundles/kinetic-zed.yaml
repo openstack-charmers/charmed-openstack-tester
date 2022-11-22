@@ -13,7 +13,12 @@ applications:
     channel: latest/edge
   aodh-mysql-router:
     charm: ch:mysql-router
-    channel: latest/edge
+    # Note(coreycb): All of the following charms in this bundle are
+    # temporarily using edge instead of latest/edge as a work-around
+    # for [https://bugs.launchpad.net/juju/+bug/1996794]: ceph-fs,
+    # ceph-mon, ceph-osd, memcached, *-mysql-router, mysql-innodb-cluster,
+    # rabbitmq-server, vault.
+    channel: edge
   barbican:
     charm: ch:barbican
     num_units: 1
@@ -23,7 +28,7 @@ applications:
     channel: latest/edge
   barbican-mysql-router:
     charm: ch:mysql-router
-    channel: latest/edge
+    channel: edge
   ceilometer:
     charm: ch:ceilometer
     num_units: 1
@@ -39,7 +44,7 @@ applications:
     charm: ch:ceph-fs
     options:
       source: *openstack-origin
-    channel: latest/edge
+    channel: edge
   ceph-mon:
     charm: ch:ceph-mon
     num_units: 3
@@ -47,7 +52,7 @@ applications:
       expected-osd-count: 3
       source: *source
     constraints: mem=1024
-    channel: latest/edge
+    channel: edge
   ceph-osd:
     charm: ch:ceph-osd
     num_units: 3
@@ -56,7 +61,7 @@ applications:
     storage:
       osd-devices: cinder,10G
     constraints: mem=1024
-    channel: latest/edge
+    channel: edge
   cinder:
     charm: ch:cinder
     num_units: 1
@@ -71,7 +76,7 @@ applications:
     channel: latest/edge
   cinder-mysql-router:
     charm: ch:mysql-router
-    channel: latest/edge
+    channel: edge
   designate:
     charm: ch:designate
     num_units: 1
@@ -90,7 +95,7 @@ applications:
     channel: latest/edge
   designate-mysql-router:
     charm: ch:mysql-router
-    channel: latest/edge
+    channel: edge
   glance:
     charm: ch:glance
     num_units: 1
@@ -100,7 +105,7 @@ applications:
     channel: latest/edge
   glance-mysql-router:
     charm: ch:mysql-router
-    channel: latest/edge
+    channel: edge
   gnocchi:
     charm: ch:gnocchi
     num_units: 1
@@ -109,7 +114,7 @@ applications:
     channel: latest/edge
   gnocchi-mysql-router:
     charm: ch:mysql-router
-    channel: latest/edge
+    channel: edge
   heat:
     charm: ch:heat
     num_units: 1
@@ -118,7 +123,7 @@ applications:
     channel: latest/edge
   heat-mysql-router:
     charm: ch:mysql-router
-    channel: latest/edge
+    channel: edge
   keystone:
     charm: ch:keystone
     num_units: 1
@@ -129,7 +134,7 @@ applications:
     channel: latest/edge
   keystone-mysql-router:
     charm: ch:mysql-router
-    channel: latest/edge
+    channel: edge
   manila:
     charm: ch:manila
     num_units: 1
@@ -140,7 +145,7 @@ applications:
     channel: latest/edge
   manila-mysql-router:
     charm: ch:mysql-router
-    channel: latest/edge
+    channel: edge
   manila-ganesha:
     charm: ch:manila-ganesha
     num_units: 1
@@ -149,24 +154,24 @@ applications:
     channel: latest/edge
   manila-ganesha-mysql-router:
     charm: ch:mysql-router
-    channel: latest/edge
+    channel: edge
   memcached:
     charm: ch:memcached
     num_units: 1
     constraints: mem=1024
-    channel: latest/edge
+    channel: edge
   mysql-innodb-cluster:
     charm: ch:mysql-innodb-cluster
     num_units: 3
     constraints: mem=4096
-    channel: latest/edge
+    channel: edge
   vault:
     charm: ch:vault
     num_units: 1
-    channel: latest/edge
+    channel: edge
   vault-mysql-router:
     charm: ch:mysql-router
-    channel: latest/edge
+    channel: edge
   ovn-central:
     charm: ch:ovn-central
     num_units: 3
@@ -193,7 +198,7 @@ applications:
     channel: latest/edge
   neutron-mysql-router:
     charm: ch:mysql-router
-    channel: latest/edge
+    channel: edge
   nova-cloud-controller:
     charm: ch:nova-cloud-controller
     num_units: 1
@@ -214,7 +219,7 @@ applications:
     channel: latest/edge
   nova-mysql-router:
     charm: ch:mysql-router
-    channel: latest/edge
+    channel: edge
   openstack-dashboard:
     charm: ch:openstack-dashboard
     num_units: 1
@@ -231,14 +236,14 @@ applications:
     channel: latest/edge
   placement-mysql-router:
     charm: ch:mysql-router
-    channel: latest/edge
+    channel: edge
   rabbitmq-server:
     charm: ch:rabbitmq-server
     num_units: 1
     options:
       source: *source
     constraints: mem=1024
-    channel: latest/edge
+    channel: edge
   swift-proxy:
     charm: ch:swift-proxy
     num_units: 1
@@ -289,7 +294,7 @@ applications:
     channel: latest/edge
   octavia-mysql-router:
     charm: ch:mysql-router
-    channel: latest/edge
+    channel: edge
   glance-simplestreams-sync:
     charm: ch:glance-simplestreams-sync
     num_units: 1
