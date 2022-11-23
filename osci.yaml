@@ -20,6 +20,8 @@
       - cot_distro-regression_hirsute-wallaby
       - cot_distro-regression_focal-xena
       - cot_distro-regression_impish-xena
+      - cot_sqa-integration_jammy-yoga
+      - cot_sqa-integration_focal-yoga
 - job:
     name: cot-func-target
     parent: func-target
@@ -98,11 +100,16 @@
     vars:
       sqalab:
         lab: lab1
+        repo: git+ssh://oil-ci-bot@git.launchpad.net/solutions-qa-deployments
 - job:
     name: cot_sqa-integration_jammy-yoga
     parent: cot-sqa-integration
     vars:
       sqalab:
+        # the branch refers to a branch in {{ sqalab.repo }} which defines what the deployment looks like. 
+        # The default repo is maintained by SQA and should have up-to-date deployments. If you can't find
+        # a suitable branch in the repo, you can either contact the SQA team to create one or create
+        # a branch in your own repo (make sure to include `git+ssh://oil-ci-bot@` in the repo variable)
         branch: solutionsqa/fcb/sku/master-yoga-jammy
 - job:
     name: cot_sqa-integration_focal-yoga
