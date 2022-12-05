@@ -1,9 +1,6 @@
 - semaphore:
     name: distro-regression
     max: 2
-- semaphore:
-    name: sqa-integration
-    max: 1
 - project:
     periodic-weekly:
       jobs:
@@ -90,23 +87,3 @@
     parent: cot-func-target
     vars:
       tox_extra_args: impish-xena
-- job:
-    name: cot-sqa-integration
-    parent: sqa-integration
-    semaphore: sqa-integration
-    abstract: true
-    vars:
-      sqalab:
-        lab: lab1
-- job:
-    name: cot_sqa-integration_jammy-yoga
-    parent: cot-sqa-integration
-    vars:
-      sqalab:
-        branch: solutionsqa/fcb/sku/master-yoga-jammy
-- job:
-    name: cot_sqa-integration_focal-yoga
-    parent: cot-sqa-integration
-    vars:
-      sqalab:
-        branch: solutionsqa/fcb/sku/master-yoga-focal
