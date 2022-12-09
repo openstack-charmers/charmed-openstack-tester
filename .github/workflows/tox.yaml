@@ -26,3 +26,6 @@ jobs:
         juju bootstrap --no-gui localhost
     - name: Bundle validation with tox using dry-run juju deploy
       run: tox -e lint
+    - name: consider debugging
+      uses: lhotari/action-upterm@v1
+      if: failure()
