@@ -1,6 +1,7 @@
 variables:
   source: &source cloud:jammy-zed/proposed
   openstack-origin: &openstack-origin cloud:jammy-zed/proposed
+  retrofit-uca-pocket: &retrofit-uca-pocket zed
 
 series: &series jammy
 applications:
@@ -301,8 +302,8 @@ applications:
     charm: ch:octavia-diskimage-retrofit
     options:
       amp-image-tag: 'octavia-amphora'
-      retrofit-uca-pocket: rocky
-      retrofit-series: bionic
+      retrofit-series: *series
+      retrofit-uca-pocket: *retrofit-uca-pocket
     channel: latest/edge
 relations:
 - - nova-cloud-controller:amqp
