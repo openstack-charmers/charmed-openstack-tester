@@ -17,8 +17,6 @@
       - cot_distro-regression_jammy-yoga
       - cot_distro-regression_jammy-zed
       - cot_distro-regression_kinetic-zed
-      - cot_sqa-integration_jammy-yoga
-      - cot_sqa-integration_focal-yoga
 - job:
     name: cot-func-target
     parent: func-target
