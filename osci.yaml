@@ -28,64 +28,64 @@
     name: cot_distro-regression_bionic-queens
     parent: cot-func-target
     vars:
-      tox_extra_args: bionic-queens
+      tox_extra_args: '-- bionic-queens'
 - job:
     name: cot_distro-regression_bionic-rocky
     parent: cot-func-target
     vars:
-      tox_extra_args: bionic-rocky
+      tox_extra_args: '-- bionic-rocky'
 - job:
     name: cot_distro-regression_bionic-stein
     parent: cot-func-target
     vars:
-      tox_extra_args: bionic-stein
+      tox_extra_args: '-- bionic-stein'
 - job:
     name: cot_distro-regression_bionic-train
     parent: cot-func-target
     vars:
-      tox_extra_args: bionic-train
+      tox_extra_args: '-- bionic-train'
 - job:
     name: cot_distro-regression_bionic-ussuri
     parent: cot-func-target
     vars:
-      tox_extra_args: bionic-ussuri
+      tox_extra_args: '-- bionic-ussuri'
 - job:
     name: cot_distro-regression_focal-ussuri
     parent: cot-func-target
     vars:
-      tox_extra_args: focal-ussuri
+      tox_extra_args: '-- focal-ussuri'
 - job:
     name: cot_distro-regression_focal-victoria
     parent: cot-func-target
     vars:
-      tox_extra_args: focal-victoria
+      tox_extra_args: '-- focal-victoria'
 - job:
     name: cot_distro-regression_focal-wallaby
     parent: cot-func-target
     vars:
-      tox_extra_args: focal-wallaby
+      tox_extra_args: '-- focal-wallaby'
 - job:
     name: cot_distro-regression_focal-xena
     parent: cot-func-target
     vars:
-      tox_extra_args: focal-xena
+      tox_extra_args: '-- focal-xena'
 - job:
     name: cot_distro-regression_focal-yoga
     parent: cot-func-target
     vars:
-      tox_extra_args: focal-yoga
+      tox_extra_args: '-- focal-yoga'
 - job:
     name: cot_distro-regression_jammy-yoga
     parent: cot-func-target
     vars:
-      tox_extra_args: jammy-yoga
+      tox_extra_args: '-- jammy-yoga'
 - job:
     name: cot_distro-regression_jammy-zed
     parent: cot-func-target
     vars:
-      tox_extra_args: jammy-zed
+      tox_extra_args: '-- jammy-zed'
 - job:
     name: cot_distro-regression_kinetic-zed
     parent: cot-func-target
     vars:
-      tox_extra_args: kinetic-zed
+      tox_extra_args: '-- kinetic-zed'
