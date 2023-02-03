@@ -1,6 +1,12 @@
 variables:
   source: &source proposed
   openstack-origin: &openstack-origin distro-proposed
+  # Set retrofit-series to jammy because kinetic images aren't
+  # available by default.
+  # retrofit-series: &retrofit-series jammy
+  # Set retrofit-series to focal to work-around the following bug:
+  # https://bugs.launchpad.net/snap-octavia-diskimage-retrofit/+bug/1995130
+  retrofit-series: &retrofit-series focal
 
 series: &series kinetic
 applications:
@@ -13,12 +19,7 @@ applications:
     channel: latest/edge
   aodh-mysql-router:
     charm: ch:mysql-router
-    # Note(coreycb): All of the following charms in this bundle are
-    # temporarily using edge instead of latest/edge as a work-around
-    # for [https://bugs.launchpad.net/juju/+bug/1996794]: ceph-fs,
-    # ceph-mon, ceph-osd, memcached, *-mysql-router, mysql-innodb-cluster,
-    # rabbitmq-server, vault.
-    channel: edge
+    channel: latest/edge
   barbican:
     charm: ch:barbican
     num_units: 1
@@ -28,7 +29,7 @@ applications:
     channel: latest/edge
   barbican-mysql-router:
     charm: ch:mysql-router
-    channel: edge
+    channel: latest/edge
   ceilometer:
     charm: ch:ceilometer
     num_units: 1
@@ -42,26 +43,35 @@ applications:
   ceph-fs:
     num_units: 1
     charm: ch:ceph-fs
+    # Use jammy until this bug is fixed:
+    # https://bugs.launchpad.net/charm-ceph-osd/+bug/2004945
+    series: jammy
     options:
       source: *source
-    channel: edge
+    channel: latest/edge
   ceph-mon:
     charm: ch:ceph-mon
     num_units: 3
+    # Use jammy until this bug is fixed:
+    # https://bugs.launchpad.net/charm-ceph-osd/+bug/2004945
+    series: jammy
     options:
       expected-osd-count: 3
       source: *source
     constraints: mem=1024
-    channel: edge
+    channel: latest/edge
   ceph-osd:
     charm: ch:ceph-osd
     num_units: 3
+    # Use jammy until this bug is fixed:
+    # https://bugs.launchpad.net/charm-ceph-osd/+bug/2004945
+    series: jammy
     options:
       source: *source
     storage:
       osd-devices: cinder,10G
     constraints: mem=4096
-    channel: edge
+    channel: latest/edge
   cinder:
     charm: ch:cinder
     num_units: 1
@@ -76,7 +86,7 @@ applications:
     channel: latest/edge
   cinder-mysql-router:
     charm: ch:mysql-router
-    channel: edge
+    channel: latest/edge
   designate:
     charm: ch:designate
     num_units: 1
@@ -95,7 +105,7 @@ applications:
     channel: latest/edge
   designate-mysql-router:
     charm: ch:mysql-router
-    channel: edge
+    channel: latest/edge
   glance:
     charm: ch:glance
     num_units: 1
@@ -105,7 +115,7 @@ applications:
     channel: latest/edge
   glance-mysql-router:
     charm: ch:mysql-router
-    channel: edge
+    channel: latest/edge
   gnocchi:
     charm: ch:gnocchi
     num_units: 1
@@ -114,7 +124,7 @@ applications:
     channel: latest/edge
   gnocchi-mysql-router:
     charm: ch:mysql-router
-    channel: edge
+    channel: latest/edge
   heat:
     charm: ch:heat
     num_units: 1
@@ -123,7 +133,7 @@ applications:
     channel: latest/edge
   heat-mysql-router:
     charm: ch:mysql-router
-    channel: edge
+    channel: latest/edge
   keystone:
     charm: ch:keystone
     num_units: 1
@@ -134,7 +144,7 @@ applications:
     channel: latest/edge
   keystone-mysql-router:
     charm: ch:mysql-router
-    channel: edge
+    channel: latest/edge
   manila:
     charm: ch:manila
     num_units: 1
@@ -145,7 +155,7 @@ applications:
     channel: latest/edge
   manila-mysql-router:
     charm: ch:mysql-router
-    channel: edge
+    channel: latest/edge
   manila-ganesha:
     charm: ch:manila-ganesha
     num_units: 1
@@ -154,24 +164,25 @@ applications:
     channel: latest/edge
   manila-ganesha-mysql-router:
     charm: ch:mysql-router
-    channel: edge
+    channel: latest/edge
   memcached:
     charm: ch:memcached
     num_units: 1
     constraints: mem=1024
-    channel: edge
+    channel: latest/edge
+    series: jammy
   mysql-innodb-cluster:
     charm: ch:mysql-innodb-cluster
     num_units: 3
     constraints: mem=4096
-    channel: edge
+    channel: latest/edge
   vault:
     charm: ch:vault
     num_units: 1
-    channel: edge
+    channel: latest/edge
   vault-mysql-router:
     charm: ch:mysql-router
-    channel: edge
+    channel: latest/edge
   ovn-central:
     charm: ch:ovn-central
     num_units: 3
@@ -198,7 +209,7 @@ applications:
     channel: latest/edge
   neutron-mysql-router:
     charm: ch:mysql-router
-    channel: edge
+    channel: latest/edge
   nova-cloud-controller:
     charm: ch:nova-cloud-controller
     num_units: 1
@@ -219,7 +230,7 @@ applications:
     channel: latest/edge
   nova-mysql-router:
     charm: ch:mysql-router
-    channel: edge
+    channel: latest/edge
   openstack-dashboard:
     charm: ch:openstack-dashboard
     num_units: 1
@@ -236,14 +247,14 @@ applications:
     channel: latest/edge
   placement-mysql-router:
     charm: ch:mysql-router
-    channel: edge
+    channel: latest/edge
   rabbitmq-server:
     charm: ch:rabbitmq-server
     num_units: 1
     options:
       source: *source
     constraints: mem=1024
-    channel: edge
+    channel: latest/edge
   swift-proxy:
     charm: ch:swift-proxy
     num_units: 1
@@ -294,23 +305,19 @@ applications:
     channel: latest/edge
   octavia-mysql-router:
     charm: ch:mysql-router
-    channel: edge
+    channel: latest/edge
   glance-simplestreams-sync:
     charm: ch:glance-simplestreams-sync
     num_units: 1
     options:
       use_swift: true
-      mirror_list: "[{url: 'http://cloud-images.ubuntu.com/releases/',
-                      name_prefix: 'ubuntu:released',
-                      path: 'streams/v1/index.sjson', max: 1,
-                      item_filters: ['release~(jammy|kinetic)', 'arch~(x86_64|amd64)', 'ftype~(disk1.img|disk.img)']}]"
     constraints: root-disk=8G
     channel: latest/edge
   octavia-diskimage-retrofit:
     charm: ch:octavia-diskimage-retrofit
     options:
       amp-image-tag: 'octavia-amphora'
-      retrofit-series: *series
+      retrofit-series: *retrofit-series
     channel: latest/edge
 relations:
 - - nova-cloud-controller:amqp
