@@ -1,6 +1,10 @@
 variables:
   source: &source proposed
   openstack-origin: &openstack-origin distro-proposed
+  # retrofit-series: &retrofit-series jammy
+  # Set retrofit-series to focal to work-around the following bug:
+  # https://bugs.launchpad.net/snap-octavia-diskimage-retrofit/+bug/1995130
+  retrofit-series: &retrofit-series focal
 
 series: &series jammy
 applications:
@@ -301,7 +305,7 @@ applications:
     charm: ch:octavia-diskimage-retrofit
     options:
       amp-image-tag: 'octavia-amphora'
-      retrofit-series: *series
+      retrofit-series: *retrofit-series
     channel: yoga/edge
 relations:
 - - nova-cloud-controller:amqp

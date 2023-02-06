@@ -1,7 +1,11 @@
 variables:
   source: &source cloud:jammy-antelope/proposed
   openstack-origin: &openstack-origin cloud:jammy-antelope/proposed
-  retrofit-uca-pocket: &retrofit-uca-pocket antelope
+  # retrofit-series: &retrofit-series jammy
+  # retrofit-uca-pocket: &retrofit-uca-pocket antelope
+  # Set retrofit-series to focal to work-around the following bug:
+  # https://bugs.launchpad.net/snap-octavia-diskimage-retrofit/+bug/1995130
+  retrofit-series: &retrofit-series focal
 
 series: &series jammy
 applications:
@@ -300,8 +304,10 @@ applications:
     charm: ch:octavia-diskimage-retrofit
     options:
       amp-image-tag: 'octavia-amphora'
-      retrofit-series: *series
-      retrofit-uca-pocket: *retrofit-uca-pocket
+      retrofit-series: *retrofit-series
+      # Disable retrofit-uca-pocket until the following bug is fixed:
+      # https://bugs.launchpad.net/snap-octavia-diskimage-retrofit/+bug/1995130
+      # retrofit-uca-pocket: *retrofit-uca-pocket
     channel: latest/edge
 relations:
 - - nova-cloud-controller:amqp
