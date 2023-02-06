@@ -11,7 +11,9 @@ smoke_bundles:
   - keystone_v3_smoke_focal: focal-yoga
   - keystone_v3_smoke_focal: jammy-yoga
   - keystone_v3_smoke_focal: jammy-zed
+  - keystone_v3_smoke_focal: jammy-antelope
   - keystone_v3_smoke_focal: kinetic-zed
+  - keystone_v3_smoke_focal: lunar-antelope
 configure:
   - keystone_v2_smoke: &configure_queens_and_older
     - zaza.openstack.charm_tests.ceilometer.setup.basic_setup
@@ -87,6 +89,11 @@ tests_options:
         - "manila_tempest_tests.tests.api.admin.test_share_snapshot_instances.ShareSnapshotInstancesTest.*"
         - "manila_tempest_tests.tests.api.admin.test_share_types.ShareTypesAdminTest.*"
         - "manila_tempest_tests.tests.api.admin.test_shares_actions.SharesActionsAdminTest.*"
+      exclude-list:
+        # Exclude the known failures due to issues with octavia/manila policy
+        - "manila_tempest_tests.tests.api.admin.test_share_networks.ShareNetworkAdminTest"
+        - "manila_tempest_tests.tests.api.test_share_networks.ShareNetworksTest"
+        - "octavia_tempest_plugin.tests.scenario.v2.test_traffic_ops.TrafficOperationsScenarioTest"
   force_deploy:
     - bionic-queens
     - bionic-rocky
@@ -94,6 +101,7 @@ tests_options:
     - bionic-train
     - bionic-ussuri
     - kinetic-zed
+    - lunar-antelope
 target_deploy_status:
   ceilometer:
     workload-status: blocked

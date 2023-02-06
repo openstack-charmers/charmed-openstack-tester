@@ -1,9 +1,14 @@
 variables:
-  source: &source cloud:jammy-zed/proposed
-  openstack-origin: &openstack-origin cloud:jammy-zed/proposed
-  retrofit-uca-pocket: &retrofit-uca-pocket zed
+  source: &source proposed
+  openstack-origin: &openstack-origin distro-proposed
+  # Set retrofit-series to jammy because kinetic images aren't
+  # available by default.
+  # retrofit-series: &retrofit-series jammy
+  # Set retrofit-series to focal to work-around the following bug:
+  # https://bugs.launchpad.net/snap-octavia-diskimage-retrofit/+bug/1995130
+  retrofit-series: &retrofit-series focal
 
-series: &series jammy
+series: &series lunar
 applications:
   aodh:
     charm: ch:aodh
@@ -38,12 +43,18 @@ applications:
   ceph-fs:
     num_units: 1
     charm: ch:ceph-fs
+    # Use jammy until this bug is fixed:
+    # https://bugs.launchpad.net/charm-ceph-osd/+bug/2004945
+    series: jammy
     options:
       source: *source
     channel: latest/edge
   ceph-mon:
     charm: ch:ceph-mon
     num_units: 3
+    # Use jammy until this bug is fixed:
+    # https://bugs.launchpad.net/charm-ceph-osd/+bug/2004945
+    series: jammy
     options:
       expected-osd-count: 3
       source: *source
@@ -52,6 +63,9 @@ applications:
   ceph-osd:
     charm: ch:ceph-osd
     num_units: 3
+    # Use jammy until this bug is fixed:
+    # https://bugs.launchpad.net/charm-ceph-osd/+bug/2004945
+    series: jammy
     options:
       source: *source
     storage:
@@ -156,6 +170,7 @@ applications:
     num_units: 1
     constraints: mem=1024
     channel: latest/edge
+    series: jammy
   mysql-innodb-cluster:
     charm: ch:mysql-innodb-cluster
     num_units: 3
@@ -236,6 +251,8 @@ applications:
   rabbitmq-server:
     charm: ch:rabbitmq-server
     num_units: 1
+    options:
+      source: *source
     constraints: mem=1024
     channel: latest/edge
   swift-proxy:
@@ -300,8 +317,7 @@ applications:
     charm: ch:octavia-diskimage-retrofit
     options:
       amp-image-tag: 'octavia-amphora'
-      retrofit-series: *series
-      retrofit-uca-pocket: *retrofit-uca-pocket
+      retrofit-series: *retrofit-series
     channel: latest/edge
 relations:
 - - nova-cloud-controller:amqp

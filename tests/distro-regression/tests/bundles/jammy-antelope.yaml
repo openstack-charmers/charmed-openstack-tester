@@ -1,7 +1,7 @@
 variables:
-  source: &source cloud:jammy-zed/proposed
-  openstack-origin: &openstack-origin cloud:jammy-zed/proposed
-  retrofit-uca-pocket: &retrofit-uca-pocket zed
+  source: &source cloud:jammy-antelope/proposed
+  openstack-origin: &openstack-origin cloud:jammy-antelope/proposed
+  retrofit-uca-pocket: &retrofit-uca-pocket antelope
 
 series: &series jammy
 applications:
