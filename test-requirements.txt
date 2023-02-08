@@ -14,3 +14,4 @@ cinder-tempest-plugin;python_version<'3.6'
 designate-tempest-plugin;python_version<'3.6'
 setuptools<50.0.0  # https://github.com/pypa/setuptools/commit/04e3df22df840c6bb244e9b27bc56750c44b7c85
 octavia-tempest-plugin
+magnum-tempest-plugin
