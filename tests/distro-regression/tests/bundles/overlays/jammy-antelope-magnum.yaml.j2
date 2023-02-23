@@ -1,0 +1,84 @@
+# -*- mode: yaml -*-
+variables:
+  source: &source cloud:jammy-antelope/proposed
+  openstack-origin: &openstack-origin cloud:jammy-antelope/proposed
+  openstack-channel: &openstack-channel latest/edge
+
+series: &series jammy
+applications:
+  barbican:
+    charm: ch:barbican
+    num_units: 1
+    options:
+      openstack-origin: *openstack-origin
+    constraints: mem=1024
+    channel: *openstack-channel
+  barbican-mysql-router:
+    charm: ch:mysql-router
+    channel: 8.0/edge
+  heat:
+    charm: ch:heat
+    num_units: 1
+    options:
+      openstack-origin: *openstack-origin
+    channel: *openstack-channel
+  heat-mysql-router:
+    charm: ch:mysql-router
+    channel: 8.0/edge
+  magnum:
+    charm: ch:magnum
+    num_units: 1
+    options:
+      openstack-origin: *openstack-origin
+    channel: *openstack-channel
+  magnum-mysql-router:
+    charm: ch:mysql-router
+    channel: 8.0/edge
+  magnum-dashboard:
+    charm: ch:magnum-dashboard
+    channel: *openstack-channel
+
+  # these applications are defined in the main bundle, they are defined here
+  # to allow them to be referenced in the relation within this overlay
+  mysql-innodb-cluster:
+    charm: ch:mysql-innodb-cluster
+  keystone:
+    charm: ch:keystone
+  vault:
+    charm: ch:vault
+  openstack-dashboard:
+    charm: ch:openstack-dashboard
+
+relations:
+- - 'magnum:shared-db'
+  - 'magnum-mysql-router:shared-db'
+- - 'magnum-mysql-router:db-router'
+  - 'mysql-innodb-cluster:db-router'
+- - 'magnum:amqp'
+  - 'rabbitmq-server:amqp'
+- - 'magnum:identity-service'
+  - 'keystone:identity-service'
+- - 'magnum:certificates'
+  - 'vault:certificates'
+- - 'heat:amqp'
+  - 'rabbitmq-server:amqp'
+- - 'heat:identity-service'
+  - 'keystone:identity-service'
+- - 'heat:shared-db'
+  - 'heat-mysql-router:shared-db'
+- - 'heat-mysql-router:db-router'
+  - 'mysql-innodb-cluster:db-router'
+- - 'heat:certificates'
+  - 'vault:certificates'
+- - 'barbican:amqp'
+  - 'rabbitmq-server:amqp'
+- - 'barbican:identity-service'
+  - 'keystone:identity-service'
+- - 'barbican:shared-db'
+  - 'barbican-mysql-router:shared-db'
+- - 'barbican-mysql-router:db-router'
+  - 'mysql-innodb-cluster:db-router'
+- - 'barbican:certificates'
+  - 'vault:certificates'
+- - 'openstack-dashboard:dashboard-plugin'
+  - 'magnum-dashboard:dashboard'
