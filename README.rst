@@ -40,7 +40,7 @@ Deploy and test a specific bundle:
 
 .. code-block:: bash
 
-  tox -e func-target keystone_v3_smoke:bionic-ussuri
+  tox -e func-target keystone_v3_smoke_focal:jammy-yoga
 
 Deploy and test all smoke bundles:
 
