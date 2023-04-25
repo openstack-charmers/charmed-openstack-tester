@@ -36,6 +36,17 @@ Common setup:
   export TEST_CIDR_PRIV=192.168.21.0/24
   export TEST_SWIFT_IP=10.245.161.162
 
+Set up an overlay PPA on each machine in the model:
+
+.. code-block:: bash
+
+  export OVERLAY_PPA="ppa:ubuntu-security-proposed/ppa"
+  export TEST_MODEL_SETTINGS=cloudinit-userdata="#cloud-config
+  apt:
+    sources:
+      overlay-ppa:
+        source: \"$OVERLAY_PPA\""
+
 Deploy and test a specific bundle:
 
 .. code-block:: bash
