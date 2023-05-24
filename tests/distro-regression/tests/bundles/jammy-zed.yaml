@@ -4,11 +4,11 @@ variables:
   retrofit-uca-pocket: &retrofit-uca-pocket zed
   openstack-channel: &openstack-channel zed/edge
   ceph-channel: &ceph-channel quincy/edge
-  ovn-channel: &ovn-channel 23.03/edge
+  ovn-channel: &ovn-channel 22.09/edge
   mysql-channel: &mysql-channel 8.0/edge
   rabbitmq-channel: &rabbitmq-channel 3.9/edge
   memcached-channel: &memcached-channel latest/edge
-  vault-channel: &vault-channel 1.8/edge
+  vault-channel: &vault-channel 1.7/edge
 
 series: &series jammy
 applications:
