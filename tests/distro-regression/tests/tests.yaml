@@ -12,8 +12,10 @@ smoke_bundles:
   - keystone_v3_smoke_focal: jammy-yoga
   - keystone_v3_smoke_focal: jammy-zed
   - keystone_v3_smoke_focal: jammy-antelope
+  - keystone_v3_smoke_focal: jammy-bobcat
   - keystone_v3_smoke_focal: kinetic-zed
   - keystone_v3_smoke_focal: lunar-antelope
+  - keystone_v3_smoke_focal: mantic-bobcat
   - keystone_v3_smoke_focal_magnum: focal-ussuri-magnum
   - keystone_v3_smoke_focal_magnum: focal-victoria-magnum
   - keystone_v3_smoke_focal_magnum: focal-wallaby-magnum

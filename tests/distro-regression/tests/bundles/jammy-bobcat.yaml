@@ -1,21 +1,16 @@
 variables:
-  source: &source proposed
-  openstack-origin: &openstack-origin distro-proposed
-  # Set retrofit-series to jammy because kinetic images aren't
-  # available by default.
-  # retrofit-series: &retrofit-series jammy
-  # Set retrofit-series to focal to work-around the following bug:
-  # https://bugs.launchpad.net/snap-octavia-diskimage-retrofit/+bug/1995130
-  retrofit-series: &retrofit-series focal
-  openstack-channel: &openstack-channel zed/edge
-  ceph-channel: &ceph-channel quincy/edge
-  ovn-channel: &ovn-channel 23.03/edge
+  source: &source cloud:jammy-bobcat/proposed
+  openstack-origin: &openstack-origin cloud:jammy-bobcat/proposed
+  retrofit-uca-pocket: &retrofit-uca-pocket bobcat
+  openstack-channel: &openstack-channel latest/edge
+  ceph-channel: &ceph-channel latest/edge
+  ovn-channel: &ovn-channel latest/edge
   mysql-channel: &mysql-channel latest/edge
   rabbitmq-channel: &rabbitmq-channel latest/edge
   memcached-channel: &memcached-channel latest/edge
   vault-channel: &vault-channel latest/edge
 
-series: &series kinetic
+series: &series jammy
 applications:
   aodh:
     charm: ch:aodh
@@ -50,18 +45,12 @@ applications:
   ceph-fs:
     num_units: 1
     charm: ch:ceph-fs
-    # Use jammy until this bug is fixed:
-    # https://bugs.launchpad.net/charm-ceph-osd/+bug/2004945
-    series: jammy
     options:
       source: *source
     channel: *ceph-channel
   ceph-mon:
     charm: ch:ceph-mon
     num_units: 3
-    # Use jammy until this bug is fixed:
-    # https://bugs.launchpad.net/charm-ceph-osd/+bug/2004945
-    series: jammy
     options:
       expected-osd-count: 3
       source: *source
@@ -70,9 +59,6 @@ applications:
   ceph-osd:
     charm: ch:ceph-osd
     num_units: 3
-    # Use jammy until this bug is fixed:
-    # https://bugs.launchpad.net/charm-ceph-osd/+bug/2004945
-    series: jammy
     options:
       source: *source
     storage:
@@ -177,7 +163,6 @@ applications:
     num_units: 1
     constraints: mem=1024
     channel: *memcached-channel
-    series: jammy
   mysql-innodb-cluster:
     charm: ch:mysql-innodb-cluster
     num_units: 3
@@ -258,8 +243,6 @@ applications:
   rabbitmq-server:
     charm: ch:rabbitmq-server
     num_units: 1
-    options:
-      source: *source
     constraints: mem=1024
     channel: *rabbitmq-channel
   swift-proxy:
@@ -324,7 +307,8 @@ applications:
     charm: ch:octavia-diskimage-retrofit
     options:
       amp-image-tag: 'octavia-amphora'
-      retrofit-series: *retrofit-series
+      retrofit-series: *series
+      retrofit-uca-pocket: *retrofit-uca-pocket
     channel: *openstack-channel
 relations:
 - - nova-cloud-controller:amqp
