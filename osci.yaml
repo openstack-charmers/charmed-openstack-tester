@@ -87,3 +87,13 @@
     parent: cot-func-target
     vars:
       tox_extra_args: '-- kinetic-zed'
+- job:
+    name: cot_distro-regression_jammy-antelope
+    parent: cot-func-target
+    vars:
+      tox_extra_args: '-- jammy-antelope'
+- job:
+    name: cot_distro-regression_lunar-antelope
+    parent: cot-func-target
+    vars:
+      tox_extra_args: '-- lunar-antelope'
