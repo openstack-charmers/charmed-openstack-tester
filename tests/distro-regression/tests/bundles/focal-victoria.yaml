@@ -175,7 +175,7 @@ applications:
     options:
       network-manager: Neutron
       openstack-origin: *openstack-origin
-    constraints: mem=2048
+    constraints: mem=4096
     channel: victoria/edge
   nova-compute:
     charm: ch:nova-compute
