@@ -36,17 +36,6 @@ Common setup:
   export TEST_CIDR_PRIV=192.168.21.0/24
   export TEST_SWIFT_IP=10.245.161.162
 
-Set up an overlay PPA on each machine in the model:
-
-.. code-block:: bash
-
-  export OVERLAY_PPA="ppa:ubuntu-security-proposed/ppa"
-  export TEST_MODEL_SETTINGS=cloudinit-userdata="#cloud-config
-  apt:
-    sources:
-      overlay-ppa:
-        source: \"$OVERLAY_PPA\""
-
 Deploy and test a specific bundle:
 
 .. code-block:: bash
@@ -119,6 +108,17 @@ Client environment auth scripts are located in the scripts directory for manuall
   # For focal-ussuri and above
   source scripts/novarcv3_ssl_domain
   source scripts/novarcv3_ssl_domain
+
+Test with an Overlay PPA
+========================
+
+Set up an overlay PPA on each machine in the model:
+
+.. code-block:: yaml
+
+  tests_options:
+    overlay_ppas:
+      - ppa:ubuntu-security-proposed/ppa
 
 Contact
 =======
