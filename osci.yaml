@@ -1,6 +1,9 @@
 - semaphore:
     name: distro-regression
     max: 2
+- semaphore:
+    name: security-distro-regression
+    max: 2
 - project:
     periodic-weekly:
       jobs:
@@ -17,6 +20,12 @@
       - cot_distro-regression_focal-yoga
       - cot_distro-regression_jammy-yoga
       - cot_distro-regression_jammy-zed
+      - cot_distro-regression_jammy-antelope
+      - cot_distro-regression_lunar-antelope
+      - cot_security-distro-regression_bionic-queens
+      - cot_security-distro-regression_focal-ussuri
+      - cot_security-distro-regression_jammy-yoga
+      - cot_security-distro-regression_lunar-antelope
 - job:
     name: cot-func-target
     parent: func-target
@@ -95,5 +104,30 @@
 - job:
     name: cot_distro-regression_lunar-antelope
     parent: cot-func-target
+    vars:
+      tox_extra_args: '-- lunar-antelope'
+- job:
+    name: cot-security-distro-regression
+    parent: security-distro-regression
+    semaphore: security-distro-regression
+    abstract: true
+- job:
+    name: cot_security-distro-regression_bionic-queens
+    parent: cot-security-distro-regression
+    vars:
+      tox_extra_args: '-- bionic-queens'
+- job:
+    name: cot_security-distro-regression_focal-ussuri
+    parent: cot-security-distro-regression
+    vars:
+      tox_extra_args: '-- focal-ussuri'
+- job:
+    name: cot_security-distro-regression_jammy-yoga
+    parent: cot-security-distro-regression
+    vars:
+      tox_extra_args: '-- jammy-yoga'
+- job:
+    name: cot_security-distro-regression_lunar-antelope
+    parent: cot-security-distro-regression
     vars:
       tox_extra_args: '-- lunar-antelope'
