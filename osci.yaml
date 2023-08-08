@@ -10,6 +10,7 @@
       - cot_distro-regression_bionic-train
       - cot_distro-regression_bionic-ussuri
       - cot_distro-regression_focal-ussuri
+      - cot_distro-regression_focal-ussuri-ovn-22.03
       - cot_distro-regression_focal-victoria
       - cot_distro-regression_focal-wallaby
       - cot_distro-regression_focal-xena
@@ -52,6 +53,11 @@
     parent: cot-func-target
     vars:
       tox_extra_args: '-- focal-ussuri'
+- job:
+    name: cot_distro-regression_focal-ussuri-ovn-22.03
+    parent: cot-func-target
+    vars:
+      tox_extra_args: '-- focal-ussuri-ovn-22.03'
 - job:
     name: cot_distro-regression_focal-victoria
     parent: cot-func-target
