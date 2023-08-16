@@ -17,7 +17,6 @@
       - cot_distro-regression_focal-yoga
       - cot_distro-regression_jammy-yoga
       - cot_distro-regression_jammy-zed
-      - cot_distro-regression_kinetic-zed
 - job:
     name: cot-func-target
     parent: func-target
@@ -88,11 +87,6 @@
     parent: cot-func-target
     vars:
       tox_extra_args: '-- jammy-zed'
-- job:
-    name: cot_distro-regression_kinetic-zed
-    parent: cot-func-target
-    vars:
-      tox_extra_args: '-- kinetic-zed'
 - job:
     name: cot_distro-regression_jammy-antelope
     parent: cot-func-target

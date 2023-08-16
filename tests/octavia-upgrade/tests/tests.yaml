@@ -76,16 +76,12 @@ dev_bundles:
   - octavia-charm-upgrade: octavia-focal-ussuri-ha-stable
   - octavia-charm-upgrade: octavia-focal-victora-ha-stable
   - octavia-charm-upgrade: octavia-focal-wallaby-ha-stable
-  - octavia-charm-upgrade: octavia-groovy-victora-ha-stable
-  - octavia-charm-upgrade: octavia-hirsute-wallaby-ha-stable
 
   - octavia-charm-upgrade: octavia-bionic-train-ha-stable-ovn
   - octavia-charm-upgrade: octavia-bionic-ussuri-ha-stable-ovn
   - octavia-charm-upgrade: octavia-focal-ussuri-ha-stable-ovn
   - octavia-charm-upgrade: octavia-focal-victora-ha-stable-ovn
   - octavia-charm-upgrade: octavia-focal-wallaby-ha-stable-ovn
-  - octavia-charm-upgrade: octavia-groovy-victora-ha-stable-ovn
-  - octavia-charm-upgrade: octavia-hirsute-wallaby-ha-stable-ovn
 
 target_deploy_status:
   octavia:

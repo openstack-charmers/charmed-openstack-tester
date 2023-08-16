@@ -13,7 +13,6 @@ smoke_bundles:
   - keystone_v3_smoke_focal: jammy-zed
   - keystone_v3_smoke_focal: jammy-antelope
   - keystone_v3_smoke_focal: jammy-bobcat
-  - keystone_v3_smoke_focal: kinetic-zed
   - keystone_v3_smoke_focal: lunar-antelope
   - keystone_v3_smoke_focal: mantic-bobcat
   - keystone_v3_smoke_focal_magnum: focal-ussuri-magnum
@@ -24,7 +23,6 @@ smoke_bundles:
   - keystone_v3_smoke_focal_magnum: jammy-yoga-magnum
   - keystone_v3_smoke_focal_magnum: jammy-zed-magnum
   - keystone_v3_smoke_focal_magnum: jammy-antelope-magnum
-  - keystone_v3_smoke_focal_magnum: kinetic-zed-magnum
   - keystone_v3_smoke_focal_magnum: lunar-antelope-magnum
 configure:
   - keystone_v2_smoke: &configure_queens_and_older
@@ -146,7 +144,6 @@ tests_options:
     - bionic-stein
     - bionic-train
     - bionic-ussuri
-    - kinetic-zed
     - lunar-antelope
 target_deploy_status:
   ceilometer:
