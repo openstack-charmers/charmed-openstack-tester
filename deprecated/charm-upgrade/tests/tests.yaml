@@ -19,10 +19,8 @@ tests:
 smoke_bundles:
   - kitchen-sink-focal-ussuri-stable
   - kitchen-sink-focal-victoria-stable
-  - kitchen-sink-groovy-victoria-stable
 dev_bundles:
   - kitchen-sink-focal-wallaby-stable
-  - kitchen-sink-hirsute-wallaby-stable
 target_deploy_status:
   easyrsa:
     workload-status-message: Certificate Authority connected.
