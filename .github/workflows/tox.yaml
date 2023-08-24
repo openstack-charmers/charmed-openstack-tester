@@ -23,7 +23,7 @@ jobs:
         # iptables updates to allow traffic to/from LXD bridge/external network
         sudo iptables -I DOCKER-USER -i lxdbr0 -o eth0 -j ACCEPT
         sudo iptables -I DOCKER-USER -o lxdbr0 -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT
-        juju bootstrap --no-gui localhost
+        juju bootstrap localhost
     - name: Bundle validation with tox using dry-run juju deploy
       run: tox -e lint
     - name: consider debugging
