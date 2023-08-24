@@ -5,6 +5,7 @@ smoke_bundles:
   - keystone_v3_smoke_stein: bionic-train
   - keystone_v3_smoke_stein: bionic-ussuri
   - keystone_v3_smoke_focal: focal-ussuri
+  - keystone_v3_smoke_focal: focal-ussuri-ovn-22.03
   - keystone_v3_smoke_focal: focal-victoria
   - keystone_v3_smoke_focal: focal-wallaby
   - keystone_v3_smoke_focal: focal-xena
