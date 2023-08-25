@@ -116,6 +116,9 @@ tests_options:
         - "manila_tempest_tests.tests.api.admin.test_share_snapshot_instances.ShareSnapshotInstancesTest.*"
         - "manila_tempest_tests.tests.api.admin.test_share_types.ShareTypesAdminTest.*"
         - "manila_tempest_tests.tests.api.admin.test_shares_actions.SharesActionsAdminTest.*"
+        - "watcher_tempest_plugin.tests.api"
+        - "watcher_tempest_plugin.tests.scenario.test_execute_host_maintenance"
+        - "watcher_tempest_plugin.tests.scenario.test_execute_vm_workload_consolidation"
       exclude-list:
         # Exclude the known failures due to issues with octavia/manila policy
         - "manila_tempest_tests.tests.api.admin.test_share_networks.ShareNetworkAdminTest"
