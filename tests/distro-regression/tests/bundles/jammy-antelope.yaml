@@ -290,7 +290,10 @@ applications:
     channel: *mysql-channel
   watcher:
     charm: ch:watcher
-    channel: *openstack-channel
+    # The watcher charm wasn't released during the 2023.1, although the charm
+    # available in latest/edge supports Antelope, so that's the one we are using
+    # here.
+    channel: latest/edge
     num_units: 1
     options:
       openstack-origin: *openstack-origin
