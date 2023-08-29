@@ -22,10 +22,10 @@
       - cot_distro-regression_jammy-zed
       - cot_distro-regression_jammy-antelope
       - cot_distro-regression_lunar-antelope
-      - cot_security-distro-regression_bionic-queens
-      - cot_security-distro-regression_focal-ussuri
-      - cot_security-distro-regression_jammy-yoga
-      - cot_security-distro-regression_lunar-antelope
+      - cot_distro-regression_bionic-queens-security
+      - cot_distro-regression_focal-ussuri-security
+      - cot_distro-regression_jammy-yoga-security
+      - cot_distro-regression_lunar-antelope-security
 - job:
     name: cot-func-target
     parent: func-target
@@ -107,27 +107,22 @@
     vars:
       tox_extra_args: '-- lunar-antelope'
 - job:
-    name: cot-security-distro-regression
-    parent: security-distro-regression
-    semaphore: security-distro-regression
-    abstract: true
-- job:
-    name: cot_security-distro-regression_bionic-queens
-    parent: cot-security-distro-regression
+    name: cot_distro-regression_bionic-queens-security
+    parent: cot-func-target
     vars:
-      tox_extra_args: '-- bionic-queens'
+      tox_extra_args: '-- bionic-queens-security'
 - job:
-    name: cot_security-distro-regression_focal-ussuri
-    parent: cot-security-distro-regression
+    name: cot_distro-regression_focal-ussuri-security
+    parent: cot-func-target
     vars:
-      tox_extra_args: '-- focal-ussuri'
+      tox_extra_args: '-- focal-ussuri-security'
 - job:
-    name: cot_security-distro-regression_jammy-yoga
-    parent: cot-security-distro-regression
+    name: cot_distro-regression_jammy-yoga-security
+    parent: cot-func-target
     vars:
-      tox_extra_args: '-- jammy-yoga'
+      tox_extra_args: '-- jammy-yoga-security'
 - job:
-    name: cot_security-distro-regression_lunar-antelope
-    parent: cot-security-distro-regression
+    name: cot_distro-regression_lunar-antelope-security
+    parent: cot-func-target
     vars:
-      tox_extra_args: '-- lunar-antelope'
+      tox_extra_args: '-- lunar-antelope-security'
