@@ -25,6 +25,11 @@ smoke_bundles:
   - keystone_v3_smoke_focal_magnum: jammy-zed-magnum
   - keystone_v3_smoke_focal_magnum: jammy-antelope-magnum
   - keystone_v3_smoke_focal_magnum: lunar-antelope-magnum
+  - keystone_v3_smoke_security: bionic-queens-security
+  - keystone_v3_smoke_focal_security: focal-ussuri-security
+  - keystone_v3_smoke_focal_security: jammy-yoga-security
+  - keystone_v3_smoke_focal_security: lunar-antelope-security
+  - keystone_v3_smoke_focal_security: mantic-bobcat-security
 configure:
   - keystone_v2_smoke: &configure_queens_and_older
     - zaza.openstack.charm_tests.ceilometer.setup.basic_setup
@@ -37,6 +42,7 @@ configure:
     - zaza.openstack.charm_tests.glance.setup.add_cirros_image
     - zaza.openstack.charm_tests.glance.setup.add_cirros_alt_image
   - keystone_v3_smoke: *configure_queens_and_older
+  - keystone_v3_smoke_security: *configure_queens_and_older
   - keystone_v3_smoke_rocky: &configure_rocky_to_ussuri_without_vault
     - zaza.openstack.charm_tests.ceilometer.setup.basic_setup
     - zaza.openstack.charm_tests.glance_simplestreams_sync.setup.sync_images
@@ -53,7 +59,7 @@ configure:
     - zaza.openstack.charm_tests.glance.setup.add_cirros_alt_image
     - zaza.openstack.charm_tests.octavia.setup.centralized_fip_network
   - keystone_v3_smoke_stein: *configure_rocky_to_ussuri_without_vault
-  - keystone_v3_smoke_focal:
+  - keystone_v3_smoke_focal: &configure_focal_and_later
     - zaza.openstack.charm_tests.vault.setup.auto_initialize
     - zaza.openstack.charm_tests.ceilometer.setup.basic_setup
     - zaza.openstack.charm_tests.glance_simplestreams_sync.setup.sync_images
@@ -69,6 +75,7 @@ configure:
     - zaza.openstack.charm_tests.glance.setup.add_cirros_image
     - zaza.openstack.charm_tests.glance.setup.add_cirros_alt_image
     - zaza.openstack.charm_tests.octavia.setup.centralized_fip_network
+  - keystone_v3_smoke_focal_security: *configure_focal_and_later
   - keystone_v3_smoke_focal_magnum:
     - zaza.openstack.charm_tests.vault.setup.auto_initialize
     - zaza.openstack.charm_tests.glance_simplestreams_sync.setup.sync_images
@@ -88,19 +95,31 @@ tests:
     - zaza.openstack.charm_tests.tempest.tests.TempestTestWithKeystoneV2
   - keystone_v3_smoke:
     - zaza.openstack.charm_tests.tempest.tests.TempestTestWithKeystoneV3
+  - keystone_v3_smoke_security:
+    - zaza.openstack.charm_tests.tempest.tests.TempestTestWithKeystoneV3
   - keystone_v3_smoke_rocky:
     - zaza.openstack.charm_tests.tempest.tests.TempestTestWithKeystoneV3
   - keystone_v3_smoke_stein:
     - zaza.openstack.charm_tests.tempest.tests.TempestTestWithKeystoneV3
   - keystone_v3_smoke_focal:
     - zaza.openstack.charm_tests.tempest.tests.TempestTestWithKeystoneV3
+  - keystone_v3_smoke_focal_security:
+    - zaza.openstack.charm_tests.tempest.tests.TempestTestWithKeystoneV3
   - keystone_v3_smoke_focal_magnum:
     - zaza.openstack.charm_tests.tempest.tests.TempestTestWithKeystoneV3
 tests_options:
+  keystone_v3_smoke_security:
+    overlay_ppas:
+      - ppa:ubuntu-security-proposed/ppa
+  keystone_v3_smoke_focal_security:
+    overlay_ppas:
+      - ppa:ubuntu-security-proposed/ppa
   tempest:
     keystone_v2_smoke:
       smoke: True
     keystone_v3_smoke:
+      smoke: True
+    keystone_v3_smoke_security:
       smoke: True
     keystone_v3_smoke_rocky:
       smoke: True
@@ -119,6 +138,19 @@ tests_options:
         - "watcher_tempest_plugin.tests.api"
         - "watcher_tempest_plugin.tests.scenario.test_execute_host_maintenance"
         - "watcher_tempest_plugin.tests.scenario.test_execute_vm_workload_consolidation"
+      exclude-list:
+        # Exclude the known failures due to issues with octavia/manila policy
+        - "manila_tempest_tests.tests.api.admin.test_share_networks.ShareNetworkAdminTest"
+        - "manila_tempest_tests.tests.api.test_share_networks.ShareNetworksTest"
+        - "octavia_tempest_plugin.tests.scenario.v2.test_traffic_ops.TrafficOperationsScenarioTest"
+    keystone_v3_smoke_focal_security:
+      smoke: True
+      include-list:
+        - "manila_tempest_tests.tests.api.admin.test_admin_actions.AdminActionsTest.*"
+        - "manila_tempest_tests.tests.api.admin.test_share_instances.ShareInstancesTest.*"
+        - "manila_tempest_tests.tests.api.admin.test_share_snapshot_instances.ShareSnapshotInstancesTest.*"
+        - "manila_tempest_tests.tests.api.admin.test_share_types.ShareTypesAdminTest.*"
+        - "manila_tempest_tests.tests.api.admin.test_shares_actions.SharesActionsAdminTest.*"
       exclude-list:
         # Exclude the known failures due to issues with octavia/manila policy
         - "manila_tempest_tests.tests.api.admin.test_share_networks.ShareNetworkAdminTest"
@@ -149,6 +181,7 @@ tests_options:
     - bionic-train
     - bionic-ussuri
     - lunar-antelope
+    - mantic-bobcat
 target_deploy_status:
   ceilometer:
     workload-status: blocked
