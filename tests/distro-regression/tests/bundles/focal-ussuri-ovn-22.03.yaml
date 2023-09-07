@@ -1,6 +1,7 @@
 variables:
   source: &source proposed
   openstack-origin: &openstack-origin distro-proposed
+  ovn-source: &ovn-source cloud:focal-ovn-22.03/proposed
 
 series: &series focal
 applications:
@@ -146,12 +147,15 @@ applications:
     num_units: 3
     options:
       source: *openstack-origin
+      ovn-source: *ovn-source
     channel: 22.03/edge
   neutron-api-plugin-ovn:
     charm: ch:neutron-api-plugin-ovn
     channel: ussuri/edge
   ovn-chassis:
     charm: ch:ovn-chassis
+    options:
+      ovn-source: *ovn-source
     channel: 22.03/edge
   neutron-api:
     charm: ch:neutron-api
