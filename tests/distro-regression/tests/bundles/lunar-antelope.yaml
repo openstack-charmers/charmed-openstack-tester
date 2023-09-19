@@ -7,9 +7,9 @@ variables:
   # Set retrofit-series to focal to work-around the following bug:
   # https://bugs.launchpad.net/snap-octavia-diskimage-retrofit/+bug/1995130
   retrofit-series: &retrofit-series focal
-  openstack-channel: &openstack-channel 2023.1/edge
-  ceph-channel: &ceph-channel quincy/edge
-  ovn-channel: &ovn-channel 23.03/edge
+  openstack-channel: &openstack-channel latest/edge
+  ceph-channel: &ceph-channel latest/edge
+  ovn-channel: &ovn-channel latest/edge
   mysql-channel: &mysql-channel latest/edge
   rabbitmq-channel: &rabbitmq-channel latest/edge
   memcached-channel: &memcached-channel latest/edge
