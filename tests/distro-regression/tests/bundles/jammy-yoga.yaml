@@ -54,7 +54,7 @@ applications:
     options:
       source: *source
     storage:
-      osd-devices: cinder,10G
+      osd-devices: cinder,15G
     constraints: mem=4096
     channel: quincy/edge
   cinder:
