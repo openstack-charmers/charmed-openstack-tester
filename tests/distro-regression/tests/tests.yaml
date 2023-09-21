@@ -16,15 +16,6 @@ smoke_bundles:
   - keystone_v3_smoke_focal: jammy-bobcat
   - keystone_v3_smoke_focal: lunar-antelope
   - keystone_v3_smoke_focal: mantic-bobcat
-  - keystone_v3_smoke_focal_magnum: focal-ussuri-magnum
-  - keystone_v3_smoke_focal_magnum: focal-victoria-magnum
-  - keystone_v3_smoke_focal_magnum: focal-wallaby-magnum
-  - keystone_v3_smoke_focal_magnum: focal-xena-magnum
-  - keystone_v3_smoke_focal_magnum: focal-yoga-magnum
-  - keystone_v3_smoke_focal_magnum: jammy-yoga-magnum
-  - keystone_v3_smoke_focal_magnum: jammy-zed-magnum
-  - keystone_v3_smoke_focal_magnum: jammy-antelope-magnum
-  - keystone_v3_smoke_focal_magnum: lunar-antelope-magnum
   - keystone_v3_smoke_security: bionic-queens-security
   - keystone_v3_smoke_focal_security: focal-ussuri-security
   - keystone_v3_smoke_focal_security: jammy-yoga-security
@@ -75,21 +66,9 @@ configure:
     - zaza.openstack.charm_tests.glance.setup.add_cirros_image
     - zaza.openstack.charm_tests.glance.setup.add_cirros_alt_image
     - zaza.openstack.charm_tests.octavia.setup.centralized_fip_network
-  - keystone_v3_smoke_focal_security: *configure_focal_and_later
-  - keystone_v3_smoke_focal_magnum:
-    - zaza.openstack.charm_tests.vault.setup.auto_initialize
-    - zaza.openstack.charm_tests.glance_simplestreams_sync.setup.sync_images
-    - zaza.openstack.charm_tests.glance.setup.add_lts_image
-    - zaza.openstack.charm_tests.neutron.setup.basic_overcloud_network
-    - zaza.openstack.charm_tests.nova.setup.create_flavors
-    - zaza.openstack.charm_tests.nova.setup.manage_ssh_key
-    - zaza.openstack.charm_tests.keystone.setup.add_demo_user
-    - zaza.openstack.charm_tests.keystone.setup.add_tempest_roles
-    - zaza.openstack.charm_tests.glance.setup.add_cirros_image
-    - zaza.openstack.charm_tests.glance.setup.add_cirros_alt_image
-    - zaza.openstack.charm_tests.heat.setup.domain_setup
     - zaza.openstack.charm_tests.magnum.setup.domain_setup
     - zaza.openstack.charm_tests.magnum.setup.add_image
+  - keystone_v3_smoke_focal_security: *configure_focal_and_later
 tests:
   - keystone_v2_smoke:
     - zaza.openstack.charm_tests.tempest.tests.TempestTestWithKeystoneV2
@@ -104,8 +83,6 @@ tests:
   - keystone_v3_smoke_focal:
     - zaza.openstack.charm_tests.tempest.tests.TempestTestWithKeystoneV3
   - keystone_v3_smoke_focal_security:
-    - zaza.openstack.charm_tests.tempest.tests.TempestTestWithKeystoneV3
-  - keystone_v3_smoke_focal_magnum:
     - zaza.openstack.charm_tests.tempest.tests.TempestTestWithKeystoneV3
 tests_options:
   keystone_v3_smoke_security:
@@ -135,6 +112,10 @@ tests_options:
         - "manila_tempest_tests.tests.api.admin.test_share_snapshot_instances.ShareSnapshotInstancesTest.*"
         - "manila_tempest_tests.tests.api.admin.test_share_types.ShareTypesAdminTest.*"
         - "manila_tempest_tests.tests.api.admin.test_shares_actions.SharesActionsAdminTest.*"
+        - "magnum_tempest_plugin.tests.api.v1.test_cluster"
+        - "magnum_tempest_plugin.tests.api.v1.test_cluster_template"
+        - "magnum_tempest_plugin.tests.api.v1.test_cluster_template_admin"
+        - "magnum_tempest_plugin.tests.api.v1.test_magnum_service"
         # Note(coreycb): Disable watcher tests until all the failures can be debugged.
         # - "watcher_tempest_plugin.tests.api"
         # - "watcher_tempest_plugin.tests.scenario.test_execute_host_maintenance"
@@ -143,6 +124,14 @@ tests_options:
         # Exclude the known failures due to issues with octavia/manila policy
         - "manila_tempest_tests.tests.api.admin.test_share_networks.ShareNetworkAdminTest"
         - "manila_tempest_tests.tests.api.test_share_networks.ShareNetworksTest"
+        # Implemented on container-infra 1.10 which is available in >=Xena
+        # https://opendev.org/openstack/magnum/commit/0e6d17893
+        # https://opendev.org/openstack/magnum-tempest-plugin/commit/b68a678f37de0a769e7ee8dbefa9bdfe6cf445cc
+        - "magnum_tempest_plugin.tests.api.v1.test_cluster.ClusterTest.test_create_list_sign_delete_clusters"
+        - "magnum_tempest_plugin.tests.api.v1.test_cluster.ClusterTest.test_create_cluster_with_zero_nodes"
+        # The test expects a 400 error while the server returns a 401 error due to glance
+        # See logs at https://pastebin.ubuntu.com/p/V3DMcVmtyF/
+        - "magnum_tempest_plugin.tests.api.v1.test_cluster.ClusterTest.test_create_cluster_with_nonexisting_flavor"
         - "octavia_tempest_plugin.tests.scenario.v2.test_traffic_ops.TrafficOperationsScenarioTest"
         # Note(coreycb): Disable watcher tests until all the failures can be debugged.
         - "watcher_tempest_plugin.*"
@@ -154,19 +143,18 @@ tests_options:
         - "manila_tempest_tests.tests.api.admin.test_share_snapshot_instances.ShareSnapshotInstancesTest.*"
         - "manila_tempest_tests.tests.api.admin.test_share_types.ShareTypesAdminTest.*"
         - "manila_tempest_tests.tests.api.admin.test_shares_actions.SharesActionsAdminTest.*"
-      exclude-list:
-        # Exclude the known failures due to issues with octavia/manila policy
-        - "manila_tempest_tests.tests.api.admin.test_share_networks.ShareNetworkAdminTest"
-        - "manila_tempest_tests.tests.api.test_share_networks.ShareNetworksTest"
-        - "octavia_tempest_plugin.tests.scenario.v2.test_traffic_ops.TrafficOperationsScenarioTest"
-    keystone_v3_smoke_focal_magnum:
-      smoke: True
-      include-list:
         - "magnum_tempest_plugin.tests.api.v1.test_cluster"
         - "magnum_tempest_plugin.tests.api.v1.test_cluster_template"
         - "magnum_tempest_plugin.tests.api.v1.test_cluster_template_admin"
         - "magnum_tempest_plugin.tests.api.v1.test_magnum_service"
+        # Note(coreycb): Disable watcher tests until all the failures can be debugged.
+        # - "watcher_tempest_plugin.tests.api"
+        # - "watcher_tempest_plugin.tests.scenario.test_execute_host_maintenance"
+        # - "watcher_tempest_plugin.tests.scenario.test_execute_vm_workload_consolidation"
       exclude-list:
+        # Exclude the known failures due to issues with octavia/manila policy
+        - "manila_tempest_tests.tests.api.admin.test_share_networks.ShareNetworkAdminTest"
+        - "manila_tempest_tests.tests.api.test_share_networks.ShareNetworksTest"
         # Implemented on container-infra 1.10 which is available in >=Xena
         # https://opendev.org/openstack/magnum/commit/0e6d17893
         # https://opendev.org/openstack/magnum-tempest-plugin/commit/b68a678f37de0a769e7ee8dbefa9bdfe6cf445cc
@@ -175,8 +163,9 @@ tests_options:
         # The test expects a 400 error while the server returns a 401 error due to glance
         # See logs at https://pastebin.ubuntu.com/p/V3DMcVmtyF/
         - "magnum_tempest_plugin.tests.api.v1.test_cluster.ClusterTest.test_create_cluster_with_nonexisting_flavor"
-      exclude-regex:
-        - "^(octavia_tempest_plugin|manila_tempest_tests|designate_tempest_plugin)\\..*"
+        - "octavia_tempest_plugin.tests.scenario.v2.test_traffic_ops.TrafficOperationsScenarioTest"
+        # Note(coreycb): Disable watcher tests until all the failures can be debugged.
+        - "watcher_tempest_plugin.*"
   force_deploy:
     - bionic-queens
     - bionic-rocky
