@@ -43,7 +43,7 @@ applications:
     options:
       source: *source
     storage:
-      osd-devices: cinder,15G
+      osd-devices: cinder,24G
     constraints: mem=4096
     channel: mimic/edge
   cinder:

@@ -62,7 +62,7 @@ applications:
     options:
       source: *source
     storage:
-      osd-devices: cinder,15G
+      osd-devices: cinder,24G
     constraints: mem=4096
     channel: *ceph-channel
   cinder:
@@ -138,6 +138,18 @@ applications:
   keystone-mysql-router:
     charm: ch:mysql-router
     channel: *mysql-channel
+  magnum:
+    charm: ch:magnum
+    num_units: 1
+    options:
+      openstack-origin: *openstack-origin
+    channel: *openstack-channel
+  magnum-mysql-router:
+    charm: ch:mysql-router
+    channel: *mysql-channel
+  magnum-dashboard:
+    charm: ch:magnum-dashboard
+    channel: *openstack-channel
   manila:
     charm: ch:manila
     num_units: 1
@@ -551,3 +563,15 @@ relations:
   - rabbitmq-server
 - - manila
   - keystone
+- - magnum:shared-db
+  - magnum-mysql-router:shared-db
+- - magnum-mysql-router:db-router
+  - mysql-innodb-cluster:db-router
+- - magnum:amqp
+  - rabbitmq-server:amqp
+- - magnum:identity-service
+  - keystone:identity-service
+- - magnum:certificates
+  - vault:certificates
+- - openstack-dashboard:dashboard-plugin
+  - magnum-dashboard:dashboard
