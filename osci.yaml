@@ -21,7 +21,9 @@
       - cot_distro-regression_jammy-yoga
       - cot_distro-regression_jammy-zed
       - cot_distro-regression_jammy-antelope
+      - cot_distro-regression_jammy-bobcat
       - cot_distro-regression_lunar-antelope
+      - cot_distro-regression_mantic-bobcat
       - cot_distro-regression_bionic-queens-security
       - cot_distro-regression_focal-ussuri-security
       - cot_distro-regression_jammy-yoga-security
@@ -102,10 +104,20 @@
     vars:
       tox_extra_args: '-- jammy-antelope'
 - job:
+    name: cot_distro-regression_jammy-bobcat
+    parent: cot-func-target
+    vars:
+      tox_extra_args: '-- jammy-bobcat'
+- job:
     name: cot_distro-regression_lunar-antelope
     parent: cot-func-target
     vars:
       tox_extra_args: '-- lunar-antelope'
+- job:
+    name: cot_distro-regression_mantic-bobcat
+    parent: cot-func-target
+    vars:
+      tox_extra_args: '-- mantic-bobcat'
 - job:
     name: cot_distro-regression_bionic-queens-security
     parent: cot-func-target
