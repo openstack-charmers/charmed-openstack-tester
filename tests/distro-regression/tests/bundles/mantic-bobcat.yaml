@@ -3,10 +3,7 @@ variables:
   openstack-origin: &openstack-origin distro-proposed
   # Set retrofit-series to jammy because kinetic images aren't
   # available by default.
-  # retrofit-series: &retrofit-series jammy
-  # Set retrofit-series to focal to work-around the following bug:
-  # https://bugs.launchpad.net/snap-octavia-diskimage-retrofit/+bug/1995130
-  retrofit-series: &retrofit-series focal
+  retrofit-series: &retrofit-series jammy
   openstack-channel: &openstack-channel latest/edge
   ceph-channel: &ceph-channel latest/edge
   ovn-channel: &ovn-channel latest/edge
@@ -50,18 +47,12 @@ applications:
   ceph-fs:
     num_units: 1
     charm: ch:ceph-fs
-    # Use jammy until this bug is fixed:
-    # https://bugs.launchpad.net/charm-ceph-osd/+bug/2004945
-    series: jammy
     options:
       source: *source
     channel: *ceph-channel
   ceph-mon:
     charm: ch:ceph-mon
     num_units: 3
-    # Use jammy until this bug is fixed:
-    # https://bugs.launchpad.net/charm-ceph-osd/+bug/2004945
-    series: jammy
     options:
       expected-osd-count: 3
       source: *source
@@ -70,9 +61,6 @@ applications:
   ceph-osd:
     charm: ch:ceph-osd
     num_units: 3
-    # Use jammy until this bug is fixed:
-    # https://bugs.launchpad.net/charm-ceph-osd/+bug/2004945
-    series: jammy
     options:
       source: *source
     storage:
