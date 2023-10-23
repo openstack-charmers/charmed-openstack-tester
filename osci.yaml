@@ -1,75 +1,27 @@
 - semaphore:
     name: distro-regression
     max: 2
-- semaphore:
-    name: security-distro-regression
-    max: 2
 - project:
     periodic-weekly:
       jobs:
-      - cot_distro-regression_bionic-queens:
-          branches:
-            - master
-      - cot_distro-regression_bionic-rocky:
-          branches:
-            - master
-      - cot_distro-regression_bionic-stein:
-          branches:
-            - master
-      - cot_distro-regression_bionic-train:
-          branches:
-            - master
-      - cot_distro-regression_bionic-ussuri:
-          branches:
-            - master
-      - cot_distro-regression_focal-ussuri:
-          branches:
-            - master
-      - cot_distro-regression_focal-ussuri-ovn-22.03:
-          branches:
-            - master
-      - cot_distro-regression_focal-victoria:
-          branches:
-            - master
-      - cot_distro-regression_focal-wallaby:
-          branches:
-            - master
-      - cot_distro-regression_focal-xena:
-          branches:
-            - master
-      - cot_distro-regression_focal-yoga:
-          branches:
-            - master
-      - cot_distro-regression_jammy-yoga:
-          branches:
-            - master
-      - cot_distro-regression_jammy-zed:
-          branches:
-            - master
-      - cot_distro-regression_jammy-antelope:
-          branches:
-            - master
-      - cot_distro-regression_jammy-bobcat:
-          branches:
-            - master
-      - cot_distro-regression_lunar-antelope:
-          branches:
-            - master
-      - cot_distro-regression_mantic-bobcat:
-          branches:
-            - master
-      - cot_distro-regression_bionic-queens-security:
-          branches:
-            - master
-      - cot_distro-regression_focal-ussuri-security:
-          branches:
-            - master
-      - cot_distro-regression_jammy-yoga-security:
-          branches:
-            - master
-      - cot_distro-regression_lunar-antelope-security:
-          branches:
-            - master
+      - cot_distro-regression_bionic-queens
+      - cot_distro-regression_bionic-ussuri
+      - cot_distro-regression_focal-ussuri
+      - cot_distro-regression_focal-ussuri-ovn-22.03
+      - cot_distro-regression_focal-victoria
+      - cot_distro-regression_focal-wallaby
+      - cot_distro-regression_focal-xena
+      - cot_distro-regression_focal-yoga
+      - cot_distro-regression_jammy-yoga
+      - cot_distro-regression_jammy-zed
+      - cot_distro-regression_jammy-antelope
+      - cot_distro-regression_jammy-bobcat
+      - cot_distro-regression_lunar-antelope
+      - cot_distro-regression_mantic-bobcat
+      - cot_distro-regression_bionic-queens-security
+      - cot_distro-regression_focal-ussuri-security
+      - cot_distro-regression_jammy-yoga-security
+      - cot_distro-regression_lunar-antelope-security
 - job:
     name: cot-func-target
     parent: func-target
@@ -80,21 +32,6 @@
     parent: cot-func-target
     vars:
       tox_extra_args: '-- bionic-queens'
-- job:
-    name: cot_distro-regression_bionic-rocky
-    parent: cot-func-target
-    vars:
-      tox_extra_args: '-- bionic-rocky'
-- job:
-    name: cot_distro-regression_bionic-stein
-    parent: cot-func-target
-    vars:
-      tox_extra_args: '-- bionic-stein'
-- job:
-    name: cot_distro-regression_bionic-train
-    parent: cot-func-target
-    vars:
-      tox_extra_args: '-- bionic-train'
 - job:
     name: cot_distro-regression_bionic-ussuri
     parent: cot-func-target
