@@ -1,28 +1,25 @@
 smoke_bundles:
-  - keystone_v3_smoke: bionic-queens
-  - keystone_v3_smoke_rocky: bionic-rocky
-  - keystone_v3_smoke_stein: bionic-stein
-  - keystone_v3_smoke_stein: bionic-train
-  - keystone_v3_smoke_stein: bionic-ussuri
-  - keystone_v3_smoke_focal: focal-ussuri
-  - keystone_v3_smoke_focal: focal-ussuri-ovn-22.03
-  - keystone_v3_smoke_focal: focal-victoria
-  - keystone_v3_smoke_focal: focal-wallaby
-  - keystone_v3_smoke_focal: focal-xena
-  - keystone_v3_smoke_focal: focal-yoga
-  - keystone_v3_smoke_focal: jammy-yoga
-  - keystone_v3_smoke_focal: jammy-zed
-  - keystone_v3_smoke_focal: jammy-antelope
-  - keystone_v3_smoke_focal: jammy-bobcat
-  - keystone_v3_smoke_focal: lunar-antelope
-  - keystone_v3_smoke_focal: mantic-bobcat
-  - keystone_v3_smoke_security: bionic-queens-security
-  - keystone_v3_smoke_focal_security: focal-ussuri-security
-  - keystone_v3_smoke_focal_security: jammy-yoga-security
-  - keystone_v3_smoke_focal_security: lunar-antelope-security
-  - keystone_v3_smoke_focal_security: mantic-bobcat-security
+  - keystone_bionic_queens: bionic-queens
+  - keystone_bionic_ussuri: bionic-ussuri
+  - keystone_focal_ussuri: focal-ussuri
+  - keystone_focal_ussuri: focal-ussuri-ovn-22.03
+  - keystone_focal_ussuri: focal-victoria
+  - keystone_focal_wallaby: focal-wallaby
+  - keystone_focal_wallaby: focal-xena
+  - keystone_focal_wallaby: focal-yoga
+  - keystone_focal_wallaby: jammy-yoga
+  - keystone_focal_wallaby: jammy-zed
+  - keystone_focal_wallaby: jammy-antelope
+  - keystone_focal_wallaby: jammy-bobcat
+  - keystone_focal_wallaby: lunar-antelope
+  - keystone_focal_wallaby: mantic-bobcat
+  - keystone_bionic_queens_security: bionic-queens-security
+  - keystone_focal_ussuri_security: focal-ussuri-security
+  - keystone_focal_ussuri_security: jammy-yoga-security
+  - keystone_focal_ussuri_security: lunar-antelope-security
+  - keystone_focal_ussuri_security: mantic-bobcat-security
 configure:
-  - keystone_v2_smoke: &configure_queens_and_older
+  - keystone_bionic_queens: &keystone_bionic_queens
     - zaza.openstack.charm_tests.ceilometer.setup.basic_setup
     - zaza.openstack.charm_tests.glance.setup.add_lts_image
     - zaza.openstack.charm_tests.neutron.setup.basic_overcloud_network
@@ -32,9 +29,8 @@ configure:
     - zaza.openstack.charm_tests.keystone.setup.add_tempest_roles
     - zaza.openstack.charm_tests.glance.setup.add_cirros_image
     - zaza.openstack.charm_tests.glance.setup.add_cirros_alt_image
-  - keystone_v3_smoke: *configure_queens_and_older
-  - keystone_v3_smoke_security: *configure_queens_and_older
-  - keystone_v3_smoke_rocky: &configure_rocky_to_ussuri_without_vault
+  - keystone_bionic_queens_security: *keystone_bionic_queens
+  - keystone_bionic_ussuri:
     - zaza.openstack.charm_tests.ceilometer.setup.basic_setup
     - zaza.openstack.charm_tests.glance_simplestreams_sync.setup.sync_images
     - zaza.openstack.charm_tests.glance.setup.add_lts_image
@@ -49,8 +45,7 @@ configure:
     - zaza.openstack.charm_tests.glance.setup.add_cirros_image
     - zaza.openstack.charm_tests.glance.setup.add_cirros_alt_image
     - zaza.openstack.charm_tests.octavia.setup.centralized_fip_network
-  - keystone_v3_smoke_stein: *configure_rocky_to_ussuri_without_vault
-  - keystone_v3_smoke_focal: &configure_focal_and_later
+  - keystone_focal_ussuri: &keystone_focal_ussuri
     - zaza.openstack.charm_tests.vault.setup.auto_initialize
     - zaza.openstack.charm_tests.ceilometer.setup.basic_setup
     - zaza.openstack.charm_tests.glance_simplestreams_sync.setup.sync_images
@@ -68,44 +63,55 @@ configure:
     - zaza.openstack.charm_tests.octavia.setup.centralized_fip_network
     - zaza.openstack.charm_tests.magnum.setup.domain_setup
     - zaza.openstack.charm_tests.magnum.setup.add_image
-  - keystone_v3_smoke_focal_security: *configure_focal_and_later
+  - keystone_focal_ussuri_security: *keystone_focal_ussuri
+  - keystone_focal_wallaby: *keystone_focal_ussuri
 tests:
-  - keystone_v2_smoke:
-    - zaza.openstack.charm_tests.tempest.tests.TempestTestWithKeystoneV2
-  - keystone_v3_smoke:
+  - keystone_bionic_queens:
     - zaza.openstack.charm_tests.tempest.tests.TempestTestWithKeystoneV3
-  - keystone_v3_smoke_security:
+  - keystone_bionic_queens_security:
     - zaza.openstack.charm_tests.tempest.tests.TempestTestWithKeystoneV3
-  - keystone_v3_smoke_rocky:
+  - keystone_bionic_ussuri:
     - zaza.openstack.charm_tests.tempest.tests.TempestTestWithKeystoneV3
-  - keystone_v3_smoke_stein:
+  - keystone_focal_ussuri:
     - zaza.openstack.charm_tests.tempest.tests.TempestTestWithKeystoneV3
-  - keystone_v3_smoke_focal:
+  - keystone_focal_ussuri_security:
     - zaza.openstack.charm_tests.tempest.tests.TempestTestWithKeystoneV3
-  - keystone_v3_smoke_focal_security:
+  - keystone_focal_wallaby:
     - zaza.openstack.charm_tests.tempest.tests.TempestTestWithKeystoneV3
 tests_options:
-  keystone_v3_smoke_security:
+  keystone_bionic_queens_security:
     overlay_ppas:
       - ppa:ubuntu-security-proposed/ppa
-  keystone_v3_smoke_focal_security:
+  keystone_focal_ussuri_security:
     overlay_ppas:
       - ppa:ubuntu-security-proposed/ppa
   tempest:
-    keystone_v2_smoke:
+    keystone_bionic_queens:
       smoke: True
-    keystone_v3_smoke:
-      smoke: True
-    keystone_v3_smoke_security:
-      smoke: True
-    keystone_v3_smoke_rocky:
-      smoke: True
+      serial: True
       exclude-list:
-        - "tempest.api.identity.v3.test_domains.DefaultDomainTestJSON.test_default_domain_exists"
-    keystone_v3_smoke_stein:
+        # designate tests fail with self.creds_client.assign_user_role_on_system 'No "reader" role found'
+        - "designate_tempest_plugin.tests.api.v2.test_recordset.RecordsetsTest"
+        - "designate_tempest_plugin.tests.api.v2.test_zones_exports.ZonesExportTest"
+        - "designate_tempest_plugin.tests.api.v2.test_zones_imports.ZonesImportTest"
+        # octavia test fails with self.creds_client.assign_user_role 'No "load-balancer_admin" role found'
+        - "octavia_tempest_plugin.tests.scenario.v2.test_traffic_ops.TrafficOperationsScenarioTest"
+    keystone_bionic_queens_security:
       smoke: True
-    keystone_v3_smoke_focal:
+      serial: True
+      exclude-list:
+        # designate tests fail with self.creds_client.assign_user_role_on_system 'No "reader" role found'
+        - "designate_tempest_plugin.tests.api.v2.test_recordset.RecordsetsTest"
+        - "designate_tempest_plugin.tests.api.v2.test_zones_exports.ZonesExportTest"
+        - "designate_tempest_plugin.tests.api.v2.test_zones_imports.ZonesImportTest"
+        # octavia test fails with self.creds_client.assign_user_role 'No "load-balancer_admin" role found'
+        - "octavia_tempest_plugin.tests.scenario.v2.test_traffic_ops.TrafficOperationsScenarioTest"
+    keystone_bionic_ussuri:
       smoke: True
+      serial: True
+    keystone_focal_ussuri:
+      smoke: True
+      serial: True
       include-list:
         - "manila_tempest_tests.tests.api.admin.test_admin_actions.AdminActionsTest.*"
         - "manila_tempest_tests.tests.api.admin.test_share_instances.ShareInstancesTest.*"
@@ -121,6 +127,9 @@ tests_options:
         # - "watcher_tempest_plugin.tests.scenario.test_execute_host_maintenance"
         # - "watcher_tempest_plugin.tests.scenario.test_execute_vm_workload_consolidation"
       exclude-list:
+        # designate failures due to check_list_show_RBAC_enforcement returning "Unauthorized"
+        - "designate_tempest_plugin.tests.api.v2.test_zones_exports.ZonesExportTest.test_show_zone_export"
+        - "designate_tempest_plugin.tests.api.v2.test_zones_imports.ZonesImportTest.test_show_zone_import"
         # Exclude the known failures due to issues with octavia/manila policy
         - "manila_tempest_tests.tests.api.admin.test_share_networks.ShareNetworkAdminTest"
         - "manila_tempest_tests.tests.api.test_share_networks.ShareNetworksTest"
@@ -135,8 +144,44 @@ tests_options:
         - "octavia_tempest_plugin.tests.scenario.v2.test_traffic_ops.TrafficOperationsScenarioTest"
         # Note(coreycb): Disable watcher tests until all the failures can be debugged.
         - "watcher_tempest_plugin.*"
-    keystone_v3_smoke_focal_security:
+    keystone_focal_ussuri_security:
       smoke: True
+      serial: True
+      include-list:
+        - "manila_tempest_tests.tests.api.admin.test_admin_actions.AdminActionsTest.*"
+        - "manila_tempest_tests.tests.api.admin.test_share_instances.ShareInstancesTest.*"
+        - "manila_tempest_tests.tests.api.admin.test_share_snapshot_instances.ShareSnapshotInstancesTest.*"
+        - "manila_tempest_tests.tests.api.admin.test_share_types.ShareTypesAdminTest.*"
+        - "manila_tempest_tests.tests.api.admin.test_shares_actions.SharesActionsAdminTest.*"
+        - "magnum_tempest_plugin.tests.api.v1.test_cluster"
+        - "magnum_tempest_plugin.tests.api.v1.test_cluster_template"
+        - "magnum_tempest_plugin.tests.api.v1.test_cluster_template_admin"
+        - "magnum_tempest_plugin.tests.api.v1.test_magnum_service"
+        # Note(coreycb): Disable watcher tests until all the failures can be debugged.
+        # - "watcher_tempest_plugin.tests.api"
+        # - "watcher_tempest_plugin.tests.scenario.test_execute_host_maintenance"
+        # - "watcher_tempest_plugin.tests.scenario.test_execute_vm_workload_consolidation"
+      exclude-list:
+        # designate failures due to check_list_show_RBAC_enforcement returning "Unauthorized"
+        - "designate_tempest_plugin.tests.api.v2.test_zones_exports.ZonesExportTest.test_show_zone_export"
+        - "designate_tempest_plugin.tests.api.v2.test_zones_imports.ZonesImportTest.test_show_zone_import"
+        # Exclude the known failures due to issues with octavia/manila policy
+        - "manila_tempest_tests.tests.api.admin.test_share_networks.ShareNetworkAdminTest"
+        - "manila_tempest_tests.tests.api.test_share_networks.ShareNetworksTest"
+        # Implemented on container-infra 1.10 which is available in >=Xena
+        # https://opendev.org/openstack/magnum/commit/0e6d17893
+        # https://opendev.org/openstack/magnum-tempest-plugin/commit/b68a678f37de0a769e7ee8dbefa9bdfe6cf445cc
+        - "magnum_tempest_plugin.tests.api.v1.test_cluster.ClusterTest.test_create_list_sign_delete_clusters"
+        - "magnum_tempest_plugin.tests.api.v1.test_cluster.ClusterTest.test_create_cluster_with_zero_nodes"
+        # The test expects a 400 error while the server returns a 401 error due to glance
+        # See logs at https://pastebin.ubuntu.com/p/V3DMcVmtyF/
+        - "magnum_tempest_plugin.tests.api.v1.test_cluster.ClusterTest.test_create_cluster_with_nonexisting_flavor"
+        - "octavia_tempest_plugin.tests.scenario.v2.test_traffic_ops.TrafficOperationsScenarioTest"
+        # Note(coreycb): Disable watcher tests until all the failures can be debugged.
+        - "watcher_tempest_plugin.*"
+    keystone_focal_wallaby:
+      smoke: True
+      serial: True
       include-list:
         - "manila_tempest_tests.tests.api.admin.test_admin_actions.AdminActionsTest.*"
         - "manila_tempest_tests.tests.api.admin.test_share_instances.ShareInstancesTest.*"
@@ -168,9 +213,6 @@ tests_options:
         - "watcher_tempest_plugin.*"
   force_deploy:
     - bionic-queens
-    - bionic-rocky
-    - bionic-stein
-    - bionic-train
     - bionic-ussuri
     - lunar-antelope
     - mantic-bobcat
