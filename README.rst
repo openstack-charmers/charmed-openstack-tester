@@ -40,7 +40,7 @@ Deploy and test a specific bundle:
 
 .. code-block:: bash
 
-  tox -e func-target keystone_v3_smoke_focal:jammy-yoga
+  tox -e func-target jammy-yoga
 
 Deploy and test all smoke bundles:
 
@@ -67,9 +67,9 @@ Specifying which tests to run can be done with the following keys: smoke, whitel
 
   tests_options:
     tempest:
-      keystone_v3_smoke:
+      model_alias_smoke:
         smoke: True
-      keystone_v3_full:
+      model_alias_targeted:
         whitelist:
            - "tempest.api.compute.servers.test_create_server.ServersTestManualDisk.test_list_servers"
            - "tempest.api.compute.servers.test_create_server.ServersTestManualDisk.test_verify_server_details"
@@ -88,7 +88,7 @@ re-running tests, set keep-workspace to True in tests.yaml:
 
   tests_options:
     tempest:
-      keystone_v3_smoke:
+      model_alias:
         smoke: True
         keep-workspace: True
 
