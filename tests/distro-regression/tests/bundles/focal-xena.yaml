@@ -2,7 +2,7 @@ variables:
   source: &source cloud:focal-xena/proposed
   openstack-origin: &openstack-origin cloud:focal-xena/proposed
   retrofit-uca-pocket: &retrofit-uca-pocket xena
-  openstack-channel: &openstack-channel wallaby/edge
+  openstack-channel: &openstack-channel xena/edge
   ceph-channel: &ceph-channel pacific/edge
   ovn-channel: &ovn-channel 21.09/edge
   mysql-channel: &mysql-channel 8.0/edge
