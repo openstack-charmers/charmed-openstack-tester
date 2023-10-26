@@ -1,5 +1,6 @@
 smoke_bundles:
-  - bionic_queens: bionic-queens
+  - xenial_queens: xenial-queens
+  - xenial_queens: bionic-queens
   - bionic_ussuri: bionic-ussuri
   - focal_ussuri: focal-ussuri
   - focal_ussuri: focal-ussuri-ovn-22.03
@@ -21,7 +22,7 @@ smoke_bundles:
   - focal_upgrades: focal-ussuri-to-yoga-upgrades
   - jammy_upgrades: jammy-yoga-to-caracal-upgrades
 configure:
-  - bionic_queens: &bionic_queens
+  - xenial_queens: &xenial_queens
     - zaza.openstack.charm_tests.ceilometer.setup.basic_setup
     - zaza.openstack.charm_tests.glance.setup.add_lts_image
     - zaza.openstack.charm_tests.neutron.setup.basic_overcloud_network
@@ -31,7 +32,7 @@ configure:
     - zaza.openstack.charm_tests.keystone.setup.add_tempest_roles
     - zaza.openstack.charm_tests.glance.setup.add_cirros_image
     - zaza.openstack.charm_tests.glance.setup.add_cirros_alt_image
-  - bionic_queens_security: *bionic_queens
+  - bionic_queens_security: *xenial_queens
   - bionic_ussuri:
     - zaza.openstack.charm_tests.ceilometer.setup.basic_setup
     - zaza.openstack.charm_tests.glance_simplestreams_sync.setup.sync_images
@@ -70,7 +71,7 @@ configure:
   - focal_wallaby: *focal_ussuri
   - jammy_upgrades: *focal_ussuri
 tests:
-  - bionic_queens:
+  - xenial_queens:
     - zaza.openstack.charm_tests.tempest.tests.TempestTestWithKeystoneV3
   - bionic_queens_security:
     - zaza.openstack.charm_tests.tempest.tests.TempestTestWithKeystoneV3
@@ -119,7 +120,7 @@ tests_options:
     overlay_ppas:
       - ppa:ubuntu-security-proposed/ppa
   tempest:
-    bionic_queens:
+    xenial_queens:
       smoke: True
       serial: True
       exclude-list:
@@ -312,6 +313,7 @@ tests_options:
         # Note(coreycb): Disable watcher tests until all the failures can be debugged.
         - "watcher_tempest_plugin.*"
   force_deploy:
+    - xenial-queens
     - bionic-queens
     - bionic-ussuri
     - lunar-antelope
