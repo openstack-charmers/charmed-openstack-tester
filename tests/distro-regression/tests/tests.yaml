@@ -125,13 +125,14 @@ tests_options:
   focal_ussuri_security:
     overlay_ppas:
       - ppa:ubuntu-security-proposed/ppa
+  openstack-upgrade:
+    detect-using-charm: keystone
   tempest:
     xenial_queens:
       smoke: True
       serial: True
       exclude-list:
         # designate tests fail with self.creds_client.assign_user_role_on_system 'No "reader" role found'
-        - "designate_tempest_plugin.tests.api.v2.test_recordset.RecordsetsTest"
         - "designate_tempest_plugin.tests.api.v2.test_zones_exports.ZonesExportTest"
         - "designate_tempest_plugin.tests.api.v2.test_zones_imports.ZonesImportTest"
         # octavia test fails with self.creds_client.assign_user_role 'No "load-balancer_admin" role found'
@@ -141,7 +142,6 @@ tests_options:
       serial: True
       exclude-list:
         # designate tests fail with self.creds_client.assign_user_role_on_system 'No "reader" role found'
-        - "designate_tempest_plugin.tests.api.v2.test_recordset.RecordsetsTest"
         - "designate_tempest_plugin.tests.api.v2.test_zones_exports.ZonesExportTest"
         - "designate_tempest_plugin.tests.api.v2.test_zones_imports.ZonesImportTest"
         # octavia test fails with self.creds_client.assign_user_role 'No "load-balancer_admin" role found'
@@ -149,6 +149,12 @@ tests_options:
     bionic_ussuri:
       smoke: True
       serial: True
+      exclude-list:
+        # designate tests fail with self.creds_client.assign_user_role_on_system 'No "reader" role found'
+        - "designate_tempest_plugin.tests.api.v2.test_zones_exports.ZonesExportTest"
+        - "designate_tempest_plugin.tests.api.v2.test_zones_imports.ZonesImportTest"
+        # octavia test fails with self.creds_client.assign_user_role 'No "load-balancer_admin" role found'
+        - "octavia_tempest_plugin.tests.scenario.v2.test_traffic_ops.TrafficOperationsScenarioTest"
     focal_ussuri:
       smoke: True
       serial: True
