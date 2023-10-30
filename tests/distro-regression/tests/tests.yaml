@@ -72,16 +72,22 @@ configure:
   - jammy_upgrades: *focal_ussuri
 tests:
   - xenial_queens:
+    - zaza.openstack.charm_tests.status.tests.ProposedPackageReport
     - zaza.openstack.charm_tests.tempest.tests.TempestTestWithKeystoneV3
   - bionic_queens_security:
+    - zaza.openstack.charm_tests.status.tests.ProposedPackageReport
     - zaza.openstack.charm_tests.tempest.tests.TempestTestWithKeystoneV3
   - bionic_ussuri:
+    - zaza.openstack.charm_tests.status.tests.ProposedPackageReport
     - zaza.openstack.charm_tests.tempest.tests.TempestTestWithKeystoneV3
   - focal_ussuri:
+    - zaza.openstack.charm_tests.status.tests.ProposedPackageReport
     - zaza.openstack.charm_tests.tempest.tests.TempestTestWithKeystoneV3
   - focal_ussuri_security:
+    - zaza.openstack.charm_tests.status.tests.ProposedPackageReport
     - zaza.openstack.charm_tests.tempest.tests.TempestTestWithKeystoneV3
   - focal_wallaby:
+    - zaza.openstack.charm_tests.status.tests.ProposedPackageReport
     - zaza.openstack.charm_tests.tempest.tests.TempestTestWithKeystoneV3
   - focal_upgrades:
     # ussuri->victoria
