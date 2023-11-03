@@ -72,16 +72,22 @@ configure:
   - jammy_upgrades: *focal_ussuri
 tests:
   - xenial_queens:
+    - zaza.openstack.charm_tests.status.tests.ProposedPackageReport
     - zaza.openstack.charm_tests.tempest.tests.TempestTestWithKeystoneV3
   - bionic_queens_security:
+    - zaza.openstack.charm_tests.status.tests.ProposedPackageReport
     - zaza.openstack.charm_tests.tempest.tests.TempestTestWithKeystoneV3
   - bionic_ussuri:
+    - zaza.openstack.charm_tests.status.tests.ProposedPackageReport
     - zaza.openstack.charm_tests.tempest.tests.TempestTestWithKeystoneV3
   - focal_ussuri:
+    - zaza.openstack.charm_tests.status.tests.ProposedPackageReport
     - zaza.openstack.charm_tests.tempest.tests.TempestTestWithKeystoneV3
   - focal_ussuri_security:
+    - zaza.openstack.charm_tests.status.tests.ProposedPackageReport
     - zaza.openstack.charm_tests.tempest.tests.TempestTestWithKeystoneV3
   - focal_wallaby:
+    - zaza.openstack.charm_tests.status.tests.ProposedPackageReport
     - zaza.openstack.charm_tests.tempest.tests.TempestTestWithKeystoneV3
   - focal_upgrades:
     # ussuri->victoria
@@ -119,34 +125,87 @@ tests_options:
   focal_ussuri_security:
     overlay_ppas:
       - ppa:ubuntu-security-proposed/ppa
+  openstack-upgrade:
+    detect-using-charm: keystone
   tempest:
     xenial_queens:
       smoke: True
       serial: True
+      include-list:
+        - "heat_tempest_plugin.tests.api.*"
+        - "heat_tempest_plugin.tests.functional.*"
       exclude-list:
         # designate tests fail with self.creds_client.assign_user_role_on_system 'No "reader" role found'
-        - "designate_tempest_plugin.tests.api.v2.test_recordset.RecordsetsTest"
         - "designate_tempest_plugin.tests.api.v2.test_zones_exports.ZonesExportTest"
         - "designate_tempest_plugin.tests.api.v2.test_zones_imports.ZonesImportTest"
+        # HTTP 401 unauthorized
+        - "heat_tempest_plugin.tests.functional.test_create_update_neutron_port.UpdatePortTest.test_update_with_mac_address"
+        - "heat_tempest_plugin.tests.functional.test_encryption_vol_type.EncryptionVolTypeTest.test_create_update"
+        # Need fixed demo network defined (ie. fixed_network_name=demo_project_network)
+        - "heat_tempest_plugin.tests.functional.test_encrypted_parameter.EncryptedParametersTest.test_db_encryption"
+        - "heat_tempest_plugin.tests.functional.test_lbaasv2.LoadBalancerv2Test.test_add_delete_poolmember"
+        - "heat_tempest_plugin.tests.functional.test_lbaasv2.LoadBalancerv2Test.test_create_update_loadbalancer"
+        - "heat_tempest_plugin.tests.functional.test_os_wait_condition.OSWaitCondition.test_create_stack_with_multi_signal_waitcondition"
+        - "heat_tempest_plugin.tests.functional.test_software_config.ParallelDeploymentsTest.test_deployments_metadata"
+        - "heat_tempest_plugin.tests.functional.test_software_config.ParallelDeploymentsTest.test_deployments_timeout_failed"
+        # testtools.matchers._impl.MismatchError: 'CREATE_FAILED' not in ['CREATE_IN_PROGRESS', 'CREATE_COMPLETE']
+        - "heat_tempest_plugin.tests.functional.test_stack_events.StackEventsTest.test_event"
         # octavia test fails with self.creds_client.assign_user_role 'No "load-balancer_admin" role found'
         - "octavia_tempest_plugin.tests.scenario.v2.test_traffic_ops.TrafficOperationsScenarioTest"
     bionic_queens_security:
       smoke: True
       serial: True
+      include-list:
+        - "heat_tempest_plugin.tests.api.*"
+        - "heat_tempest_plugin.tests.functional.*"
       exclude-list:
         # designate tests fail with self.creds_client.assign_user_role_on_system 'No "reader" role found'
-        - "designate_tempest_plugin.tests.api.v2.test_recordset.RecordsetsTest"
         - "designate_tempest_plugin.tests.api.v2.test_zones_exports.ZonesExportTest"
         - "designate_tempest_plugin.tests.api.v2.test_zones_imports.ZonesImportTest"
+        # HTTP 401 unauthorized
+        - "heat_tempest_plugin.tests.functional.test_create_update_neutron_port.UpdatePortTest.test_update_with_mac_address"
+        - "heat_tempest_plugin.tests.functional.test_encryption_vol_type.EncryptionVolTypeTest.test_create_update"
+        # Need fixed demo network defined (ie. fixed_network_name=demo_project_network)
+        - "heat_tempest_plugin.tests.functional.test_encrypted_parameter.EncryptedParametersTest.test_db_encryption"
+        - "heat_tempest_plugin.tests.functional.test_lbaasv2.LoadBalancerv2Test.test_add_delete_poolmember"
+        - "heat_tempest_plugin.tests.functional.test_lbaasv2.LoadBalancerv2Test.test_create_update_loadbalancer"
+        - "heat_tempest_plugin.tests.functional.test_os_wait_condition.OSWaitCondition.test_create_stack_with_multi_signal_waitcondition"
+        - "heat_tempest_plugin.tests.functional.test_software_config.ParallelDeploymentsTest.test_deployments_metadata"
+        - "heat_tempest_plugin.tests.functional.test_software_config.ParallelDeploymentsTest.test_deployments_timeout_failed"
+        # testtools.matchers._impl.MismatchError: 'CREATE_FAILED' not in ['CREATE_IN_PROGRESS', 'CREATE_COMPLETE']
+        - "heat_tempest_plugin.tests.functional.test_stack_events.StackEventsTest.test_event"
         # octavia test fails with self.creds_client.assign_user_role 'No "load-balancer_admin" role found'
         - "octavia_tempest_plugin.tests.scenario.v2.test_traffic_ops.TrafficOperationsScenarioTest"
     bionic_ussuri:
       smoke: True
       serial: True
+      include-list:
+        - "heat_tempest_plugin.tests.api.*"
+        - "heat_tempest_plugin.tests.functional.*"
+      exclude-list:
+        # designate tests fail with self.creds_client.assign_user_role_on_system 'No "reader" role found'
+        - "designate_tempest_plugin.tests.api.v2.test_zones_exports.ZonesExportTest"
+        - "designate_tempest_plugin.tests.api.v2.test_zones_imports.ZonesImportTest"
+        # HTTP 401 unauthorized
+        - "heat_tempest_plugin.tests.functional.test_create_update_neutron_port.UpdatePortTest.test_update_with_mac_address"
+        - "heat_tempest_plugin.tests.functional.test_encryption_vol_type.EncryptionVolTypeTest.test_create_update"
+        # Need fixed demo network defined (ie. fixed_network_name=demo_project_network)
+        - "heat_tempest_plugin.tests.functional.test_encrypted_parameter.EncryptedParametersTest.test_db_encryption"
+        - "heat_tempest_plugin.tests.functional.test_lbaasv2.LoadBalancerv2Test.test_add_delete_poolmember"
+        - "heat_tempest_plugin.tests.functional.test_lbaasv2.LoadBalancerv2Test.test_create_update_loadbalancer"
+        - "heat_tempest_plugin.tests.functional.test_os_wait_condition.OSWaitCondition.test_create_stack_with_multi_signal_waitcondition"
+        - "heat_tempest_plugin.tests.functional.test_software_config.ParallelDeploymentsTest.test_deployments_metadata"
+        - "heat_tempest_plugin.tests.functional.test_software_config.ParallelDeploymentsTest.test_deployments_timeout_failed"
+        # testtools.matchers._impl.MismatchError: 'CREATE_FAILED' not in ['CREATE_IN_PROGRESS', 'CREATE_COMPLETE']
+        - "heat_tempest_plugin.tests.functional.test_stack_events.StackEventsTest.test_event"
+        # octavia test fails with self.creds_client.assign_user_role 'No "load-balancer_admin" role found'
+        - "octavia_tempest_plugin.tests.scenario.v2.test_traffic_ops.TrafficOperationsScenarioTest"
     focal_ussuri:
       smoke: True
       serial: True
       include-list:
+        - "heat_tempest_plugin.tests.api.*"
+        - "heat_tempest_plugin.tests.functional.*"
         - "manila_tempest_tests.tests.api.admin.test_admin_actions.AdminActionsTest.*"
         - "manila_tempest_tests.tests.api.admin.test_share_instances.ShareInstancesTest.*"
         - "manila_tempest_tests.tests.api.admin.test_share_snapshot_instances.ShareSnapshotInstancesTest.*"
@@ -164,6 +223,18 @@ tests_options:
         # designate failures due to check_list_show_RBAC_enforcement returning "Unauthorized"
         - "designate_tempest_plugin.tests.api.v2.test_zones_exports.ZonesExportTest.test_show_zone_export"
         - "designate_tempest_plugin.tests.api.v2.test_zones_imports.ZonesImportTest.test_show_zone_import"
+        # HTTP 401 unauthorized
+        - "heat_tempest_plugin.tests.functional.test_create_update_neutron_port.UpdatePortTest.test_update_with_mac_address"
+        - "heat_tempest_plugin.tests.functional.test_encryption_vol_type.EncryptionVolTypeTest.test_create_update"
+        # Need fixed demo network defined (ie. fixed_network_name=demo_project_network)
+        - "heat_tempest_plugin.tests.functional.test_encrypted_parameter.EncryptedParametersTest.test_db_encryption"
+        - "heat_tempest_plugin.tests.functional.test_lbaasv2.LoadBalancerv2Test.test_add_delete_poolmember"
+        - "heat_tempest_plugin.tests.functional.test_lbaasv2.LoadBalancerv2Test.test_create_update_loadbalancer"
+        - "heat_tempest_plugin.tests.functional.test_os_wait_condition.OSWaitCondition.test_create_stack_with_multi_signal_waitcondition"
+        - "heat_tempest_plugin.tests.functional.test_software_config.ParallelDeploymentsTest.test_deployments_metadata"
+        - "heat_tempest_plugin.tests.functional.test_software_config.ParallelDeploymentsTest.test_deployments_timeout_failed"
+        # testtools.matchers._impl.MismatchError: 'CREATE_FAILED' not in ['CREATE_IN_PROGRESS', 'CREATE_COMPLETE']
+        - "heat_tempest_plugin.tests.functional.test_stack_events.StackEventsTest.test_event"
         # Exclude the known failures due to issues with octavia/manila policy
         - "manila_tempest_tests.tests.api.admin.test_share_networks.ShareNetworkAdminTest"
         - "manila_tempest_tests.tests.api.test_share_networks.ShareNetworksTest"
@@ -182,6 +253,8 @@ tests_options:
       smoke: True
       serial: True
       include-list:
+        - "heat_tempest_plugin.tests.api.*"
+        - "heat_tempest_plugin.tests.functional.*"
         - "manila_tempest_tests.tests.api.admin.test_admin_actions.AdminActionsTest.*"
         - "manila_tempest_tests.tests.api.admin.test_share_instances.ShareInstancesTest.*"
         - "manila_tempest_tests.tests.api.admin.test_share_snapshot_instances.ShareSnapshotInstancesTest.*"
@@ -199,6 +272,18 @@ tests_options:
         # designate failures due to check_list_show_RBAC_enforcement returning "Unauthorized"
         - "designate_tempest_plugin.tests.api.v2.test_zones_exports.ZonesExportTest.test_show_zone_export"
         - "designate_tempest_plugin.tests.api.v2.test_zones_imports.ZonesImportTest.test_show_zone_import"
+        # HTTP 401 unauthorized
+        - "heat_tempest_plugin.tests.functional.test_create_update_neutron_port.UpdatePortTest.test_update_with_mac_address"
+        - "heat_tempest_plugin.tests.functional.test_encryption_vol_type.EncryptionVolTypeTest.test_create_update"
+        # Need fixed demo network defined (ie. fixed_network_name=demo_project_network)
+        - "heat_tempest_plugin.tests.functional.test_encrypted_parameter.EncryptedParametersTest.test_db_encryption"
+        - "heat_tempest_plugin.tests.functional.test_lbaasv2.LoadBalancerv2Test.test_add_delete_poolmember"
+        - "heat_tempest_plugin.tests.functional.test_lbaasv2.LoadBalancerv2Test.test_create_update_loadbalancer"
+        - "heat_tempest_plugin.tests.functional.test_os_wait_condition.OSWaitCondition.test_create_stack_with_multi_signal_waitcondition"
+        - "heat_tempest_plugin.tests.functional.test_software_config.ParallelDeploymentsTest.test_deployments_metadata"
+        - "heat_tempest_plugin.tests.functional.test_software_config.ParallelDeploymentsTest.test_deployments_timeout_failed"
+        # testtools.matchers._impl.MismatchError: 'CREATE_FAILED' not in ['CREATE_IN_PROGRESS', 'CREATE_COMPLETE']
+        - "heat_tempest_plugin.tests.functional.test_stack_events.StackEventsTest.test_event"
         # Exclude the known failures due to issues with octavia/manila policy
         - "manila_tempest_tests.tests.api.admin.test_share_networks.ShareNetworkAdminTest"
         - "manila_tempest_tests.tests.api.test_share_networks.ShareNetworksTest"
@@ -217,6 +302,8 @@ tests_options:
       smoke: True
       serial: True
       include-list:
+        - "heat_tempest_plugin.tests.api.*"
+        - "heat_tempest_plugin.tests.functional.*"
         - "manila_tempest_tests.tests.api.admin.test_admin_actions.AdminActionsTest.*"
         - "manila_tempest_tests.tests.api.admin.test_share_instances.ShareInstancesTest.*"
         - "manila_tempest_tests.tests.api.admin.test_share_snapshot_instances.ShareSnapshotInstancesTest.*"
@@ -234,6 +321,18 @@ tests_options:
         # designate failures due to check_list_show_RBAC_enforcement returning "Unauthorized"
         - "designate_tempest_plugin.tests.api.v2.test_zones_exports.ZonesExportTest.test_show_zone_export"
         - "designate_tempest_plugin.tests.api.v2.test_zones_imports.ZonesImportTest.test_show_zone_import"
+        # HTTP 401 unauthorized
+        - "heat_tempest_plugin.tests.functional.test_create_update_neutron_port.UpdatePortTest.test_update_with_mac_address"
+        - "heat_tempest_plugin.tests.functional.test_encryption_vol_type.EncryptionVolTypeTest.test_create_update"
+        # Need fixed demo network defined (ie. fixed_network_name=demo_project_network)
+        - "heat_tempest_plugin.tests.functional.test_encrypted_parameter.EncryptedParametersTest.test_db_encryption"
+        - "heat_tempest_plugin.tests.functional.test_lbaasv2.LoadBalancerv2Test.test_add_delete_poolmember"
+        - "heat_tempest_plugin.tests.functional.test_lbaasv2.LoadBalancerv2Test.test_create_update_loadbalancer"
+        - "heat_tempest_plugin.tests.functional.test_os_wait_condition.OSWaitCondition.test_create_stack_with_multi_signal_waitcondition"
+        - "heat_tempest_plugin.tests.functional.test_software_config.ParallelDeploymentsTest.test_deployments_metadata"
+        - "heat_tempest_plugin.tests.functional.test_software_config.ParallelDeploymentsTest.test_deployments_timeout_failed"
+        # testtools.matchers._impl.MismatchError: 'CREATE_FAILED' not in ['CREATE_IN_PROGRESS', 'CREATE_COMPLETE']
+        - "heat_tempest_plugin.tests.functional.test_stack_events.StackEventsTest.test_event"
         # Exclude the known failures due to issues with octavia/manila policy
         - "manila_tempest_tests.tests.api.admin.test_share_networks.ShareNetworkAdminTest"
         - "manila_tempest_tests.tests.api.test_share_networks.ShareNetworksTest"
@@ -252,6 +351,8 @@ tests_options:
       smoke: True
       serial: True
       include-list:
+        - "heat_tempest_plugin.tests.api.*"
+        - "heat_tempest_plugin.tests.functional.*"
         - "manila_tempest_tests.tests.api.admin.test_admin_actions.AdminActionsTest.*"
         - "manila_tempest_tests.tests.api.admin.test_share_instances.ShareInstancesTest.*"
         - "manila_tempest_tests.tests.api.admin.test_share_snapshot_instances.ShareSnapshotInstancesTest.*"
@@ -266,6 +367,18 @@ tests_options:
         # - "watcher_tempest_plugin.tests.scenario.test_execute_host_maintenance"
         # - "watcher_tempest_plugin.tests.scenario.test_execute_vm_workload_consolidation"
       exclude-list:
+        # HTTP 401 unauthorized
+        - "heat_tempest_plugin.tests.functional.test_create_update_neutron_port.UpdatePortTest.test_update_with_mac_address"
+        - "heat_tempest_plugin.tests.functional.test_encryption_vol_type.EncryptionVolTypeTest.test_create_update"
+        # Need fixed demo network defined (ie. fixed_network_name=demo_project_network)
+        - "heat_tempest_plugin.tests.functional.test_encrypted_parameter.EncryptedParametersTest.test_db_encryption"
+        - "heat_tempest_plugin.tests.functional.test_lbaasv2.LoadBalancerv2Test.test_add_delete_poolmember"
+        - "heat_tempest_plugin.tests.functional.test_lbaasv2.LoadBalancerv2Test.test_create_update_loadbalancer"
+        - "heat_tempest_plugin.tests.functional.test_os_wait_condition.OSWaitCondition.test_create_stack_with_multi_signal_waitcondition"
+        - "heat_tempest_plugin.tests.functional.test_software_config.ParallelDeploymentsTest.test_deployments_metadata"
+        - "heat_tempest_plugin.tests.functional.test_software_config.ParallelDeploymentsTest.test_deployments_timeout_failed"
+        # testtools.matchers._impl.MismatchError: 'CREATE_FAILED' not in ['CREATE_IN_PROGRESS', 'CREATE_COMPLETE']
+        - "heat_tempest_plugin.tests.functional.test_stack_events.StackEventsTest.test_event"
         # Exclude the known failures due to issues with octavia/manila policy
         - "manila_tempest_tests.tests.api.admin.test_share_networks.ShareNetworkAdminTest"
         - "manila_tempest_tests.tests.api.test_share_networks.ShareNetworksTest"
@@ -284,6 +397,8 @@ tests_options:
       smoke: True
       serial: True
       include-list:
+        - "heat_tempest_plugin.tests.api.*"
+        - "heat_tempest_plugin.tests.functional.*"
         - "manila_tempest_tests.tests.api.admin.test_admin_actions.AdminActionsTest.*"
         - "manila_tempest_tests.tests.api.admin.test_share_instances.ShareInstancesTest.*"
         - "manila_tempest_tests.tests.api.admin.test_share_snapshot_instances.ShareSnapshotInstancesTest.*"
@@ -298,6 +413,18 @@ tests_options:
         # - "watcher_tempest_plugin.tests.scenario.test_execute_host_maintenance"
         # - "watcher_tempest_plugin.tests.scenario.test_execute_vm_workload_consolidation"
       exclude-list:
+        # HTTP 401 unauthorized
+        - "heat_tempest_plugin.tests.functional.test_create_update_neutron_port.UpdatePortTest.test_update_with_mac_address"
+        - "heat_tempest_plugin.tests.functional.test_encryption_vol_type.EncryptionVolTypeTest.test_create_update"
+        # Need fixed demo network defined (ie. fixed_network_name=demo_project_network)
+        - "heat_tempest_plugin.tests.functional.test_encrypted_parameter.EncryptedParametersTest.test_db_encryption"
+        - "heat_tempest_plugin.tests.functional.test_lbaasv2.LoadBalancerv2Test.test_add_delete_poolmember"
+        - "heat_tempest_plugin.tests.functional.test_lbaasv2.LoadBalancerv2Test.test_create_update_loadbalancer"
+        - "heat_tempest_plugin.tests.functional.test_os_wait_condition.OSWaitCondition.test_create_stack_with_multi_signal_waitcondition"
+        - "heat_tempest_plugin.tests.functional.test_software_config.ParallelDeploymentsTest.test_deployments_metadata"
+        - "heat_tempest_plugin.tests.functional.test_software_config.ParallelDeploymentsTest.test_deployments_timeout_failed"
+        # testtools.matchers._impl.MismatchError: 'CREATE_FAILED' not in ['CREATE_IN_PROGRESS', 'CREATE_COMPLETE']
+        - "heat_tempest_plugin.tests.functional.test_stack_events.StackEventsTest.test_event"
         # Exclude the known failures due to issues with octavia/manila policy
         - "manila_tempest_tests.tests.api.admin.test_share_networks.ShareNetworkAdminTest"
         - "manila_tempest_tests.tests.api.test_share_networks.ShareNetworksTest"
