@@ -150,8 +150,6 @@ tests_options:
         - "heat_tempest_plugin.tests.functional.test_software_config.ParallelDeploymentsTest.test_deployments_timeout_failed"
         # testtools.matchers._impl.MismatchError: 'CREATE_FAILED' not in ['CREATE_IN_PROGRESS', 'CREATE_COMPLETE']
         - "heat_tempest_plugin.tests.functional.test_stack_events.StackEventsTest.test_event"
-        # octavia test fails with self.creds_client.assign_user_role 'No "load-balancer_admin" role found'
-        - "octavia_tempest_plugin.tests.scenario.v2.test_traffic_ops.TrafficOperationsScenarioTest"
     bionic_queens_security:
       smoke: True
       serial: True
@@ -174,14 +172,13 @@ tests_options:
         - "heat_tempest_plugin.tests.functional.test_software_config.ParallelDeploymentsTest.test_deployments_timeout_failed"
         # testtools.matchers._impl.MismatchError: 'CREATE_FAILED' not in ['CREATE_IN_PROGRESS', 'CREATE_COMPLETE']
         - "heat_tempest_plugin.tests.functional.test_stack_events.StackEventsTest.test_event"
-        # octavia test fails with self.creds_client.assign_user_role 'No "load-balancer_admin" role found'
-        - "octavia_tempest_plugin.tests.scenario.v2.test_traffic_ops.TrafficOperationsScenarioTest"
     bionic_ussuri:
       smoke: True
       serial: True
       include-list:
         - "heat_tempest_plugin.tests.api.*"
         - "heat_tempest_plugin.tests.functional.*"
+        - "octavia_tempest_plugin.tests.scenario.*"
       exclude-list:
         # designate tests fail with self.creds_client.assign_user_role_on_system 'No "reader" role found'
         - "designate_tempest_plugin.tests.api.v2.test_zones_exports.ZonesExportTest"
@@ -198,8 +195,8 @@ tests_options:
         - "heat_tempest_plugin.tests.functional.test_software_config.ParallelDeploymentsTest.test_deployments_timeout_failed"
         # testtools.matchers._impl.MismatchError: 'CREATE_FAILED' not in ['CREATE_IN_PROGRESS', 'CREATE_COMPLETE']
         - "heat_tempest_plugin.tests.functional.test_stack_events.StackEventsTest.test_event"
-        # octavia test fails with self.creds_client.assign_user_role 'No "load-balancer_admin" role found'
-        - "octavia_tempest_plugin.tests.scenario.v2.test_traffic_ops.TrafficOperationsScenarioTest"
+        # "Percona-XtraDB-Cluster doesn't recommend using SERIALIZABLE isolation with pxc_strict_mode = ENFORCING
+        - "octavia_tempest_plugin.tests.scenario.v2.test_load_balancer.LoadBalancerScenarioTest"
     focal_ussuri:
       smoke: True
       serial: True
@@ -215,6 +212,7 @@ tests_options:
         - "magnum_tempest_plugin.tests.api.v1.test_cluster_template"
         - "magnum_tempest_plugin.tests.api.v1.test_cluster_template_admin"
         - "magnum_tempest_plugin.tests.api.v1.test_magnum_service"
+        - "octavia_tempest_plugin.tests.scenario.*"
         # Note(coreycb): Disable watcher tests until all the failures can be debugged.
         # - "watcher_tempest_plugin.tests.api"
         # - "watcher_tempest_plugin.tests.scenario.test_execute_host_maintenance"
@@ -246,7 +244,8 @@ tests_options:
         # The test expects a 400 error while the server returns a 401 error due to glance
         # See logs at https://pastebin.ubuntu.com/p/V3DMcVmtyF/
         - "magnum_tempest_plugin.tests.api.v1.test_cluster.ClusterTest.test_create_cluster_with_nonexisting_flavor"
-        - "octavia_tempest_plugin.tests.scenario.v2.test_traffic_ops.TrafficOperationsScenarioTest"
+        # "Percona-XtraDB-Cluster doesn't recommend using SERIALIZABLE isolation with pxc_strict_mode = ENFORCING
+        - "octavia_tempest_plugin.tests.scenario.v2.test_load_balancer.LoadBalancerScenarioTest"
         # Note(coreycb): Disable watcher tests until all the failures can be debugged.
         - "watcher_tempest_plugin.*"
     focal_ussuri_security:
@@ -264,6 +263,7 @@ tests_options:
         - "magnum_tempest_plugin.tests.api.v1.test_cluster_template"
         - "magnum_tempest_plugin.tests.api.v1.test_cluster_template_admin"
         - "magnum_tempest_plugin.tests.api.v1.test_magnum_service"
+        - "octavia_tempest_plugin.tests.scenario.*"
         # Note(coreycb): Disable watcher tests until all the failures can be debugged.
         # - "watcher_tempest_plugin.tests.api"
         # - "watcher_tempest_plugin.tests.scenario.test_execute_host_maintenance"
@@ -295,7 +295,8 @@ tests_options:
         # The test expects a 400 error while the server returns a 401 error due to glance
         # See logs at https://pastebin.ubuntu.com/p/V3DMcVmtyF/
         - "magnum_tempest_plugin.tests.api.v1.test_cluster.ClusterTest.test_create_cluster_with_nonexisting_flavor"
-        - "octavia_tempest_plugin.tests.scenario.v2.test_traffic_ops.TrafficOperationsScenarioTest"
+        # "Percona-XtraDB-Cluster doesn't recommend using SERIALIZABLE isolation with pxc_strict_mode = ENFORCING
+        - "octavia_tempest_plugin.tests.scenario.v2.test_load_balancer.LoadBalancerScenarioTest"
         # Note(coreycb): Disable watcher tests until all the failures can be debugged.
         - "watcher_tempest_plugin.*"
     focal_upgrades:
@@ -313,6 +314,7 @@ tests_options:
         - "magnum_tempest_plugin.tests.api.v1.test_cluster_template"
         - "magnum_tempest_plugin.tests.api.v1.test_cluster_template_admin"
         - "magnum_tempest_plugin.tests.api.v1.test_magnum_service"
+        - "octavia_tempest_plugin.tests.scenario.*"
         # Note(coreycb): Disable watcher tests until all the failures can be debugged.
         # - "watcher_tempest_plugin.tests.api"
         # - "watcher_tempest_plugin.tests.scenario.test_execute_host_maintenance"
@@ -344,7 +346,8 @@ tests_options:
         # The test expects a 400 error while the server returns a 401 error due to glance
         # See logs at https://pastebin.ubuntu.com/p/V3DMcVmtyF/
         - "magnum_tempest_plugin.tests.api.v1.test_cluster.ClusterTest.test_create_cluster_with_nonexisting_flavor"
-        - "octavia_tempest_plugin.tests.scenario.v2.test_traffic_ops.TrafficOperationsScenarioTest"
+        # "Percona-XtraDB-Cluster doesn't recommend using SERIALIZABLE isolation with pxc_strict_mode = ENFORCING
+        - "octavia_tempest_plugin.tests.scenario.v2.test_load_balancer.LoadBalancerScenarioTest"
         # Note(coreycb): Disable watcher tests until all the failures can be debugged.
         - "watcher_tempest_plugin.*"
     focal_wallaby:
@@ -362,6 +365,7 @@ tests_options:
         - "magnum_tempest_plugin.tests.api.v1.test_cluster_template"
         - "magnum_tempest_plugin.tests.api.v1.test_cluster_template_admin"
         - "magnum_tempest_plugin.tests.api.v1.test_magnum_service"
+        - "octavia_tempest_plugin.tests.scenario.*"
         # Note(coreycb): Disable watcher tests until all the failures can be debugged.
         # - "watcher_tempest_plugin.tests.api"
         # - "watcher_tempest_plugin.tests.scenario.test_execute_host_maintenance"
@@ -390,7 +394,8 @@ tests_options:
         # The test expects a 400 error while the server returns a 401 error due to glance
         # See logs at https://pastebin.ubuntu.com/p/V3DMcVmtyF/
         - "magnum_tempest_plugin.tests.api.v1.test_cluster.ClusterTest.test_create_cluster_with_nonexisting_flavor"
-        - "octavia_tempest_plugin.tests.scenario.v2.test_traffic_ops.TrafficOperationsScenarioTest"
+        # "Percona-XtraDB-Cluster doesn't recommend using SERIALIZABLE isolation with pxc_strict_mode = ENFORCING
+        - "octavia_tempest_plugin.tests.scenario.v2.test_load_balancer.LoadBalancerScenarioTest"
         # Note(coreycb): Disable watcher tests until all the failures can be debugged.
         - "watcher_tempest_plugin.*"
     jammy_upgrades:
@@ -408,6 +413,7 @@ tests_options:
         - "magnum_tempest_plugin.tests.api.v1.test_cluster_template"
         - "magnum_tempest_plugin.tests.api.v1.test_cluster_template_admin"
         - "magnum_tempest_plugin.tests.api.v1.test_magnum_service"
+        - "octavia_tempest_plugin.tests.scenario.*"
         # Note(coreycb): Disable watcher tests until all the failures can be debugged.
         # - "watcher_tempest_plugin.tests.api"
         # - "watcher_tempest_plugin.tests.scenario.test_execute_host_maintenance"
@@ -436,7 +442,8 @@ tests_options:
         # The test expects a 400 error while the server returns a 401 error due to glance
         # See logs at https://pastebin.ubuntu.com/p/V3DMcVmtyF/
         - "magnum_tempest_plugin.tests.api.v1.test_cluster.ClusterTest.test_create_cluster_with_nonexisting_flavor"
-        - "octavia_tempest_plugin.tests.scenario.v2.test_traffic_ops.TrafficOperationsScenarioTest"
+        # "Percona-XtraDB-Cluster doesn't recommend using SERIALIZABLE isolation with pxc_strict_mode = ENFORCING
+        - "octavia_tempest_plugin.tests.scenario.v2.test_load_balancer.LoadBalancerScenarioTest"
         # Note(coreycb): Disable watcher tests until all the failures can be debugged.
         - "watcher_tempest_plugin.*"
   force_deploy:
