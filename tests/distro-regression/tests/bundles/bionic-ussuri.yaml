@@ -237,6 +237,7 @@ applications:
       openstack-origin: *openstack-origin
       spare-pool-size: 2
       loadbalancer-topology: 'ACTIVE_STANDBY'
+    constraints: mem=4096
     channel: ussuri/edge
   glance-simplestreams-sync:
     charm: ch:glance-simplestreams-sync
