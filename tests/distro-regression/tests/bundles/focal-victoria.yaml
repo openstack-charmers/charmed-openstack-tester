@@ -280,6 +280,7 @@ applications:
       openstack-origin: *openstack-origin
       spare-pool-size: 2
       loadbalancer-topology: 'ACTIVE_STANDBY'
+    constraints: mem=4096
     channel: *openstack-channel
   octavia-mysql-router:
     charm: ch:mysql-router

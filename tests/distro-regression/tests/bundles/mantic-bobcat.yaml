@@ -1,7 +1,7 @@
 variables:
   source: &source proposed
   openstack-origin: &openstack-origin distro-proposed
-  # Set retrofit-series to jammy because kinetic images aren't
+  # Set retrofit-series to jammy because mantic images aren't
   # available by default.
   retrofit-series: &retrofit-series jammy
   openstack-channel: &openstack-channel latest/edge
@@ -325,6 +325,7 @@ applications:
       openstack-origin: *openstack-origin
       spare-pool-size: 2
       loadbalancer-topology: 'ACTIVE_STANDBY'
+    constraints: mem=4096
     channel: *openstack-channel
   octavia-mysql-router:
     charm: ch:mysql-router
@@ -587,6 +588,8 @@ relations:
   - watcher-mysql-router:shared-db
 - - watcher-mysql-router:db-router
   - mysql-innodb-cluster:db-router
+- - watcher:certificates
+  - vault:certificates
 - - keystone:identity-service
   - watcher:identity-service
 - - rabbitmq-server:amqp

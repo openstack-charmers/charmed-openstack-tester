@@ -153,6 +153,8 @@ tests_options:
         - "magnum_tempest_plugin.tests.api.v1.test_cluster.ClusterTest.test_create_cluster_with_nonexisting_flavor"
         # "Percona-XtraDB-Cluster doesn't recommend using SERIALIZABLE isolation with pxc_strict_mode = ENFORCING
         - "octavia_tempest_plugin.tests.scenario.v2.test_load_balancer.LoadBalancerScenarioTest"
+        # 503 is not the expected code 200: https://bugs.launchpad.net/snap-octavia-diskimage-retrofit/+bug/2027585
+        - "octavia_tempest_plugin.tests.scenario.v2.test_traffic_ops.TrafficOperationsScenarioTest.test_prometheus_listener_metrics_page"
         # Note(coreycb): Disable watcher tests until all the failures can be debugged.
         - "watcher_tempest_plugin.*"
     bionic_queens_security:
