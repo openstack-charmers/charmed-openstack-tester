@@ -322,7 +322,6 @@ applications:
     options:
       amp-image-tag: 'octavia-amphora'
       retrofit-series: *series
-    constraints: mem=4096
     channel: *openstack-channel
 relations:
 - - nova-cloud-controller:amqp
