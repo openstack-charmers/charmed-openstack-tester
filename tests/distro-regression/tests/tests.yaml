@@ -12,13 +12,16 @@ smoke_bundles:
   - focal_wallaby: jammy-zed
   - focal_wallaby: jammy-antelope
   - focal_wallaby: jammy-bobcat
+  - focal_wallaby: jammy-caracal
   - focal_wallaby: lunar-antelope
   - focal_wallaby: mantic-bobcat
+  - focal_wallaby: noble-caracal
   - bionic_queens_security: bionic-queens-security
   - focal_ussuri_security: focal-ussuri-security
   - focal_ussuri_security: jammy-yoga-security
   - focal_ussuri_security: lunar-antelope-security
   - focal_ussuri_security: mantic-bobcat-security
+  - focal_ussuri_security: noble-caracal-security
   - focal_upgrades: focal-ussuri-to-yoga-upgrades
   - jammy_upgrades: jammy-yoga-to-caracal-upgrades
 configure:
@@ -217,6 +220,7 @@ tests_options:
     - bionic-ussuri
     - lunar-antelope
     - mantic-bobcat
+    - noble-caracal
 target_deploy_status:
   ceilometer:
     workload-status: blocked

@@ -17,8 +17,10 @@
       - cot_distro-regression_jammy-zed
       - cot_distro-regression_jammy-antelope
       - cot_distro-regression_jammy-bobcat
+      - cot_distro-regression_jammy-caracal
       - cot_distro-regression_lunar-antelope
       - cot_distro-regression_mantic-bobcat
+      - cot_distro-regression_noble-caracal
       - cot_distro-regression_bionic-queens-security
       - cot_distro-regression_focal-ussuri-security
       - cot_distro-regression_jammy-yoga-security
@@ -96,6 +98,11 @@
     vars:
       tox_extra_args: '-- jammy-bobcat'
 - job:
+    name: cot_distro-regression_jammy-caracal
+    parent: cot-func-target
+    vars:
+      tox_extra_args: '-- jammy-caracal'
+- job:
     name: cot_distro-regression_lunar-antelope
     parent: cot-func-target
     vars:
@@ -105,6 +112,11 @@
     parent: cot-func-target
     vars:
       tox_extra_args: '-- mantic-bobcat'
+- job:
+    name: cot_distro-regression_noble-caracal
+    parent: cot-func-target
+    vars:
+      tox_extra_args: '-- noble-caracal'
 - job:
     name: cot_distro-regression_bionic-queens-security
     parent: cot-func-target
@@ -125,6 +137,11 @@
     parent: cot-func-target
     vars:
       tox_extra_args: '-- lunar-antelope-security'
+- job:
+    name: cot_distro-regression_noble-caracal-security
+    parent: cot-func-target
+    vars:
+      tox_extra_args: '-- noble-caracal-security'
 - job:
     name: cot_distro-regression_focal-ussuri-to-yoga-upgrades
     parent: cot-func-target
