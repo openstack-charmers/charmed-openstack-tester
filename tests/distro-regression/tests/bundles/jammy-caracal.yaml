@@ -4,7 +4,7 @@ variables:
   retrofit-uca-pocket: &retrofit-uca-pocket caracal
   openstack-channel: &openstack-channel 2024.1/edge
   ceph-channel: &ceph-channel reef/edge
-  ovn-channel: &ovn-channel 24.03/edge
+  ovn-channel: &ovn-channel 23.09/edge
   mysql-channel: &mysql-channel 8.0/edge
   rabbitmq-channel: &rabbitmq-channel 3.9/edge
   memcached-channel: &memcached-channel latest/edge
