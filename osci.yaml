@@ -114,6 +114,8 @@
     parent: cot-func-target
     vars:
       tox_extra_args: '-- jammy-caracal'
+      juju_snap_channel: "3.1/stable"
+      pip_constraints_url: https://raw.githubusercontent.com/openstack-charmers/zaza-openstack-tests/master/constraints/constraints-2024.1.txt
 - job:
     name: cot_distro-regression_lunar-antelope
     parent: cot-func-target
@@ -129,6 +131,8 @@
     parent: cot-func-target
     vars:
       tox_extra_args: '-- noble-caracal'
+      juju_snap_channel: "3.1/stable"
+      pip_constraints_url: https://raw.githubusercontent.com/openstack-charmers/zaza-openstack-tests/master/constraints/constraints-2024.1.txt
 - job:
     name: cot_distro-regression_bionic-queens-security
     parent: cot-func-target
@@ -154,6 +158,8 @@
     parent: cot-func-target
     vars:
       tox_extra_args: '-- noble-caracal-security'
+      juju_snap_channel: "3.1/stable"
+      pip_constraints_url: https://raw.githubusercontent.com/openstack-charmers/zaza-openstack-tests/master/constraints/constraints-2024.1.txt
 - job:
     name: cot_distro-regression_focal-ussuri-to-yoga-upgrades
     parent: cot-func-target
