@@ -41,7 +41,9 @@
       - cot_distro-regression_jammy-yoga-to-caracal-upgrades
 - job:
     name: cot-func-target
-    parent: func-target
+    #parent: func-target
+    # disable the cot jobs
+    parent: noop
     semaphore: distro-regression
     abstract: true
 - job:
