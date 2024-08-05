@@ -1,2 +1,0 @@
-# Pin python-libjuju until it gets validated against juju-3.x
-juju<3.0.0
