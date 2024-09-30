@@ -31,7 +31,7 @@ applications:
     options:
       source: *source
     storage:
-      osd-devices: cinder,24G
+      osd-devices: cinder,50G
     constraints: mem=4096
   cinder:
     charm: ch:openstack-charmers-next-cinder
