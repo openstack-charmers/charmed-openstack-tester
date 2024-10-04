@@ -123,7 +123,7 @@ tests_options:
   tempest:
     xenial_queens:
       smoke: True
-      serial: True
+      serial: False
       include-list: &xenial_queens_include_list
         - "heat_tempest_plugin.tests.api.*"
         - "heat_tempest_plugin.tests.functional.*"
@@ -162,12 +162,12 @@ tests_options:
         - "watcher_tempest_plugin.*"
     bionic_queens_security:
       smoke: True
-      serial: True
+      serial: False
       include-list: *xenial_queens_include_list
       exclude-list: *exclude_list
     bionic_ussuri:
       smoke: True
-      serial: True
+      serial: False
       include-list:
         - "heat_tempest_plugin.tests.api.*"
         - "heat_tempest_plugin.tests.functional.*"
@@ -175,7 +175,7 @@ tests_options:
       exclude-list: *exclude_list
     focal_ussuri:
       smoke: True
-      serial: True
+      serial: False
       include-list: &focal_ussuri_include_list
         - "heat_tempest_plugin.tests.api.*"
         - "heat_tempest_plugin.tests.functional.*"
@@ -196,22 +196,22 @@ tests_options:
       exclude-list: *exclude_list
     focal_ussuri_security:
       smoke: True
-      serial: True
+      serial: False
       include-list: *focal_ussuri_include_list
       exclude-list: *exclude_list
     focal_upgrades:
       smoke: True
-      serial: True
+      serial: False
       include-list: *focal_ussuri_include_list
       exclude-list: *exclude_list
     focal_wallaby:
       smoke: True
-      serial: True
+      serial: False
       include-list: *focal_ussuri_include_list
       exclude-list: *exclude_list
     jammy_upgrades:
       smoke: True
-      serial: True
+      serial: False
       include-list: *focal_ussuri_include_list
       exclude-list: *exclude_list
   force_deploy:
