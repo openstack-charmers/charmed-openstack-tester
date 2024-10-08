@@ -335,6 +335,7 @@ applications:
     charm: ch:mysql-router
     channel: *mysql-channel
   glance-simplestreams-sync:
+    series: jammy
     charm: ch:glance-simplestreams-sync
     num_units: 1
     options:
@@ -342,6 +343,7 @@ applications:
     constraints: root-disk=8G
     channel: *openstack-channel
   octavia-diskimage-retrofit:
+    series: jammy
     charm: ch:octavia-diskimage-retrofit
     options:
       amp-image-tag: 'octavia-amphora'
