@@ -5,8 +5,8 @@ for param in $_OS_PARAMS; do
     unset $param
 done
 
-_keystone_ip=$(juju run $_juju_model_arg --unit keystone/leader 'unit-get private-address')
-_password=$(juju run $_juju_model_arg --unit keystone/leader 'leader-get admin_passwd')
+_keystone_ip=$(juju exec $_juju_model_arg --unit keystone/leader 'unit-get private-address')
+_password=$(juju exec $_juju_model_arg --unit keystone/leader 'leader-get admin_passwd')
 
 unset _OS_PARAMS
 export OS_USERNAME=admin

@@ -10,8 +10,8 @@ unset _OS_PARAMS
 test -d $HOME/.cache || mkdir $HOME/.cache
 _root_ca=$HOME/.cache/openstack-root-ca.crt
 
-_keystone_ip=$(juju run $_juju_model_arg --unit keystone/leader 'unit-get private-address')
-juju run $_juju_model_arg --unit vault/leader 'leader-get root-ca' > ${_root_ca}
+_keystone_ip=$(juju exec $_juju_model_arg --unit keystone/leader 'unit-get private-address')
+juju exec $_juju_model_arg --unit vault/leader 'leader-get root-ca' > ${_root_ca}
 
 export OS_AUTH_PROTOCOL=https
 export OS_CACERT=${_root_ca}
