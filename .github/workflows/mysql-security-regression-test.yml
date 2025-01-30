@@ -29,8 +29,8 @@ jobs:
           cd tf/mysql-security-regression
           terraform init
           terraform apply -auto-approve -var ubuntu-base=${{ matrix.ubuntu-base }}
-          juju model-config -m mysql-security-regression automatically-retry-hooks=true
-          juju-wait -vw -m mysql-security-regression -t 1200
+          juju model-config -m mysql-regression-testing automatically-retry-hooks=true
+          juju-wait -vw -m mysql-regression-testing -t 1200
       - name: Run Tempest
         run: |
           cd tf/mysql-security-regression
@@ -38,5 +38,5 @@ jobs:
       - name: Collect juju status
         if: always()
         run: |
-          juju status -m mysql-security-regression
-          juju debug-log -m mysql-security-regression --replay
+          juju status -m mysql-regression-testing
+          juju debug-log -m mysql-regression-testing --replay
