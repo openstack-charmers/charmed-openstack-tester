@@ -1,5 +1,5 @@
 name: mysql-security-regression-test
-on:
+
 jobs:
   security-regression-test:
     runs-on: ubuntu-24.04
