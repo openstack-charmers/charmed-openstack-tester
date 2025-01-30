@@ -1,0 +1,41 @@
+name: mysql-security-regression-test
+
+jobs:
+    name: security-regression-test
+    runs-on: ubuntu-24.04
+    strategy:
+      matrix:
+        ubuntu-base:
+          - "ubuntu@24.04"
+#          - "ubuntu@22.04"
+#          - "ubuntu@20.04"
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Setup LXD
+        uses: canonical/setup-lxd@main
+      - name: Install dependencies
+        run: |
+          sudo snap install --channel 3.6/stable juju
+          sudo snap install --classic terraform
+          sudo snap install --classic juju-wait
+          sudo snap install --channel 2024.1/candidate tempest
+      - name: Bootstrap Juju
+        run: |
+          juju bootstrap localhost
+      - name: Deploy keystone and mysql
+        run: |
+          cd tf/mysql-security-regression
+          terraform init
+          terraform apply -auto-approve -var ubuntu-base=${{ matrix.ubuntu-base }}
+          juju model-config -m mysql-security-regression automatically-retry-hooks=true
+          juju-wait -vw -m mysql-security-regression -t 1200
+      - name: Run Tempest
+        run: |
+          cd tf/mysql-security-regression
+          ./tempest-run
+      - name: Collect juju status
+        if: always()
+        run: |
+          juju status -m mysql-security-regression
+          juju debug-log -m mysql-security-regression --replay

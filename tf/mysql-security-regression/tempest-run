@@ -1,0 +1,11 @@
+#!/bin/bash
+
+set -ex
+
+source openrc
+
+if [ ! -f tempest.conf ]; then
+    ./tempest-discover
+fi
+
+tempest run --config-file tempest.conf --exclude-list tests.exclude.txt --smoke

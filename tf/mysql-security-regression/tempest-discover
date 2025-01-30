@@ -1,0 +1,7 @@
+#!/bin/bash
+
+set -ex
+
+source openrc
+
+tempest.discover --out tempest.conf auth.admin_domain_name admin_domain identity.admin_role Admin identity.admin_domain_scope true auth.default_credentials_domain_name admin_domain

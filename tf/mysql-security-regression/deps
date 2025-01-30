@@ -1,0 +1,5 @@
+#!/bin/bash
+
+sudo snap install --classic terraform
+sudo snap install --channel 3.6/stable juju
+sudo snap install --channel 2024.1/candidate tempest
