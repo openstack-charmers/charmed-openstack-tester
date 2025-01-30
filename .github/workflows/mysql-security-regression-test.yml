@@ -1,5 +1,6 @@
 name: mysql-security-regression-test
-
+on:
+  workflow_dispatch:
 jobs:
   security-regression-test:
     runs-on: ubuntu-24.04
