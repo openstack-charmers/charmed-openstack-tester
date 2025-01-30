@@ -1,7 +1,7 @@
 name: mysql-security-regression-test
 on:
 jobs:
-    name: security-regression-test
+  security-regression-test:
     runs-on: ubuntu-24.04
     strategy:
       matrix:
