@@ -18,6 +18,7 @@ smoke_bundles:
   - focal_wallaby: noble-caracal
   - focal_wallaby: noble-dalmatian
   - focal_wallaby: noble-epoxy
+  - focal_wallaby: noble-flamingo
   - bionic_queens_security: bionic-queens-security
   - focal_ussuri_security: focal-ussuri-security
   - focal_ussuri_security: jammy-yoga-security
