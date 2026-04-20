@@ -11,7 +11,8 @@ git+https://opendev.org/openstack/cinder-tempest-plugin.git#egg=cinder-tempest-p
 git+https://opendev.org/openstack/designate-tempest-plugin.git#egg=designate-tempest-plugin;python_version>='3.6'
 # Current dev version requires version of oslo.config is not currently allowed by zaza and zaza-openstack
 heat-tempest-plugin==2.6.0;python_version>='3.6'
-git+https://opendev.org/openstack/manila-tempest-plugin.git#egg=manila-tempest-plugin;python_version>='3.6'
+# Higher versions do not work with the current config so pin to LKG.
+manila-tempest-plugin==2.9.0
 git+https://opendev.org/openstack/watcher-tempest-plugin.git#egg=watcher-tempest-plugin;python_version>='3.6'
 cinder-tempest-plugin;python_version<'3.6'
 designate-tempest-plugin;python_version<'3.6'
