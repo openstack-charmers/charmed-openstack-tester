@@ -1,21 +1,18 @@
 chardet==3.0.4
 paramiko<2.9.0  # tempest tests fail to ssh into instances with 2.9.1
-cryptography<39.0.0 # incompatible with pyopenssl
-# Skip 4.8.0 due to bug LP: #1972974
-oslo.log != 4.8.0
-git+https://opendev.org/openstack/tempest.git#egg=tempest;python_version>='3.6'
-tempest;python_version<'3.6'
-git+https://github.com/openstack-charmers/zaza.git#egg=zaza
+oslo.log==8.2.0
+
+zaza==2024.*
 git+https://github.com/openstack-charmers/zaza-openstack-tests.git#egg=zaza.openstack
-git+https://opendev.org/openstack/cinder-tempest-plugin.git#egg=cinder-tempest-plugin;python_version>='3.6'
-git+https://opendev.org/openstack/designate-tempest-plugin.git#egg=designate-tempest-plugin;python_version>='3.6'
+
+tempest==46.3.0
 # Current dev version requires version of oslo.config is not currently allowed by zaza and zaza-openstack
-heat-tempest-plugin==2.6.0;python_version>='3.6'
+heat-tempest-plugin==2.6.0
+
+watcher-tempest-plugin==3.8.0
+cinder-tempest-plugin==1.22.0
+designate-tempest-plugin==0.29.0
+octavia-tempest-plugin==3.4.0
+magnum-tempest-plugin==2.10.0
 # Higher versions do not work with the current config so pin to LKG.
 manila-tempest-plugin==2.9.0
-git+https://opendev.org/openstack/watcher-tempest-plugin.git#egg=watcher-tempest-plugin;python_version>='3.6'
-cinder-tempest-plugin;python_version<'3.6'
-designate-tempest-plugin;python_version<'3.6'
-setuptools<50.0.0  # https://github.com/pypa/setuptools/commit/04e3df22df840c6bb244e9b27bc56750c44b7c85
-octavia-tempest-plugin
-magnum-tempest-plugin
